@@ -3,6 +3,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Button, ButtonProps } from '../component/general/button/Button';
+import { Close } from '@material-ui/icons';
 
 export default {
   title: 'Example/Button',
@@ -17,4 +18,10 @@ const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 export const Primary = Template.bind({});
 Primary.args = {
   label: 'Button',
+};
+
+export const IconButton = Template.bind({});
+Primary.args = {
+  label: 'Button with Icon',
+  icon: <Close />
 };

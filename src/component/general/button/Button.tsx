@@ -5,7 +5,11 @@ export interface ButtonProps {
   /**
    * Button contents
    */
-  label: string;
+  label: string
+  /**
+   * Icon to show on the button side
+   */
+  icon?: React.ReactElement;
   /**
    * Optional click handler
    */
@@ -16,7 +20,7 @@ export interface ButtonProps {
  * Primary UI component for user interaction
  */
 export const Button: React.FC<ButtonProps> = ({
-
+  icon,
   label,
   ...props
 }) => {
@@ -26,6 +30,9 @@ export const Button: React.FC<ButtonProps> = ({
       className={'lotta-button'}
       {...props}
     >
+      {icon && (
+        <span className={'lotta-button__icon'}>{icon}</span>
+      )}
       {label}
     </button>
   );

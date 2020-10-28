@@ -5,3 +5,7 @@
   cursor: pointer;
   display: inline-block;
 }
+
+.lotta-button__icon {
+  padding-right: .5em;
+}
