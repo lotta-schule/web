@@ -1,0 +1,7 @@
+.lotta-button {
+  border: 1px solid #ccc;
+  border-radius: 3em;
+  padding: .5em;
+  cursor: pointer;
+  display: inline-block;
+}

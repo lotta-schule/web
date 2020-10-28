@@ -9,7 +9,8 @@ services:
     working_dir: /usr/src/svc
     ports:
       - 3000:3000
-    command: bash -c "npm install && npm run start"
+      - 6006:6006
+    command: bash -c "npm run dev"
     env_file: .env
     stdin_open: true
     tty: true
