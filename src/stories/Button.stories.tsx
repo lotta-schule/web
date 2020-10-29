@@ -21,7 +21,7 @@ Primary.args = {
 };
 
 export const IconButton = Template.bind({});
-Primary.args = {
+IconButton.args = {
   label: 'Button with Icon',
   icon: <Close />
 };

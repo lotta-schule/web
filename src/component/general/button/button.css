@@ -1,11 +1,28 @@
 .lotta-button {
-  border: 1px solid #ccc;
+  border: none;
+  background-color: #3cb371;
+  color: #fff;
   border-radius: 3em;
   padding: .5em;
   cursor: pointer;
-  display: inline-block;
+  display: flex;
+  min-height: 3.5em;
+  box-shadow: 1px 1px 7px #0000002e;
 }
 
-.lotta-button__icon {
-  padding-right: .5em;
+.lotta-button:hover {
+  filter: brightness(80%);
+  transition: linear;
+  transition-duration: 0.2s;
+}
+
+.lotta-button_icon {
+  display: flex;
+}
+
+.lotta-button_icon-text {
+  margin: auto 1em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
 }

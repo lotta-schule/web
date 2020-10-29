@@ -31,9 +31,9 @@ export const Button: React.FC<ButtonProps> = ({
       {...props}
     >
       {icon && (
-        <span className={'lotta-button__icon'}>{icon}</span>
+        <span className={'lotta-button_icon'}>{icon}</span>
       )}
-      {label}
+      <span className={'lotta-button_icon-text'}>{label}</span>
     </button>
   );
 };
