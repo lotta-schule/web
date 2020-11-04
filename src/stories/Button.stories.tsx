@@ -25,3 +25,8 @@ IconButton.args = {
   label: 'Button with Icon',
   icon: <Close />
 };
+
+export const NavButton = Template.bind({});
+NavButton.args = {
+  label: 'Navigation Button',
+};
