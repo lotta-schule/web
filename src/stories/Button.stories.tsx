@@ -6,7 +6,7 @@ import { Button, ButtonProps } from '../component/general/button/Button';
 import { Close } from '@material-ui/icons';
 
 export default {
-  title: 'Example/Button',
+  title: 'Buttons/Button',
   component: Button,
   argTypes: {
     backgroundColor: { control: 'color' },
@@ -28,5 +28,5 @@ IconButton.args = {
 
 export const NavButton = Template.bind({});
 NavButton.args = {
-  label: 'Navigation Button',
+  label: 'Navigation Button'
 };

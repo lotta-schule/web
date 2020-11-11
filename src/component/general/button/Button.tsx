@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import './button.css';
 
 export interface ButtonProps {
@@ -25,24 +26,15 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   return (
-    <div>
-      <button
-        type="button"
-        className={'lotta-button'}
-        {...props}
-      >
-        <span></span>
-        {icon && (
-          <span className={'lotta-button_icon'}>{icon}</span>
-        )}
-        <span className={'lotta-button_icon-text'}>{label}</span>
-      </button>
-      <button
+    <button
       type="button"
-      className={'lotta-nav-button'}
-      >
-        <span>{label}</span>
-      </button>
-    </div>
+      className={'lotta-button'}
+      {...props}
+    >
+      {icon && (
+        <span className={'lotta-button_icon'}>{icon}</span>
+      )}
+      <span className={'lotta-button_icon-text'}>{label}</span>
+    </button>
   );
 };
