@@ -1,0 +1,39 @@
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  height: 3em;
+  line-height: 3em;
+  background-color: #cacaca;
+}
+
+li {
+  display: inline-flex;
+}
+
+.mobile-menu {
+  box-shadow: -1px 0px 2px #00000024;
+  padding: 0.5em;
+  display: flex;
+  position: fixed;
+  z-index: 2000;
+  background-color: #cacaca;
+  font-size: 1.5rem;
+  right: 0;
+}
+
+@media only screen and (max-width: 500px) {
+  ul {
+    justify-content: start;
+    overflow: auto;
+    padding-left: 0;
+    margin-right: 3em;
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .mobile-menu {
+    display: none;
+    
+  }
+}
