@@ -26,26 +26,3 @@
   letter-spacing: 1px;
   font-size: 0.8rem;
 }
-
-.lotta-nav-button {
-  background: none;
-  color: black;
-  border: none;
-  padding: .8em 1.5em;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 0.8rem;
-  border-radius: 3em;
-  margin: 0.5em;
-}
-
-.lotta-nav-button:hover {
-  background-color: #0000000f;
-  transition: linear;
-  transition-duration: 0.2s;
-}
-
-.lotta-nav-button.selected {
-  border: 1px solid #3cb371;
-}

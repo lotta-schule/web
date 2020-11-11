@@ -3,7 +3,6 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Avatar, AvatarProps } from '../component/general/avatar/Avatar';
-import { Close } from '@material-ui/icons';
 
 export default {
   title: 'Example/Avatar',
