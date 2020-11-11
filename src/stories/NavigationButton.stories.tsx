@@ -16,13 +16,19 @@ const Template: Story<NavigationButtonProps> = (args) => <NavigationButton {...a
 
 export const Default = Template.bind({});
 Default.args = {
-  label: 'Button',
+  label: 'Navigation-Button',
 };
 
 export const Selected = Template.bind({});
 Selected.args = {
-  label: 'Button',
+  label: 'Navigation-Button selected',
   selected: true,
+};
+
+export const IconButton = Template.bind({});
+IconButton.args = {
+  label: 'Navigation-Button with Icon',
+  icon: <Close />
 };
 
 
