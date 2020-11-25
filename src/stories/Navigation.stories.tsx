@@ -13,6 +13,11 @@ export default {
   
   const Template: Story<NavigationProps> = (args) => <Navigation {...args} />;
   
-  export const Main = Template.bind({});
-  Main.args = {
+  export const Primary = Template.bind({});
+  Primary.args = {
   };
+
+  // export const Secondary = Template.bind({});
+  // Secondary.args = {
+  //   secondary: true
+  // };

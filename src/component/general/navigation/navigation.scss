@@ -1,0 +1,53 @@
+body {
+  padding: 0px !important;
+}
+
+nav.lotta-navbar {
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    height: 3em;
+    background:  rgb(202, 202, 202);
+    margin: 0px;
+    padding-left: 0px;
+    @media only screen and (max-width: 500px) {
+      justify-content: start;
+      overflow-x: auto;
+      overflow-y: hidden;
+      margin-right: 3em;
+      background: linear-gradient(90deg, rgb(202, 202, 202) 95%, rgba(0, 0, 0, 0.3) 100%);
+    }
+    & .li {
+      display: inline-flex;
+    }
+  }
+
+  ul.secondary {
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    background: #fff;
+    border-top: 2px solid #3cb371;;
+    margin-top: 0px;
+    margin-right: 0px;
+    @media only screen and (max-width: 500px) {
+      justify-content: start;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+  }
+
+  .mobile-menu {
+    padding: 0.5em;
+    display: flex;
+    position: fixed;
+    z-index: 2000;
+    background-color: #cacaca;
+    font-size: 1.5rem;
+    right: 0px;
+    @media only screen and (min-width: 500px) {
+      display: none;
+    }
+  }
+}

@@ -2,13 +2,13 @@
   background: none;
   color: black;
   border: none;
-  padding: .8em 1.5em;
+  padding: .5em 1.5em;
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 0.8rem;
   border-radius: 3em;
-  margin: 0.5em;
+  margin-top: 0.7em;
   border: 1px solid transparent;
   display: flex;
 }
@@ -21,6 +21,12 @@
 
 .lotta-navigation-button.selected {
   border: 1px solid #3cb371;
+}
+
+nav.lotta-navbar ul.secondary .lotta-navigation-button.selected {
+  color: #3cb371;
+  font-weight: 600;
+  border: none;
 }
 
 .lotta-navigation-button_icon {
