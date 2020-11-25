@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   app:
-    image: node:14
+    image: node:15
     volumes:
       - .:/usr/src/svc:delegated
       - /usr/src/app/node_modules
