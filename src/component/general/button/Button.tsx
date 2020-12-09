@@ -1,7 +1,9 @@
 import React from 'react';
+import { BaseButton, BaseButtonProps } from './BaseButton';
+import clsx from 'clsx';
 import './button.css';
 
-export interface ButtonProps {
+export interface ButtonProps extends BaseButtonProps {
   /**
    * Button contents
    */
@@ -10,10 +12,6 @@ export interface ButtonProps {
    * Icon to show on the button side
    */
   icon?: React.ReactElement;
-  /**
-   * Optional click handler
-   */
-  onClick?: () => void;
 }
 
 /**
@@ -25,15 +23,13 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   return (
-    <button
-      type="button"
-      className={'lotta-button'}
-      {...props}
-    >
+    <BaseButton {...props} className={clsx('lotta-button', props.className)}>
       {icon && (
         <span className={'lotta-button_icon'}>{icon}</span>
       )}
+      {label && (
       <span className={'lotta-button_icon-text'}>{label}</span>
-    </button>
+      )}
+    </BaseButton>
   );
 };

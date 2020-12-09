@@ -3,7 +3,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Button, ButtonProps } from '../component/general/button/Button';
-import { Close } from '@material-ui/icons';
+import { Close, Favorite } from '@material-ui/icons';
 
 export default {
   title: 'Buttons/Button',
@@ -24,4 +24,9 @@ export const IconButton = Template.bind({});
 IconButton.args = {
   label: 'Button with Icon',
   icon: <Close />
+};
+
+export const OnlyIconButton = Template.bind({});
+OnlyIconButton.args = {
+  icon: <Favorite />
 };

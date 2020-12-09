@@ -1,0 +1,42 @@
+.lotta-base-button {
+  border: 1px solid #3cb371;
+  color: #3cb371;
+  background: none;
+  border-radius: 0.5em;
+  padding: .7em;
+  cursor: pointer;
+  display: flex;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+}
+
+.lotta-base-button:hover {
+  filter: brightness(80%);
+  transition: linear;
+  transition-duration: 0.2s;
+}
+
+.lotta-base-button.selected {
+  border: 1px solid #3cb371;
+}
+/**
+  * Custom style for selected BaseButtons
+  .lotta-base-button.selected {
+  }
+*/
+
+nav.lotta-navbar ul.secondary .lotta-base-button.selected {
+  color: #3cb371;
+  font-weight: 600;
+  border: none;
+}
+
+/**
+  * Custom styles for different variants
+  */
+/* .lotta-base-button__variant__default {} */
+.lotta-base-button__variant__fill {
+  background-color: #3cb371;
+  color: #fff;
+}

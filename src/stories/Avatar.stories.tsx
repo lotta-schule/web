@@ -14,12 +14,7 @@ export default {
 
 const Template: Story<AvatarProps> = (args) => <Avatar {...args} />;
 
-export const Murray = Template.bind({});
-Murray.args = {
-  src: 'http://www.fillmurray.com/50/50'
-};
-
-export const Cage = Template.bind({});
-Cage.args = {
-  src: 'http://placecage.com/100/100'
+export const Lotta = Template.bind({});
+Lotta.args = {
+  src: 'https://www.flaticon.com/svg/static/icons/svg/3870/3870479.svg'
 };

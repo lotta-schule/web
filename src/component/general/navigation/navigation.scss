@@ -21,6 +21,9 @@ nav.lotta-navbar {
     & .li {
       display: inline-flex;
     }
+    li {
+      padding-top: 0.5em;
+    }
   }
 
   ul.secondary {

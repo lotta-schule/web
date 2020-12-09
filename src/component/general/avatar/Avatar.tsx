@@ -13,10 +13,10 @@ export interface AvatarProps {
  */
 
 export const Avatar: React.FC<AvatarProps> = ({
-  src = 'http://www.fillmurray.com/50/50',
+  src = 'https://www.flaticon.com/svg/static/icons/svg/3870/3870479.svg',
   ...props
 }) => {
   return (
-   <div className={'lotta-avatar'} style={{ backgroundImage: `url(${src})`, }} />
+   <div className={'lotta-avatar'} style={{ backgroundImage: `url(${src})` }} />
   );
 };
