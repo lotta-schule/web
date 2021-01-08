@@ -1,10 +1,6 @@
 .lotta-navigation-button {
-  background: none;
-  color: black;
   border: none;
-  padding: .5em 1.5em;
-  cursor: pointer;
-  text-transform: uppercase;
+  padding: .5em;
   letter-spacing: 1px;
   font-size: 0.8rem;
   border-radius: 0.5em;
@@ -19,14 +15,12 @@
   transition-duration: 0.2s;
 }
 
-.lotta-navigation-button_icon {
-  display: flex;
-  color: #3cb371;
+.lotta-navigation-button .lotta-button_icon svg {
+  width: .8em;
+  height: .8em;
 }
 
-.lotta-navigation-button_icon-text {
-  margin: auto 1em;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 0.8rem;
+.lotta-navigation-button .lotta-button_icon ~ .lotta-button_text {
+  padding: 0;
+  margin-right: auto;
 }

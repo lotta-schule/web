@@ -28,7 +28,7 @@ export const Button: React.FC<ButtonProps> = ({
         <span className={'lotta-button_icon'}>{icon}</span>
       )}
       {label && (
-      <span className={'lotta-button_icon-text'}>{label}</span>
+      <span className={'lotta-button_text'}>{label}</span>
       )}
     </BaseButton>
   );

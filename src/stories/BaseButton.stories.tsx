@@ -3,7 +3,6 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { BaseButton, BaseButtonProps } from '../component/general/button/BaseButton';
-import { Movie } from '@material-ui/icons';
 import { Avatar } from '../component/general/avatar/Avatar';
 
 export default {

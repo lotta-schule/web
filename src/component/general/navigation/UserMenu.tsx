@@ -1,0 +1,51 @@
+import { AccountCircle, AddCircle, Forum, SearchRounded } from '@material-ui/icons';
+import React from 'react';
+import { Avatar } from '../avatar/Avatar';
+import { NavigationButton, } from '../button/NavigationButton';
+import './user-menu.scss';
+
+export interface UserMenuProps {
+  /**
+   * Navigation contents
+   */
+  secondary: boolean;
+
+  /**
+   * Optional click handler
+   */
+  onClick?: () => void;
+}
+
+/**
+ * Primary UI component for user interaction
+ */
+export const UserMenu: React.FC<UserMenuProps> = ({
+  secondary,
+  ...props
+}) => {
+  return (
+    <div className="user-menu">
+      <div className="user-menu-avatar">
+          <Avatar />
+      </div>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <NavigationButton icon={<AddCircle />} label={'neuer Beitrag'}/>
+            </li>
+            <li>
+              <NavigationButton icon={<SearchRounded />} label={'Suche'} />
+            </li>
+            <li>
+              <NavigationButton icon={<Forum />} label={'Nachrichten'} />
+            </li>
+            <li>
+              <NavigationButton icon={<AccountCircle />} label={'Mein Profil'} />
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  );
+};
