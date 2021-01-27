@@ -13,7 +13,7 @@ export interface AvatarProps {
  */
 
 export const Avatar: React.FC<AvatarProps> = ({
-  src = 'https://www.flaticon.com/svg/static/icons/svg/3870/3870479.svg',
+  src,
   ...props
 }) => {
   return (

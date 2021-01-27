@@ -26,7 +26,7 @@ export const UserMenu: React.FC<UserMenuProps> = ({
   return (
     <div className="user-menu">
       <div className="user-menu-avatar">
-          <Avatar />
+          <Avatar src={'https://www.flaticon.com/svg/static/icons/svg/3870/3870479.svg'} />
       </div>
       <div>
         <nav>
