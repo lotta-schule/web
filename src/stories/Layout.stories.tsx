@@ -2,7 +2,7 @@ import React from 'react';
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Box } from '../component/general/box/Box';
+import { Box } from '../component/general/layout/Box';
 
 export default {
     title: 'Box',
@@ -12,7 +12,7 @@ export default {
   } as Meta;
   
   const Template: Story = (args) => (
-    <div style={{ width: '100vw', height: '100vh', background: 'black' }}>
+    <div style={{ width: '20vw', height: '20vh', background: '#fff' }}>
       <Box {...args} />
     </div>
   );
@@ -20,8 +20,8 @@ export default {
   export const Default = Template.bind({});
   Default.args = {
     children: (
-      <p>
+      <div>
         Ich bin eine Box mit Inhalt
-      </p>
+      </div>
     )
   };
