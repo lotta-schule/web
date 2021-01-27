@@ -3,6 +3,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Navigation, NavigationProps } from '../component/general/navigation/Navigation';
+import { NavigationButton } from 'component/general/button/NavigationButton';
 
 export default {
     title: 'Navigation/Main',
@@ -13,8 +14,31 @@ export default {
   
   const Template: Story<NavigationProps> = (args) => <Navigation {...args} />;
   
-  export const Primary = Template.bind({});
-  Primary.args = {
+  export const Main = Template.bind({});
+  Main.args = {
+     primaryButtons: [
+       <NavigationButton label={'Test'} />,
+       <NavigationButton label={'Test'} selected />,
+       <NavigationButton label={'Test'} />,
+       <NavigationButton label={'Test'} />,
+       <NavigationButton label={'Test'} />,
+      ],
+      secondaryButtons: [
+        <NavigationButton label={'Test'} />,
+        <NavigationButton label={'Test'} selected />,
+        <NavigationButton label={'Test'} />
+       ]
+  };
+
+  export const WithoutSecondary = Template.bind({});
+  WithoutSecondary.args = {
+     primaryButtons: [
+       <NavigationButton label={'Test'} />,
+       <NavigationButton label={'Test'} selected />,
+       <NavigationButton label={'Test'} />,
+       <NavigationButton label={'Test'} />,
+       <NavigationButton label={'Test'} />,
+      ]
   };
 
   // export const Secondary = Template.bind({});

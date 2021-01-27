@@ -40,7 +40,7 @@ Complex.args = {
         <strong>Er ist sehr flexibel</strong>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '1em' }}>
-        <Avatar />
+        <Avatar src={''} />
       </div>
     </div>
   ),
