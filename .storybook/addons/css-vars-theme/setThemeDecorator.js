@@ -1,0 +1,49 @@
+import * as React from 'react';
+import { makeDecorator } from '@storybook/addons';
+import { useAddonState } from '@storybook/client-api';
+
+const localStorageState = localStorage.getItem('lotta-theme');
+
+export const initialState = {
+    'primary-color': [50, 100, 0],
+    'text-color': [3, 3, 3],
+    'box-background': [255, 255, 255],
+    ...(localStorageState && JSON.parse(localStorageState))
+};
+
+export const setThemeDecorator = makeDecorator({
+    name: 'Lotta-Storybook-CSS-Theming-Addon',
+    parameterName: 'theme',
+    skipIfNoParametersOrOptions: false,
+    wrapper: (getStory, context, args) => {
+        // eslint-disable-next-line
+        const [state, setState] = useAddonState('Lotta-Storybook-CSS-Variables-Theming-Addon', initialState);
+        window.addEventListener('message', ({ data }) => {
+            if (typeof data === 'string') {
+                const match = data.match(/^Lotta-Storybook-CSS-Theming-Addon:(?<json>.*)/);
+                if (match) {
+                    setState(JSON.parse(match.groups.json));
+                }
+            }
+        }, false);
+
+        return (
+            React.createElement(
+                React.Fragment,
+                {},
+                [
+                    React.createElement(
+                        'style',
+                        {},
+                        ':root {' +
+                        Object.keys(state).map(key =>
+                            `--lotta-${key}: ${state[key].join(', ')}`
+                        ).join('\n') +
+                        '}'
+                    ),
+                    getStory(context)
+                ]
+            )
+        );
+    }
+});

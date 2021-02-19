@@ -1,6 +1,7 @@
 import React from 'react';
 import { deDE } from '@material-ui/core/locale';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core';
+import { setThemeDecorator } from './addons/css-vars-theme/setThemeDecorator';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -20,17 +21,10 @@ const muiTheme = createMuiTheme({
   },
 }, deDE);
 export const decorators = [
-  Story => (
-    <ThemeProvider theme={muiTheme}>
-      <style>{`
-        :root {
-          --lotta-primary-color: ${primary.join(', ')};
-          --lotta-text-color: ${text.join(', ')};
-          --lotta-box_background-color: ${box_background.join(', ')};
-        }
-      `}
-      </style>
-      <Story />
-    </ThemeProvider>
-  )
+    setThemeDecorator,
+    Story => (
+        <ThemeProvider theme={muiTheme}>
+            <Story />
+        </ThemeProvider>
+    )
 ];
