@@ -3,7 +3,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { NavigationButton, NavigationButtonProps } from '../component/general/button/NavigationButton';
-import { Close } from '@material-ui/icons';
+import { Close, Favorite } from '@material-ui/icons';
 
 export default {
   title: 'Buttons/NavigationButton',
@@ -29,6 +29,11 @@ export const IconButton = Template.bind({});
 IconButton.args = {
   label: 'Navigation-Button with Icon',
   icon: <Close />
+};
+
+export const OnlyIconButton = Template.bind({});
+OnlyIconButton.args = {
+  icon: <Favorite />
 };
 
 

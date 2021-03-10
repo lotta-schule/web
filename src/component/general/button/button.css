@@ -1,6 +1,7 @@
 .lotta-button {
-  color: black;
-  min-height: 3.5em;
+  color: rgb(var(--lotta-primary-color));
+  min-height: 2.8em;
+  padding: 0.4em;
 }
 
 .lotta-button_icon {

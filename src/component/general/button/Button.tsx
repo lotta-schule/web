@@ -20,6 +20,7 @@ export interface ButtonProps extends BaseButtonProps {
 export const Button: React.FC<ButtonProps> = ({
   icon,
   label,
+  children,
   ...props
 }) => {
   return (
@@ -27,8 +28,8 @@ export const Button: React.FC<ButtonProps> = ({
       {icon && (
         <span className={'lotta-button_icon'}>{icon}</span>
       )}
-      {label && (
-        <span className={'lotta-button_text'}>{label}</span>
+      {(label ?? children) && (
+        <span className={'lotta-button_text'}>{label ?? children}</span>
       )}
     </BaseButton>
   );

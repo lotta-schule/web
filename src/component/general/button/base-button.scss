@@ -1,6 +1,6 @@
 .lotta-base-button {
-  border: 1px solid #3cb371;
-  color: #3cb371;
+  border: 1px solid rgba(var(--lotta-primary-color), 1);
+  color: rgba(var(--lotta-primary-color), 1);
   background: none;
   border-radius: 0.5em;
   padding: .7em;
@@ -18,8 +18,8 @@
 }
 
 .lotta-base-button.selected {
-  border: 1px solid #3cb371;
-  background-color: #3cb37121;
+  border: 1px solid rgba(var(--lotta-primary-color), 1);
+  background-color: rgba(var(--lotta-primary-color), 0.2);
 }
 /**
   * Custom style for selected BaseButtons
@@ -28,7 +28,7 @@
 */
 
 nav.lotta-navbar ul.secondary .lotta-base-button.selected {
-  color: #3cb371;
+  color: rgba(var(--lotta-primary-color), 1);
   font-weight: 600;
   border: none;
 }
@@ -38,6 +38,6 @@ nav.lotta-navbar ul.secondary .lotta-base-button.selected {
   */
 /* .lotta-base-button__variant__default {} */
 .lotta-base-button__variant__fill {
-  background-color: #3cb371;
+  background-color: rgba(var(--lotta-primary-color), 1);
   color: #fff;
 }

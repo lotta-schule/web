@@ -1,4 +1,5 @@
 .lotta-grouped-button {
+    color: rgba(var(--lotta-primary-color), 1);
     background-color: #fff;
     display: inline-block;
     &:not(:first-of-type):not(:last-of-type) {
