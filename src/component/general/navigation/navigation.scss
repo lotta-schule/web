@@ -31,7 +31,7 @@ nav.lotta-navbar {
     display: flex;
     justify-content: space-evenly;
     background: #fff;
-    border-top: 2px solid #3cb371;;
+    border-top: 2px solid rgba(var(--lotta-primary-color), 1);
     margin-top: 0px;
     margin-right: 0px;
     @media only screen and (max-width: 500px) {

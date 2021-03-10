@@ -3,10 +3,9 @@ import clsx from 'clsx';
 import './navigation-button.css';
 import { Button, ButtonProps } from './Button';
 
-/**
- * Primary UI component for user interaction
- */
-export const NavigationButton = memo<ButtonProps>(props => {
+export type NavigationButtonProps = ButtonProps;
+
+export const NavigationButton = memo<NavigationButtonProps>(props => {
   return (
     <Button {...props} className={clsx('lotta-navigation-button', props.className)} />
   );
