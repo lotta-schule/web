@@ -3,6 +3,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { UserMenu, UserMenuProps } from '../component/general/navigation/UserMenu';
+import { SomeUser } from 'test/fixtures';
 
 export default {
     title: 'UserMenu/Main',
@@ -13,6 +14,11 @@ export default {
   
   const Template: Story<UserMenuProps> = (args) => <UserMenu {...args} />;
   
-  export const Primary = Template.bind({});
-  Primary.args = {
+  export const LoggedIn = Template.bind({});
+  LoggedIn.args = {
+    user: SomeUser
+  };
+
+  export const NotLoggedIn = Template.bind({});
+  NotLoggedIn.args = {
   };

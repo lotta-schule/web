@@ -1,8 +1,15 @@
 import React from 'react';
+import clsx from 'clsx';
 import './box.scss';
 
-export const Box: React.FC = ({ children }) => {
+interface BoxProps {
+  noMargin?: boolean;
+}
+
+export const Box: React.FC<BoxProps> = ({ children, noMargin }) => {
   return (
-    <div className="box box-with-padding">{children}</div>
+    <div className={clsx('box', { 'no-margin': noMargin })}>
+      {children}
+    </div>
   );
 };

@@ -3,25 +3,85 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Box } from '../component/general/layout/Box';
+import { Page } from '../component/general/layout/Page';
+import { Navigation,  } from '../component/general/navigation/Navigation';
+import { NavigationButton } from 'component/general/button/NavigationButton';
+
+const loremIpsumContent = (
+  <>
+    <Box noMargin>
+      <div>
+        <img src="https://picsum.photos/300/200" />
+        <div>Ich bin eine Box mit Inhalt</div>
+      </div>
+    </Box>
+    <Box noMargin>
+      <div>
+        <img src="https://picsum.photos/300/200" />
+        <div>Ich bin eine Box mit Inhalt</div>
+      </div>
+    </Box>
+    <Box noMargin>
+      <div>
+        <img src="https://picsum.photos/300/200" />
+        <div>Ich bin eine Box mit Inhalt</div>
+      </div>
+    </Box>
+    <Box noMargin>
+      <div>
+        <img src="https://picsum.photos/300/200" />
+        <div>Ich bin eine Box mit Inhalt</div>
+      </div>
+    </Box>
+    <Box noMargin>
+      <div>
+        <img src="https://picsum.photos/300/200" />
+        <div>Ich bin eine Box mit Inhalt</div>
+      </div>
+    </Box>
+  </>
+)
 
 export default {
-    title: 'Box',
-    component: Box,
-    argTypes: {
-    },
-  } as Meta;
-  
-  const Template: Story = (args) => (
-    <div style={{ width: '20vw', height: '20vh', background: '#fff' }}>
-      <Box {...args} />
-    </div>
+  title: 'Layout/Page',
+  component: Page,
+  argTypes: {
+  },
+} as Meta;
+
+const Template: Story = ({children, ...args}) => (
+  <Page>
+    <Navigation primaryButtons={[
+      <NavigationButton key={'start'}>Start</NavigationButton>,
+      <NavigationButton key={'BLA'}>Bla</NavigationButton>,
+      <NavigationButton key={'blub'}>Blub</NavigationButton>,
+      <NavigationButton key={'aksdjf'}>Test</NavigationButton>
+    ]} />
+    {children}
+  </Page>
   );
   
-  export const Default = Template.bind({});
-  Default.args = {
+  export const WithSidebar = Template.bind({});
+  WithSidebar.args = {
     children: (
-      <div>
-        Ich bin eine Box mit Inhalt
-      </div>
+      <>
+        <main>
+          {loremIpsumContent}
+        </main>
+        <aside>
+          <Box noMargin>
+            <div>Ich bin eine Seitenleiste</div>
+          </Box>
+        </aside>
+      </>
+    )
+  };
+    
+  export const SingleColumn = Template.bind({});
+  SingleColumn.args = {
+    children: (
+      <main>
+        {loremIpsumContent}
+      </main>
     )
   };
