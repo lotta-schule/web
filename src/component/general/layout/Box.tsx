@@ -1,28 +1,16 @@
-import React from "react";
-import clsx from "clsx";
-import "./box.scss";
+import React from 'react';
+import clsx from 'clsx';
+import './box.scss';
 
 interface BoxProps {
-  noMargin?: boolean;
-  marginTop?: boolean;
-  fullWidth?: boolean;
+    className?: string;
+    style?: React.CSSProperties;
 }
 
-export const Box: React.FC<BoxProps> = ({
-  children,
-  noMargin,
-  marginTop,
-  fullWidth,
-}) => {
-  return (
-    <div
-      className={clsx("box", {
-        "margin-top": marginTop,
-        "no-margin": noMargin,
-        "full-width": fullWidth,
-      })}
-    >
-      {children}
-    </div>
-  );
+export const Box: React.FC<BoxProps> = ({ children, className, style }) => {
+    return (
+        <div style={style} className={clsx('box', className)}>
+            {children}
+        </div>
+    );
 };
