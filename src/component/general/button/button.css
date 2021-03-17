@@ -1,13 +1,25 @@
 .lotta-button {
-  color: rgb(var(--lotta-primary-color));
-  min-height: 2.8em;
-  padding: 0.4em;
+    color: rgb(var(--lotta-primary-color));
+    min-height: 2.8em;
+    padding: 0.4em;
 }
 
 .lotta-button_icon {
-  display: flex;
+    display: flex;
 }
 
 .lotta-button_text {
-  margin: auto 1em;
+    margin: auto 1em;
+}
+
+aside .lotta-button_text {
+    margin: 0;
+}
+
+aside .lotta-navigation-button {
+    border-radius: 50%;
+}
+
+aside nav.lotta-navbar ul {
+    height: auto;
 }
