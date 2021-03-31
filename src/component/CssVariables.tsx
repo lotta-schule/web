@@ -23,6 +23,10 @@ export const CssVariables = React.memo(() => {
             primaryColor: decomposeColor(
                 theme.palette.primary.main
             ).values.slice(0, 3),
+            errorColor: decomposeColor(theme.palette.error.main).values.slice(
+                0,
+                3
+            ),
             textColor: decomposeColor(theme.palette.text.primary).values.slice(
                 0,
                 3

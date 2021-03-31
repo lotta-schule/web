@@ -27,6 +27,12 @@ FillVariant.args = {
     children: "Es gibt eine 'fill' Variante",
 };
 
+export const ErrorVariant = Template.bind({});
+ErrorVariant.args = {
+    variant: 'error',
+    children: "Es gibt eine 'error' Variante",
+};
+
 export const FullWidth = Template.bind({});
 FullWidth.args = {
     fullWidth: true,

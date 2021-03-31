@@ -60,3 +60,18 @@ nav.lotta-navbar ul.secondary .lotta-base-button.selected {
         filter: none;
     }
 }
+
+.lotta-base-button__variant__error {
+    background-color: rgba(var(--lotta-error-color), 1);
+    color: #fff;
+    border: none;
+    &:hover {
+        transition: linear;
+        transition-duration: 0.2s;
+        background-color: rgba(var(--lotta-error-color), 0.7);
+    }
+    &:active {
+        background-color: rgba(var(--lotta-error-color), 0.5);
+        filter: none;
+    }
+}

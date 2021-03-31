@@ -15,7 +15,7 @@ export interface BaseButtonProps
     /**
      * Chose from different styles
      */
-    variant?: 'default' | 'fill';
+    variant?: 'default' | 'fill' | 'error';
 
     /**
      * Wether the button should have a width of 100%
