@@ -55,7 +55,7 @@ nav.lotta-navbar ul.secondary .lotta-base-button.selected {
   * Custom styles for different variants
   */
 /* .lotta-base-button__variant__default {} */
-.lotta-base-button__variant__fill {
+.lotta-base-button.variant__fill {
     background-color: rgba(var(--lotta-primary-color), 1);
     color: #fff;
     &:hover {
@@ -69,7 +69,7 @@ nav.lotta-navbar ul.secondary .lotta-base-button.selected {
     }
 }
 
-.lotta-base-button__variant__error {
+.lotta-base-button.variant__error {
     background-color: rgba(var(--lotta-error-color), 1);
     color: #fff;
     border: none;

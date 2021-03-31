@@ -44,12 +44,11 @@ export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(
     ) => {
         return (
             <button
-                ref={ref}
                 {...props}
                 type={props.type ?? 'button'}
                 className={clsx(
                     'lotta-base-button',
-                    `lotta-base-button__variant__${variant}`,
+                    `variant__${variant}`,
                     { selected, 'full-width': fullWidth },
                     props.className
                 )}
