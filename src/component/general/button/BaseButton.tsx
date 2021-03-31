@@ -31,25 +31,31 @@ export interface BaseButtonProps
 /**
  * Primary UI component for user interaction
  */
-export const BaseButton: React.FC<BaseButtonProps> = ({
-    children,
-    variant = 'default',
-    fullWidth = false,
-    selected = false,
-    ...props
-}) => {
-    return (
-        <button
-            {...props}
-            type={props.type ?? 'button'}
-            className={clsx(
-                'lotta-base-button',
-                `lotta-base-button__variant__${variant}`,
-                { selected, 'full-width': fullWidth },
-                props.className
-            )}
-        >
-            {children}
-        </button>
-    );
-};
+export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(
+    (
+        {
+            children,
+            variant = 'default',
+            fullWidth = false,
+            selected = false,
+            ...props
+        },
+        ref
+    ) => {
+        return (
+            <button
+                ref={ref}
+                {...props}
+                type={props.type ?? 'button'}
+                className={clsx(
+                    'lotta-base-button',
+                    `lotta-base-button__variant__${variant}`,
+                    { selected, 'full-width': fullWidth },
+                    props.className
+                )}
+            >
+                {children}
+            </button>
+        );
+    }
+);

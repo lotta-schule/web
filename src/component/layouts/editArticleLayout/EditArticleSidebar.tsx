@@ -3,14 +3,12 @@ import {
     Card,
     CardContent,
     TextField,
-    Button,
     makeStyles,
     Typography,
     FormControl,
     FormLabel,
     FormControlLabel,
     Switch,
-    ButtonGroup,
     Popper,
     Grow,
     Paper,
@@ -42,18 +40,16 @@ import { ResponsiveFullScreenDialog } from 'component/dialog/ResponsiveFullScree
 import { DeleteArticleMutation } from 'api/mutation/DeleteArticleMutation';
 import { UsersList } from './UsersList';
 import { SelectTopicAutocomplete } from './SelectTopicAutocomplete';
-import { SaveButton } from 'component/general/SaveButton';
 import uniqBy from 'lodash/uniqBy';
 import clsx from 'clsx';
 import Img from 'react-cloudimage-responsive';
+import { GroupedButton } from 'component/general/button/GroupedButton';
+import { Button } from 'component/general/button/Button';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         borderRadius: '0',
         overflow: 'auto',
-    },
-    button: {
-        marginBottom: theme.spacing(1),
     },
     deleteButtonDivider: {
         marginTop: theme.spacing(1),
@@ -111,9 +107,7 @@ export const EditArticleSidebar = React.memo<EditArticleSidebarProps>(
             false
         );
         const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
-        const saveOptionsMenuAnchorRef = React.useRef<HTMLDivElement | null>(
-            null
-        );
+        const saveOptionsMenuAnchorRef = React.useRef<HTMLButtonElement>(null);
 
         const [deleteArticle] = useMutation<
             { article: ArticleModel },
@@ -360,18 +354,9 @@ export const EditArticleSidebar = React.memo<EditArticleSidebarProps>(
                     </FormControl>
                 </CardContent>
                 <CardContent>
-                    <ButtonGroup
-                        variant={'outlined'}
-                        color={'secondary'}
-                        disabled={isLoading}
-                        size={'small'}
-                        aria-label="split button"
-                        ref={saveOptionsMenuAnchorRef}
-                        className={styles.button}
-                        fullWidth
-                    >
-                        <SaveButton
-                            isLoading={isLoading}
+                    <div>
+                        <GroupedButton
+                            disabled={isLoading}
                             onClick={() =>
                                 onSave({
                                     readyToPublish: isReadyToPublish,
@@ -379,13 +364,11 @@ export const EditArticleSidebar = React.memo<EditArticleSidebarProps>(
                                     updatedAt: new Date().toISOString(),
                                 })
                             }
-                            fullWidth
                         >
                             speichern
-                        </SaveButton>
-                        <Button
-                            color={'secondary'}
-                            size={'small'}
+                        </GroupedButton>
+                        <GroupedButton
+                            ref={saveOptionsMenuAnchorRef}
                             aria-owns={
                                 saveOptionMenuIsOpen
                                     ? 'menu-list-grow'
@@ -393,13 +376,12 @@ export const EditArticleSidebar = React.memo<EditArticleSidebarProps>(
                             }
                             aria-haspopup="true"
                             style={{ width: 'auto' }}
+                            icon={<ArrowDropDownIcon />}
                             onClick={() =>
                                 setSaveOptionMenuIsOpen(!saveOptionMenuIsOpen)
                             }
-                        >
-                            <ArrowDropDownIcon />
-                        </Button>
-                    </ButtonGroup>
+                        ></GroupedButton>
+                    </div>
                     <Popper
                         open={saveOptionMenuIsOpen}
                         anchorEl={saveOptionsMenuAnchorRef.current}
@@ -455,28 +437,25 @@ export const EditArticleSidebar = React.memo<EditArticleSidebarProps>(
                         )}
                     </Popper>
 
-                    <Button
-                        color={'secondary'}
-                        variant={'outlined'}
-                        size={'small'}
-                        onClick={() => history.go(-1)}
-                        fullWidth
-                    >
+                    <Button onClick={() => history.go(-1)} fullWidth>
                         Abbrechen
                     </Button>
 
                     <Divider className={styles.deleteButtonDivider} />
 
                     <Button
-                        variant={'outlined'}
-                        size={'small'}
                         className={styles.deleteButton}
                         onClick={() => setIsDeleteModalOpen(true)}
+                        icon={
+                            <Warning
+                                className={clsx(
+                                    styles.leftIcon,
+                                    styles.iconSmall
+                                )}
+                            />
+                        }
                         fullWidth
                     >
-                        <Warning
-                            className={clsx(styles.leftIcon, styles.iconSmall)}
-                        />
                         Beitrag löschen
                     </Button>
                     <ResponsiveFullScreenDialog open={isDeleteModalOpen}>

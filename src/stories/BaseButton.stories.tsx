@@ -14,7 +14,9 @@ export default {
     argTypes: {},
 } as Meta;
 
-const Template: Story<BaseButtonProps> = (args) => <BaseButton {...args} />;
+const Template: Story<Omit<BaseButtonProps, 'ref'>> = (args) => (
+    <BaseButton {...args} />
+);
 
 export const General = Template.bind({});
 General.args = {

@@ -4,7 +4,6 @@ import {
     DialogContent,
     DialogContentText,
     DialogActions,
-    Button,
     TextField,
     Link,
     makeStyles,
@@ -18,6 +17,7 @@ import { ResponsiveFullScreenDialog } from './ResponsiveFullScreenDialog';
 import { UpdatePasswordDialog } from './UpdatePasswordDialog';
 import { GetCurrentUserQuery } from 'api/query/GetCurrentUser';
 import { UserModel } from 'model';
+import { Button } from 'component/general/button/Button';
 
 export interface LoginDialogProps {
     isOpen: boolean;
@@ -132,17 +132,10 @@ export const LoginDialog: FunctionComponent<LoginDialogProps> = memo(
                                     resetForm();
                                     onRequestClose();
                                 }}
-                                color="secondary"
-                                variant="outlined"
                             >
                                 Abbrechen
                             </Button>
-                            <Button
-                                type={'submit'}
-                                disabled={isLoading}
-                                variant="contained"
-                                color="secondary"
-                            >
+                            <Button type={'submit'} color="secondary">
                                 Anmelden
                             </Button>
                         </DialogActions>

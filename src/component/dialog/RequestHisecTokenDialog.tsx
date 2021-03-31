@@ -4,13 +4,13 @@ import {
     DialogContent,
     DialogContentText,
     DialogActions,
-    Button,
     TextField,
 } from '@material-ui/core';
 import { useMutation } from '@apollo/client';
 import { ErrorMessage } from 'component/general/ErrorMessage';
 import { ResponsiveFullScreenDialog } from './ResponsiveFullScreenDialog';
 import { RequestHisecTokenMutation } from 'api/mutation/RequestHisecTokenMutation';
+import { Button } from 'component/general/button/Button';
 
 export interface RequestHisecTokenDialogProps {
     isOpen: boolean;
@@ -79,16 +79,12 @@ export const RequestHisecTokenDialog = React.memo<RequestHisecTokenDialogProps>(
                             onClick={() => {
                                 onRequestClose(null);
                             }}
-                            color="secondary"
-                            variant="outlined"
                         >
                             Abbrechen
                         </Button>
                         <Button
                             type={'submit'}
                             disabled={!password || isLoading}
-                            color="secondary"
-                            variant="contained"
                         >
                             senden
                         </Button>
