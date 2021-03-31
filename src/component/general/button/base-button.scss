@@ -10,17 +10,27 @@
     letter-spacing: 1px;
     font-size: 0.8rem;
     justify-content: center;
-}
-
-.lotta-base-button:hover {
-    filter: brightness(80%);
-    transition: linear;
-    transition-duration: 0.2s;
+    &:hover {
+        transition: linear;
+        transition-duration: 0.2s;
+        background-color: rgba(var(--lotta-primary-color), 0.1);
+    }
+    &:active {
+        filter: brightness(80%);
+    }
 }
 
 .lotta-base-button.selected {
     border: 1px solid rgba(var(--lotta-primary-color), 1);
-    background-color: rgba(var(--lotta-primary-color), 0.2);
+    background-color: rgba(var(--lotta-primary-color), 0.1);
+    filter: brightness(90%);
+
+    &:hover {
+        filter: none;
+    }
+    &:active {
+        filter: brightness(70%);
+    }
 }
 
 .lotta-base-button.full-width {
@@ -40,4 +50,13 @@ nav.lotta-navbar ul.secondary .lotta-base-button.selected {
 .lotta-base-button__variant__fill {
     background-color: rgba(var(--lotta-primary-color), 1);
     color: #fff;
+    &:hover {
+        transition: linear;
+        transition-duration: 0.2s;
+        background-color: rgba(var(--lotta-primary-color), 0.7);
+    }
+    &:active {
+        background-color: rgba(var(--lotta-primary-color), 0.5);
+        filter: none;
+    }
 }
