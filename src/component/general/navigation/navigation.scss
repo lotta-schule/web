@@ -3,6 +3,11 @@ body {
 }
 
 nav.lotta-navbar {
+    top: 0;
+    position: sticky;
+    z-index: 100;
+    box-shadow: 0px 2px 4px #00000014;
+
     ul {
         list-style: none;
         display: flex;
@@ -59,6 +64,11 @@ nav.lotta-navbar {
     }
 }
 
-aside nav.lotta-navbar ul {
-    background: none;
+aside nav.lotta-navbar {
+    z-index: 1;
+    box-shadow: none;
+
+    ul {
+        background: none;
+    }
 }
