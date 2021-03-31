@@ -42,6 +42,7 @@ Many.args = {
         { label: 'U' },
         { label: 'U' },
         { label: 'U' },
+        { icon: <FormatUnderlined /> },
         { label: 'U' },
         { label: 'U' },
         { label: 'U' },
