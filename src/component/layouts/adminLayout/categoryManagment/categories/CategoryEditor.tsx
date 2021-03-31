@@ -68,7 +68,6 @@ export const CategoryEditor = memo<CategoryEditorProps>(
             setIsDeleteCategoryDialogOpen,
         ] = useState(false);
 
-        const [isShowSuccess, setIsShowSuccess] = useState(false);
         const [selectedWidgets, setSelectedWidgets] = useState<WidgetModel[]>(
             []
         );
@@ -82,10 +81,6 @@ export const CategoryEditor = memo<CategoryEditorProps>(
                     variables: { categoryId: category?.id ?? null },
                 },
             ],
-            onCompleted: () => {
-                setIsShowSuccess(true);
-                setTimeout(() => setIsShowSuccess(false), 3000);
-            },
         });
         const {
             data: currentWidgetsData,

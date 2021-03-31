@@ -33,15 +33,8 @@ export const BasicSettings = memo(() => {
     const [title, setTitle] = useState(system.title);
     const [logo, setLogo] = useState(system.logoImageFile);
 
-    const [isShowSuccess, setIsShowSuccess] = useState(false);
     const [updateSystem, { loading: isLoading, error }] = useMutation(
-        UpdateSystemMutation,
-        {
-            onCompleted: () => {
-                setIsShowSuccess(true);
-                setTimeout(() => setIsShowSuccess(false), 3000);
-            },
-        }
+        UpdateSystemMutation
     );
 
     return (
@@ -113,6 +106,7 @@ export const BasicSettings = memo(() => {
                 <Grid item sm={6} md={4} lg={3}>
                     <Button
                         fullWidth
+                        disabled={isLoading}
                         onClick={() =>
                             updateSystem({
                                 variables: {

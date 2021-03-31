@@ -1,7 +1,6 @@
 import React, { FunctionComponent, memo, useState } from 'react';
 import { Paper, Typography, makeStyles, Theme, Grid } from '@material-ui/core';
 import { Add as AddCircleIcon } from '@material-ui/icons';
-import clsx from 'clsx';
 import { CategoryModel } from 'model';
 import { CategoryNavigation } from './CategoryNavigation';
 import { CategoryEditor } from './CategoryEditor';
