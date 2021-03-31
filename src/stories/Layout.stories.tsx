@@ -9,6 +9,7 @@ import { NavigationButton } from 'component/general/button/NavigationButton';
 import { Banner } from 'component/general/layout/Banner';
 import { UserMenu } from 'component/general/navigation/UserMenu';
 import { Favorite, CalendarToday, Fingerprint } from '@material-ui/icons';
+import { Header } from 'component/general/layout/Header';
 
 const loremIpsumContent = (
     <>
@@ -44,6 +45,12 @@ export default {
 
 const Template: Story = ({ children, ...args }) => (
     <Page>
+        <Header>
+            <Box>
+                <img src="https://picsum.photos/300/100" />
+                <h2>Lotta Gesamtschule</h2>
+            </Box>
+        </Header>
         <Navigation
             primaryButtons={[
                 <NavigationButton key={'start'}>Start</NavigationButton>,
