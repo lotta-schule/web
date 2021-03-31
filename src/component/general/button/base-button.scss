@@ -5,20 +5,27 @@
     background: none;
     border-radius: 0.5em;
     padding: 0.7em;
-    cursor: pointer;
     display: flex;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 0.8rem;
     justify-content: center;
-    &:hover {
-        transition: linear;
-        transition-duration: 0.2s;
-        background-color: rgba(var(--lotta-primary-color), 0.1);
+    &:not([disabled]) {
+        cursor: pointer;
+        &:hover {
+            transition: linear;
+            transition-duration: 0.2s;
+            background-color: rgba(var(--lotta-primary-color), 0.1);
+        }
+        &:active {
+            filter: brightness(80%);
+        }
     }
-    &:active {
-        filter: brightness(80%);
-    }
+}
+
+.lotta-base-button[disabled] {
+    color: rgba(var(--lotta-disabled-color), 1);
+    border-color: rgba(var(--lotta-disabled-color), 1);
 }
 
 .lotta-base-button.selected {

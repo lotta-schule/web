@@ -23,6 +23,12 @@ General.args = {
     children: 'Der Button ist sehr allgemein gehalten',
 };
 
+export const Disabled = Template.bind({});
+Disabled.args = {
+    children: 'Der Button darf nichts',
+    disabled: true,
+};
+
 export const FillVariant = Template.bind({});
 FillVariant.args = {
     variant: 'fill',

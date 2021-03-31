@@ -27,6 +27,9 @@ export const CssVariables = React.memo(() => {
                 0,
                 3
             ),
+            disabledColor: decomposeColor(
+                theme.palette.text.disabled
+            ).values.slice(0, 3),
             textColor: decomposeColor(theme.palette.text.primary).values.slice(
                 0,
                 3
