@@ -21,11 +21,10 @@
   border: 1px solid rgba(var(--lotta-primary-color), 1);
   background-color: rgba(var(--lotta-primary-color), 0.2);
 }
-/**
-  * Custom style for selected BaseButtons
-  .lotta-base-button.selected {
-  }
-*/
+
+.lotta-base-button.full-width {
+  width: 100%;
+}
 
 nav.lotta-navbar ul.secondary .lotta-base-button.selected {
   color: rgba(var(--lotta-primary-color), 1);
