@@ -1,10 +1,10 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+import * as React from 'react';
 import clsx from 'clsx';
 import './base-button.scss';
 
 export interface BaseButtonProps
-    extends DetailedHTMLProps<
-        ButtonHTMLAttributes<HTMLButtonElement>,
+    extends React.DetailedHTMLProps<
+        React.ButtonHTMLAttributes<HTMLButtonElement>,
         HTMLButtonElement
     > {
     /**
@@ -44,8 +44,9 @@ export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(
     ) => {
         return (
             <button
-                {...props}
+                ref={ref}
                 type={props.type ?? 'button'}
+                {...props}
                 className={clsx(
                     'lotta-base-button',
                     `variant__${variant}`,
