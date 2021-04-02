@@ -20,6 +20,8 @@ import {
     DialogContent,
     DialogActions,
 } from '@material-ui/core';
+import { Button } from 'component/general/button/Button';
+import { ButtonGroup } from 'component/general/button/ButtonGroup';
 import { DateTimePicker } from '@material-ui/pickers';
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
@@ -43,13 +45,14 @@ import { SelectTopicAutocomplete } from './SelectTopicAutocomplete';
 import uniqBy from 'lodash/uniqBy';
 import clsx from 'clsx';
 import Img from 'react-cloudimage-responsive';
-import { GroupedButton } from 'component/general/button/GroupedButton';
-import { Button } from 'component/general/button/Button';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         borderRadius: '0',
         overflow: 'auto',
+    },
+    saveButton: {
+        marginBottom: theme.spacing(1),
     },
     deleteButtonDivider: {
         marginTop: theme.spacing(1),
@@ -354,8 +357,9 @@ export const EditArticleSidebar = React.memo<EditArticleSidebarProps>(
                     </FormControl>
                 </CardContent>
                 <CardContent>
-                    <div>
-                        <GroupedButton
+                    <ButtonGroup className={styles.saveButton} fullWidth>
+                        <Button
+                            fullWidth
                             disabled={isLoading}
                             onClick={() =>
                                 onSave({
@@ -366,8 +370,8 @@ export const EditArticleSidebar = React.memo<EditArticleSidebarProps>(
                             }
                         >
                             speichern
-                        </GroupedButton>
-                        <GroupedButton
+                        </Button>
+                        <Button
                             ref={saveOptionsMenuAnchorRef}
                             aria-owns={
                                 saveOptionMenuIsOpen
@@ -380,13 +384,12 @@ export const EditArticleSidebar = React.memo<EditArticleSidebarProps>(
                             onClick={() =>
                                 setSaveOptionMenuIsOpen(!saveOptionMenuIsOpen)
                             }
-                        ></GroupedButton>
-                    </div>
+                        ></Button>
+                    </ButtonGroup>
                     <Popper
+                        transition
                         open={saveOptionMenuIsOpen}
                         anchorEl={saveOptionsMenuAnchorRef.current}
-                        transition
-                        disablePortal
                         className={styles.popper}
                     >
                         {({ TransitionProps, placement }) => (

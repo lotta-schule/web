@@ -1,13 +1,13 @@
 .lotta-button {
-  color: rgb(var(--lotta-primary-color));
-  min-height: 2.8em;
-  padding: 0.4em;
+    color: rgb(var(--lotta-primary-color));
+    min-height: 2.8em; /* TODO: This seems arbitrary. Should be coming from variable */
+    padding: 0.4em; /* TODO: This seems arbitrary. Should be coming from variable */
 }
 
 .lotta-button_icon {
-  display: flex;
+    display: flex;
 }
 
 .lotta-button_text {
-  margin: auto 1em;
+    margin: auto;
 }
