@@ -1,7 +1,8 @@
-import React, { memo } from 'react';
-import { makeStyles, Button, Typography, Badge } from '@material-ui/core';
+import * as React from 'react';
+import { makeStyles, Typography, Badge } from '@material-ui/core';
 import { UserModel, UserGroupModel } from 'model';
 import { UserAvatar } from 'component/user/UserAvatar';
+import { Button } from 'component/general/button/Button';
 import { format } from 'date-fns';
 import { useNewMessagesBadgeNumber } from '../navigation/useNewMessagesBadgeNumber';
 import { User } from 'util/model';
@@ -42,7 +43,7 @@ export interface ThreadPreviewProps {
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export const ThreadPreview = memo<ThreadPreviewProps>(
+export const ThreadPreview = React.memo<ThreadPreviewProps>(
     ({ selected, counterpart, date, onClick }) => {
         const styles = useStyles();
         const newMessagesBadgeNumber = useNewMessagesBadgeNumber(
@@ -55,9 +56,11 @@ export const ThreadPreview = memo<ThreadPreviewProps>(
             <Button
                 onClick={onClick}
                 className={clsx(styles.root, { selected })}
-                classes={{ label: styles.buttonLabel }}
             >
-                <Typography variant={'subtitle1'}>
+                <Typography
+                    variant={'subtitle1'}
+                    className={styles.buttonLabel}
+                >
                     <Badge
                         badgeContent={newMessagesBadgeNumber}
                         color={'primary'}

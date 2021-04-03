@@ -9,6 +9,7 @@ import {
     makeStyles,
     Typography,
 } from '@material-ui/core';
+import { Button } from 'component/general/button/Button';
 import { useApolloClient, useMutation } from '@apollo/client';
 import { LoginMutation } from 'api/mutation/LoginMutation';
 import { CollisionLink } from 'component/general/CollisionLink';
@@ -17,7 +18,6 @@ import { ResponsiveFullScreenDialog } from './ResponsiveFullScreenDialog';
 import { UpdatePasswordDialog } from './UpdatePasswordDialog';
 import { GetCurrentUserQuery } from 'api/query/GetCurrentUser';
 import { UserModel } from 'model';
-import { Button } from 'component/general/button/Button';
 
 export interface LoginDialogProps {
     isOpen: boolean;

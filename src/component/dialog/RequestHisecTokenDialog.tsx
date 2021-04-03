@@ -6,11 +6,11 @@ import {
     DialogActions,
     TextField,
 } from '@material-ui/core';
+import { Button } from 'component/general/button/Button';
 import { useMutation } from '@apollo/client';
 import { ErrorMessage } from 'component/general/ErrorMessage';
 import { ResponsiveFullScreenDialog } from './ResponsiveFullScreenDialog';
 import { RequestHisecTokenMutation } from 'api/mutation/RequestHisecTokenMutation';
-import { Button } from 'component/general/button/Button';
 
 export interface RequestHisecTokenDialogProps {
     isOpen: boolean;
