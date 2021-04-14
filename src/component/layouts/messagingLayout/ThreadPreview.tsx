@@ -12,27 +12,47 @@ import clsx from 'clsx';
 const useStyles = makeStyles((theme) => ({
     root: {
         background: theme.palette.background.paper,
+        borderColor: 'transparent',
         margin: theme.spacing(1, 0),
         padding: theme.spacing(1),
         overflow: 'auto',
         display: 'block',
         width: '100%',
+        textTransform: 'none',
+        letterSpacing: 0,
+        borderRadius: 0,
+
         '&.selected': {
-            position: 'sticky',
-            top: `calc(65px + ${theme.spacing(1)}px)`,
+            position: 'initial',
+            top: `calc(65px + (0.5 * ${theme.spacing(1)})px)`,
             zIndex: 1,
-            borderLeftWidth: theme.spacing(1),
+            borderLeftWidth: `calc(0.5 * ${theme.spacing(1)}px)`,
             borderLeftStyle: 'solid',
             borderLeftColor: theme.palette.secondary.main,
+            borderColor: 'transparent',
+            backgroundColor: theme.palette.grey[100],
+        },
+        '&:hover': {
+            backgroundColor: [theme.palette.grey[100], '!important'],
+            filter: ['none', '!important'],
         },
     },
     buttonLabel: {
         textAlign: 'left',
+        alignSelf: 'center',
+        fontSize: '0.9rem',
+        fontWeight: 'bold',
     },
     userAvatar: {
-        float: 'right',
+        float: 'left',
+        marginRight: theme.spacing(1),
         width: 40,
         height: 40,
+    },
+    dateLabel: {
+        color: theme.palette.grey[400],
+        fontSize: '0.8rem',
+        textAlign: 'left',
     },
 }));
 
@@ -57,6 +77,13 @@ export const ThreadPreview = React.memo<ThreadPreviewProps>(
                 onClick={onClick}
                 className={clsx(styles.root, { selected })}
             >
+                {(counterpart as UserModel).avatarImageFile && (
+                    <UserAvatar
+                        user={counterpart as UserModel}
+                        size={50}
+                        classes={{ root: styles.userAvatar }}
+                    />
+                )}
                 <Typography
                     variant={'subtitle1'}
                     className={styles.buttonLabel}
@@ -67,15 +94,8 @@ export const ThreadPreview = React.memo<ThreadPreviewProps>(
                     >
                         {User.getName(counterpart as UserModel)}
                     </Badge>
-                    {(counterpart as UserModel).avatarImageFile && (
-                        <UserAvatar
-                            user={counterpart as UserModel}
-                            size={50}
-                            classes={{ root: styles.userAvatar }}
-                        />
-                    )}
                 </Typography>
-                <Typography variant={'body2'}>
+                <Typography variant={'body2'} className={styles.dateLabel}>
                     {date && format(date, 'P', { locale: de })}
                 </Typography>
             </Button>
