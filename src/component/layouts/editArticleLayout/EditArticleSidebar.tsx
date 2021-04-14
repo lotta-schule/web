@@ -53,6 +53,15 @@ const useStyles = makeStyles((theme) => ({
     },
     saveButton: {
         marginBottom: theme.spacing(1),
+        '& button': {
+            backgroundColor: [theme.palette.secondary.main, '!important'],
+            borderColor: [theme.palette.secondary.main, '!important'],
+            color: [theme.palette.secondary.contrastText, '!important'],
+        },
+    },
+    cancelButton: {
+        borderColor: theme.palette.secondary.main,
+        color: theme.palette.secondary.main,
     },
     deleteButtonDivider: {
         marginTop: theme.spacing(1),
@@ -360,6 +369,7 @@ export const EditArticleSidebar = React.memo<EditArticleSidebarProps>(
                     <ButtonGroup className={styles.saveButton} fullWidth>
                         <Button
                             fullWidth
+                            variant={'fill'}
                             disabled={isLoading}
                             onClick={() =>
                                 onSave({
@@ -380,6 +390,7 @@ export const EditArticleSidebar = React.memo<EditArticleSidebarProps>(
                             }
                             aria-haspopup="true"
                             style={{ width: 'auto' }}
+                            variant={'fill'}
                             icon={<ArrowDropDownIcon />}
                             onClick={() =>
                                 setSaveOptionMenuIsOpen(!saveOptionMenuIsOpen)
@@ -440,7 +451,11 @@ export const EditArticleSidebar = React.memo<EditArticleSidebarProps>(
                         )}
                     </Popper>
 
-                    <Button onClick={() => history.go(-1)} fullWidth>
+                    <Button
+                        className={styles.cancelButton}
+                        onClick={() => history.go(-1)}
+                        fullWidth
+                    >
                         Abbrechen
                     </Button>
 

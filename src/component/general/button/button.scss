@@ -2,6 +2,7 @@
     color: rgba(var(--lotta-primary-color), 1);
     min-height: 2.8em;
     padding: 0.4em;
+    align-items: center;
 }
 
 .lotta-button_icon {
@@ -24,7 +25,7 @@ aside nav.lotta-navbar ul {
     height: auto;
 }
 
-.only-icon:not(.lotta-grouped-button) {
+.lotta-button.only-icon:not(.lotta-button-group .lotta-button) {
     border-radius: 50%;
     border-color: transparent;
     &:hover {
