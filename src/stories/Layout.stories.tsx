@@ -10,6 +10,7 @@ import { Banner } from 'component/general/layout/Banner';
 import { UserMenu } from 'component/general/navigation/UserMenu';
 import { Favorite, CalendarToday, Fingerprint } from '@material-ui/icons';
 import { Header } from 'component/general/layout/Header';
+import { Button } from 'component/general/button/Button';
 
 const loremIpsumContent = (
     <>
@@ -82,15 +83,9 @@ WithSidebar.args = {
                 <Box style={{ marginTop: '.5em' }}>
                     <Navigation
                         primaryButtons={[
-                            <NavigationButton>
-                                <Favorite />
-                            </NavigationButton>,
-                            <NavigationButton>
-                                <CalendarToday />
-                            </NavigationButton>,
-                            <NavigationButton>
-                                <Fingerprint />
-                            </NavigationButton>,
+                            <Button icon={<Favorite />} />,
+                            <Button icon={<CalendarToday />} />,
+                            <Button icon={<Fingerprint />} />,
                         ]}
                     />
                     <div>Ich bin eine Seitenleiste</div>
