@@ -1,23 +1,21 @@
 .box {
-  font-size: 0.8rem;
-  margin: 0.5em;
-  background-color: rgba(var(--lotta-box-background-color), 1);
-  padding: 0.5em;
-  font-family: sans-serif;
-  display: flex;
+    font-size: 0.8rem;
+    margin: 0;
+    background-color: rgba(var(--lotta-box-background-color), 1);
+    padding: 0.5em;
+    font-family: sans-serif;
+    display: flex;
+    width: 100%;
 }
 
-.box.no-margin {
-  margin: 0;
+.box div {
+    display: block;
 }
 
-.box.margin-top {
-  margin-top: 0.5em;
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: 0;
+.banner .box div {
+    display: flex;
 }
 
-.full-width {
-  width: 100%;
+aside .box {
+    display: block;
 }

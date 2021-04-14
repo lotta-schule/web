@@ -5,6 +5,7 @@
     background: none;
     border-radius: 0.5em;
     padding: 0.7em;
+    cursor: pointer;
     display: flex;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -13,6 +14,7 @@
     &:not([disabled]) {
         cursor: pointer;
         &:hover {
+            filter: brightness(80%);
             transition: linear;
             transition-duration: 0.2s;
             background-color: rgba(var(--lotta-primary-color), 0.1);
@@ -30,7 +32,7 @@
 
 .lotta-base-button.selected {
     border: 1px solid rgba(var(--lotta-primary-color), 1);
-    background-color: rgba(var(--lotta-primary-color), 0.1);
+    background-color: rgba(var(--lotta-primary-color), 0.2);
     filter: brightness(90%);
 
     &:hover {
@@ -54,10 +56,9 @@ nav.lotta-navbar ul.secondary .lotta-base-button.selected {
 /**
   * Custom styles for different variants
   */
-/* .lotta-base-button__variant__default {} */
 .lotta-base-button.variant__fill {
     background-color: rgba(var(--lotta-primary-color), 1);
-    color: #fff;
+    color: rgba(var(--lotta-contrast-text-color), 1);
     &:hover {
         transition: linear;
         transition-duration: 0.2s;

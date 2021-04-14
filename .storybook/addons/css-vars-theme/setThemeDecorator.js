@@ -9,6 +9,7 @@ export const initialState = {
     'error-color': [230, 0, 0],
     'text-color': [3, 3, 3],
     'disabled-color': [158, 158, 158],
+    'contrast-text-color': [255, 255, 255],
     'box-background-color': [255, 255, 255],
     'page-background-color': [227, 227, 227],
     'banner-background-color1': [54, 123, 240],

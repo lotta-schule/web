@@ -34,8 +34,3 @@ IconButton.args = {
     label: 'Navigation-Button with Icon',
     icon: <Close />,
 };
-
-export const OnlyIconButton = Template.bind({});
-OnlyIconButton.args = {
-    icon: <Favorite />,
-};

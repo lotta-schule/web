@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BaseButton, BaseButtonProps } from './BaseButton';
 import clsx from 'clsx';
-import './button.css';
+import './button.scss';
 
 export interface ButtonProps extends BaseButtonProps {
     /**
@@ -20,7 +20,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <BaseButton
                 {...props}
                 ref={ref}
-                className={clsx('lotta-button', props.className)}
+                className={clsx('lotta-button', props.className, {
+                    'only-icon': icon && !(label || children),
+                })}
             >
                 {icon && <span className={'lotta-button_icon'}>{icon}</span>}
                 {(label ?? children) && (

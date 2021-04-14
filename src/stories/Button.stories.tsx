@@ -22,8 +22,13 @@ Primary.args = {
     label: 'Button',
 };
 
+export const IconWithLabelButton = Template.bind({});
+IconWithLabelButton.args = {
+    label: 'Button with Icon',
+    icon: <Close />,
+};
+
 export const IconButton = Template.bind({});
 IconButton.args = {
-    label: 'Button with Icon',
     icon: <Close />,
 };

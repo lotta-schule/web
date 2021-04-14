@@ -1,0 +1,33 @@
+.lotta-button {
+    color: rgba(var(--lotta-primary-color), 1);
+    min-height: 2.8em;
+    padding: 0.4em;
+}
+
+.lotta-button_icon {
+    display: flex;
+}
+
+.lotta-button_text {
+    margin: auto;
+}
+
+aside .lotta-button_text {
+    margin: 0;
+}
+
+aside .lotta-navigation-button {
+    border-radius: 50%;
+}
+
+aside nav.lotta-navbar ul {
+    height: auto;
+}
+
+.only-icon:not(.lotta-grouped-button) {
+    border-radius: 50%;
+    border-color: transparent;
+    &:hover {
+        background-color: #0000000f;
+    }
+}
