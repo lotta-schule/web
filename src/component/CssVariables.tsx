@@ -21,7 +21,7 @@ export const CssVariables = React.memo(() => {
     const cssVariables = React.useMemo<Record<string, CssVarValue>>(
         () => ({
             primaryColor: decomposeColor(
-                theme.palette.primary.main
+                theme.palette.secondary.main
             ).values.slice(0, 3),
             errorColor: decomposeColor(theme.palette.error.main).values.slice(
                 0,
@@ -34,6 +34,9 @@ export const CssVariables = React.memo(() => {
                 0,
                 3
             ),
+            contrastTextColor: decomposeColor(
+                theme.palette.secondary.contrastText
+            ).values.slice(0, 3),
             boxBackgroundColor: decomposeColor(
                 theme.palette.background.paper
             ).values.slice(0, 3),
