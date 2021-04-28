@@ -8,20 +8,27 @@ export interface ButtonProps extends BaseButtonProps {
      * Button contents
      */
     label?: string;
+
     /**
      * Icon to show on the button side
      */
     icon?: React.ReactElement;
+
+    /**
+     * Force style for button with only icon and without label,
+     * even if child is found
+     */
+    onlyIcon?: boolean;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ icon, label, children, ...props }, ref) => {
+    ({ icon, label, onlyIcon, children, ...props }, ref) => {
         return (
             <BaseButton
                 {...props}
                 ref={ref}
                 className={clsx('lotta-button', props.className, {
-                    'only-icon': icon && !(label || children),
+                    'only-icon': onlyIcon || (icon && !(label || children)),
                 })}
             >
                 {icon && <span className={'lotta-button_icon'}>{icon}</span>}
