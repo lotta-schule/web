@@ -12,14 +12,17 @@
 }
 
 .lotta-base-button:hover {
-    filter: brightness(80%);
+    background-color: rgba(var(--lotta-primary-color), 0.1);
     transition: linear;
     transition-duration: 0.2s;
 }
 
 .lotta-base-button.selected {
     border: 1px solid rgba(var(--lotta-primary-color), 1);
-    background-color: rgba(var(--lotta-primary-color), 0.2);
+    background-color: rgba(var(--lotta-primary-color), 0.1);
+    &:hover {
+        filter: brightness(0.9);
+    }
 }
 /**
   * Custom style for selected BaseButtons
@@ -40,4 +43,8 @@ nav.lotta-navbar ul.secondary .lotta-base-button.selected {
 .lotta-base-button.lotta-base-button__variant__fill {
     background-color: rgba(var(--lotta-primary-color), 1);
     color: rgba(var(--lotta-contrast-text-color), 1);
+    &:hover {
+        background-color: rgba(var(--lotta-primary-color), 0.8);
+        border-color: rgba(var(--lotta-primary-color), 0.8);
+    }
 }

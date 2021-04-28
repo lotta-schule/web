@@ -10,7 +10,7 @@ button.lotta-navigation-button {
 }
 
 .lotta-navigation-button:hover {
-    background-color: #0000000f;
+    background-color: rgba(var(--lotta-primary-color), 0.1);
     transition: linear;
     transition-duration: 0.2s;
 }

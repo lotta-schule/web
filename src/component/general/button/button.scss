@@ -28,6 +28,6 @@ aside nav.lotta-navbar ul {
     border-radius: 50%;
     border-color: transparent;
     &:hover {
-        background-color: #0000000f;
+        background-color: rgba(var(--lotta-primary-color), 0.2);
     }
 }
