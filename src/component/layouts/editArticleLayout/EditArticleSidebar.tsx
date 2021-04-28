@@ -53,11 +53,6 @@ const useStyles = makeStyles((theme) => ({
     },
     saveButton: {
         marginBottom: theme.spacing(1),
-        '& button': {
-            backgroundColor: [theme.palette.secondary.main, '!important'],
-            borderColor: [theme.palette.secondary.main, '!important'],
-            color: [theme.palette.secondary.contrastText, '!important'],
-        },
     },
     cancelButton: {
         borderColor: theme.palette.secondary.main,
@@ -71,6 +66,9 @@ const useStyles = makeStyles((theme) => ({
         borderColor: theme.palette.error.main,
         backgroundColor: theme.palette.error.main,
         marginTop: theme.spacing(2),
+        '& hover': {
+            backgroundColor: [theme.palette.error.main, 0.8],
+        },
     },
     leftIcon: {
         marginRight: theme.spacing(1),

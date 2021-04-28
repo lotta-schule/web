@@ -13,14 +13,11 @@
     justify-content: center;
     &:not([disabled]) {
         cursor: pointer;
-        &:hover {
-            filter: brightness(80%);
+        &:hover,
+        &:active {
             transition: linear;
             transition-duration: 0.2s;
             background-color: rgba(var(--lotta-primary-color), 0.1);
-        }
-        &:active {
-            filter: brightness(80%);
         }
     }
 }
