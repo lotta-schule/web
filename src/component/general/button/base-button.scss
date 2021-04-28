@@ -30,13 +30,19 @@
     border-color: rgba(var(--lotta-disabled-color), 1);
 }
 
+.lotta-base-button:hover {
+    background-color: rgba(var(--lotta-primary-color), 0.1);
+    transition: linear;
+    transition-duration: 0.2s;
+}
+
 .lotta-base-button.selected {
     border: 1px solid rgba(var(--lotta-primary-color), 1);
     background-color: rgba(var(--lotta-primary-color), 0.2);
     filter: brightness(90%);
 
     &:hover {
-        filter: none;
+        filter: brightness(0.9);
     }
     &:active {
         filter: brightness(70%);
@@ -62,7 +68,8 @@ nav.lotta-navbar ul.secondary .lotta-base-button.selected {
     &:hover {
         transition: linear;
         transition-duration: 0.2s;
-        background-color: rgba(var(--lotta-primary-color), 0.7);
+        background-color: rgba(var(--lotta-primary-color), 0.8);
+        border-color: rgba(var(--lotta-primary-color), 0.8);
     }
     &:active {
         background-color: rgba(var(--lotta-primary-color), 0.5);
