@@ -31,6 +31,7 @@ import { ErrorMessage } from 'component/general/ErrorMessage';
 import { UpdatePasswordDialog } from 'component/dialog/UpdatePasswordDialog';
 import { EnrollmentTokensEditor } from '../EnrollmentTokensEditor';
 import { useHistory } from 'react-router-dom';
+import { NavigationButton } from 'component/general/button/NavigationButton';
 
 export const useStyles = makeStyles((theme) => ({
     gridContainer: {
@@ -117,7 +118,7 @@ export const ProfileData = memo(() => {
                                 horizontal: 'right',
                             }}
                             badgeContent={
-                                <Button
+                                <NavigationButton
                                     onClick={() => setAvatarImageFile(null)}
                                     icon={<Clear />}
                                 />
@@ -191,23 +192,23 @@ export const ProfileData = memo(() => {
                         />
                         <Grid container>
                             <Grid item sm={6}>
-                                <Button
+                                <NavigationButton
                                     onClick={() =>
                                         setIsShowUpdateEmailDialog(true)
                                     }
                                 >
                                     Email ändern
-                                </Button>
+                                </NavigationButton>
                             </Grid>
                             <Grid item sm={6}>
-                                <Button
+                                <NavigationButton
                                     onClick={() =>
                                         setIsShowUpdatePasswordDialog(true)
                                     }
                                     style={{ float: 'right' }}
                                 >
                                     Passwort ändern
-                                </Button>
+                                </NavigationButton>
                             </Grid>
                         </Grid>
                         <TextField
