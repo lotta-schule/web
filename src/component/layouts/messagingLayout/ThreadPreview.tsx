@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'left',
         alignSelf: 'center',
         fontSize: '0.9rem',
-        fontWeight: 'bold',
+        color: theme.palette.text.primary,
     },
     userAvatar: {
         float: 'left',
