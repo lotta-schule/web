@@ -462,6 +462,7 @@ export const EditArticleSidebar = React.memo<EditArticleSidebarProps>(
                     <Button
                         className={styles.deleteButton}
                         onClick={() => setIsDeleteModalOpen(true)}
+                        variant={'error'}
                         icon={
                             <Warning
                                 className={clsx(
