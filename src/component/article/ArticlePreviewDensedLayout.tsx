@@ -38,8 +38,7 @@ const useStyle = makeStyles<Theme, { isEmbedded?: boolean }>((theme) => ({
             '& .edit-button': {
                 border: 0,
                 display: 'flex',
-                color: theme.palette.primary.contrastText,
-                backgroundColor: theme.palette.secondary.main,
+                color: theme.palette.secondary.main,
             },
         },
     },
