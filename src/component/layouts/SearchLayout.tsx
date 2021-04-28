@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
     advancedSettingsButton: {
         float: 'right',
+        marginTop: theme.spacing(1),
     },
     advancedSettings: {
         overflow: 'hidden',
