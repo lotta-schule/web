@@ -7,7 +7,6 @@ import {
     FileExplorerProps,
 } from 'component/fileExplorer/FileExplorer';
 import { ResponsiveFullScreenDialog } from 'component/dialog/ResponsiveFullScreenDialog';
-import { NavigationButtonProps } from 'component/general/button/NavigationButton';
 
 interface SelectFileButtonProps {
     label: string | JSX.Element;

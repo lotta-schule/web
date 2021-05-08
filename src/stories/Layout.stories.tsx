@@ -15,21 +15,21 @@ import { Button } from 'component/general/button/Button';
 const loremIpsumContent = (
     <>
         <Box style={{ marginTop: '.5em' }}>
-            <img src="https://picsum.photos/300/200" />
+            <img src="https://picsum.photos/300/200" alt="" />
             <Box>
                 <h2>Voll krasser Beitragstitel</h2>
                 <div>Der Vorschautext vom Beitrag Voll krasser Beitrag.</div>
             </Box>
         </Box>
         <Box style={{ marginTop: '.5em' }}>
-            <img src="https://picsum.photos/300/200" />
+            <img src="https://picsum.photos/300/200" alt="" />
             <Box>
                 <h2>Boxtitel</h2>
                 <div>Boxinhalt</div>
             </Box>
         </Box>
         <Box style={{ marginTop: '.5em' }}>
-            <img src="https://picsum.photos/300/200" />
+            <img src="https://picsum.photos/300/200" alt="" />
             <Box>
                 <h2>Boxtitel</h2>
                 <div>Boxinhalt</div>
@@ -48,7 +48,7 @@ const Template: Story = ({ children, ...args }) => (
     <Page>
         <Header>
             <Box>
-                <img src="https://picsum.photos/300/100" />
+                <img src="https://picsum.photos/300/100" alt="" />
                 <h2>Lotta Gesamtschule</h2>
             </Box>
         </Header>

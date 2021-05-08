@@ -6,7 +6,7 @@ import {
     NavigationButton,
     NavigationButtonProps,
 } from '../component/general/button/NavigationButton';
-import { Close, Favorite } from '@material-ui/icons';
+import { Close } from '@material-ui/icons';
 
 export default {
     title: 'Buttons/NavigationButton',
