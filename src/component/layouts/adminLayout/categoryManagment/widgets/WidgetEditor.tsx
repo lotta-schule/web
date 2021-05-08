@@ -1,5 +1,10 @@
-import React, { memo, useState, useEffect, useCallback } from 'react';
-import { Divider, TextField, Typography, makeStyles } from '@material-ui/core';
+import * as React from 'react';
+import {
+    Divider,
+    TextField,
+    Typography,
+    makeStyles,
+} from '@material-ui/core';
 import { Button } from 'component/general/button/Button';
 import { WidgetModel, WidgetModelType } from 'model';
 import { GroupSelect } from 'component/edit/GroupSelect';
@@ -37,22 +42,22 @@ export interface WidgetEditorProps {
     onSelectWidget(widget: WidgetModel | null): void;
 }
 
-export const WidgetEditor = memo<WidgetEditorProps>(
+export const WidgetEditor = React.memo<WidgetEditorProps>(
     ({ selectedWidget, onSelectWidget }) => {
         const styles = useStyles();
 
-        const [widget, setWidget] = useState<WidgetModel | null>(null);
+        const [widget, setWidget] = React.useState<WidgetModel | null>(null);
         const [
             isDeleteWidgetDialogOpen,
             setIsDeleteWidgetDialogOpen,
-        ] = useState(false);
+        ] = React.useState(false);
 
         const [mutateWidget, { loading: isLoading, error }] = useMutation<
             { widget: WidgetModel },
             { id: ID; widget: any }
         >(UpdateWidgetMutation);
 
-        const updateWidget = useCallback(async () => {
+        const updateWidget = React.useCallback(async () => {
             if (!selectedWidget || !widget) {
                 return null;
             }
@@ -71,7 +76,7 @@ export const WidgetEditor = memo<WidgetEditorProps>(
             });
         }, [selectedWidget, widget, mutateWidget]);
 
-        useEffect(() => {
+        React.useEffect(() => {
             if (selectedWidget === null && widget !== null) {
                 setWidget(null);
             } else if (selectedWidget) {
@@ -109,7 +114,7 @@ export const WidgetEditor = memo<WidgetEditorProps>(
                 <Divider className={styles.divider} />
 
                 <WidgetIconSelection
-                    icon={widget.configuration.icon ?? {}}
+                    icon={widget.configuration?.icon ?? {}}
                     onSelectIcon={(icon) =>
                         setWidget({
                             ...widget,
