@@ -1,5 +1,4 @@
-@import "breakpoints.scss";
-
+@import 'breakpoints.scss';
 
 .articles {
     display: flex;
@@ -13,7 +12,7 @@
             &:nth-child(2n) {
                 padding-left: calc(var(--lotta-spacing) / 2);
             }
-            &:nth-child(2n+1) {
+            &:nth-child(2n + 1) {
                 padding-right: calc(var(--lotta-spacing) / 2);
             }
         }

@@ -69,97 +69,97 @@ export const ArticlePreviewDensedLayout = React.memo<ArticlePreviewProps>(
                         <div className={styles.previewImageWrapper}>
                             {maybeLinked(
                                 <BackgroundImg
-                                height={'100%'}
-                                src={File.getFileRemoteLocation(
-                                    baseUrl,
-                                    article.previewImageFile
-                                )}
-                                className={styles.articlePreviewImage}
-                                params="func=crop&gravity=auto"
+                                    height={'100%'}
+                                    src={File.getFileRemoteLocation(
+                                        baseUrl,
+                                        article.previewImageFile
+                                    )}
+                                    className={styles.articlePreviewImage}
+                                    params="func=crop&gravity=auto"
                                 />
                             )}
                         </div>
                     )}
-            <div className={styles.boxContent}>
-            <h3 className={styles.articleTitle}>
-            {!isEmbedded &&
-                currentUser &&
-                currentUser.lastSeen &&
-                isBefore(
-                    new Date(currentUser.lastSeen),
-                    new Date(article.updatedAt)
-                ) && (
-                    <FiberManualRecord
-                    color={'secondary'}
-                    fontSize={'small'}
-                    />
-                )}
-            {maybeLinked(article.title)}
-            </h3>
-            <span
-            className={clsx(styles.previewText, {
-                [styles.previewTextLimitedHeight]:
-                limitedHeight,
-            })}
-                            >
-    {article.preview}
-    </span>
-    </div>
-    <div className={styles.meta}>
-    <span className={clsx(styles.subtitle)}>
-    {format(new Date(article.updatedAt), 'P', {
-        locale: de,
-    }) + ' '}
-            </span>
-            <span className={clsx(styles.subtitle)}>
-            {article.users && article.users.length > 0 && (
-                <>
-                &nbsp;
-                <AuthorAvatarsList users={article.users} />
-                &nbsp;
-                </>
-            )}
-            </span>
-            </div>
+                    <div className={styles.boxContent}>
+                        <h3 className={styles.articleTitle}>
+                            {!isEmbedded &&
+                                currentUser &&
+                                currentUser.lastSeen &&
+                                isBefore(
+                                    new Date(currentUser.lastSeen),
+                                    new Date(article.updatedAt)
+                                ) && (
+                                    <FiberManualRecord
+                                        color={'secondary'}
+                                        fontSize={'small'}
+                                    />
+                                )}
+                            {maybeLinked(article.title)}
+                        </h3>
+                        <span
+                            className={clsx(styles.previewText, {
+                                [styles.previewTextLimitedHeight]:
+                                    limitedHeight,
+                            })}
+                        >
+                            {article.preview}
+                        </span>
+                    </div>
+                    <div className={styles.meta}>
+                        <span className={clsx(styles.subtitle)}>
+                            {format(new Date(article.updatedAt), 'P', {
+                                locale: de,
+                            }) + ' '}
+                        </span>
+                        <span className={clsx(styles.subtitle)}>
+                            {article.users && article.users.length > 0 && (
+                                <>
+                                    &nbsp;
+                                    <AuthorAvatarsList users={article.users} />
+                                    &nbsp;
+                                </>
+                            )}
+                        </span>
+                    </div>
                     {!isMobile &&
                         ((!disableEdit &&
                             User.canEditArticle(currentUser, article)) ||
                             (!disablePin && User.isAdmin(currentUser))) && (
-                                <div className={styles.editSection}>
+                            <div className={styles.editSection}>
                                 {!disableEdit &&
                                     User.canEditArticle(
                                         currentUser,
                                         article
                                     ) && (
                                         <Link
-                                        href={Article.getPath(article, {
-                                            edit: true,
-                                        })}
-                                        passHref
-                                    >
-                                        <Button
-                                        small
-                                        aria-label="Edit"
-                                        className={clsx(
-                                            styles.editButton,
-                                            'edit-button'
-                                        )}
-                                        icon={<Edit />}
-                                        />
+                                            href={Article.getPath(article, {
+                                                edit: true,
+                                            })}
+                                            passHref
+                                        >
+                                            <Button
+                                                small
+                                                aria-label="Edit"
+                                                className={clsx(
+                                                    styles.editButton,
+                                                    'edit-button'
+                                                )}
+                                                icon={<Edit />}
+                                            />
                                         </Link>
                                     )}
                                 {!disablePin && User.isAdmin(currentUser) && (
                                     <Button
-                                    small
-                                    aria-label="Pin"
-                                    className={clsx(styles.pinButton, {
-                                        active: article.isPinnedToTop,
-                                    })}
-                                    onClick={() => toggleArticlePin()}
-                                    icon={<Place />}
+                                        small
+                                        aria-label="Pin"
+                                        className={clsx(styles.pinButton, {
+                                            active: article.isPinnedToTop,
+                                        })}
+                                        onClick={() => toggleArticlePin()}
+                                        icon={<Place />}
                                     />
                                 )}
-                                </div>
+                            </div>
                         )}
                 </>
             </Box>
