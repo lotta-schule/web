@@ -35,14 +35,6 @@
 
     .tableline {
         justify-content: flex-start;
-        text-decoration: none;
-        width: 100%;
-        display: flex;
-        position: relative;
-        box-sizing: border-box;
-        justify-content: space-between;
-        align-items: center;
-        padding: var(--lotta-spacing);
         font-size: 0.875rem;
         line-height: 1.43;
         &:hover {

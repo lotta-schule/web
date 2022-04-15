@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/client';
 import { Button } from 'shared/general/button/Button';
 import { Checkbox } from 'shared/general/form/checkbox';
 import { Divider } from 'shared/general/divider/Divider';
+import { List, ListItem } from 'shared/general/list/List';
 import { EnrollmentTokensEditor } from 'profile/component/EnrollmentTokensEditor';
 import { ErrorMessage } from 'shared/general/ErrorMessage';
 import { Input } from 'shared/general/form/input/Input';
@@ -99,19 +100,23 @@ export const ProfilePage = () => {
                             }
                         />
                         <Divider className={styles.divider} />
-                        <dl
-                            className={styles.groupList}
-                            data-testid="ProfileData-GroupsList"
+                        <Label
+                            className={styles.subheader}
+                            label={'Meine Gruppen'}
                         >
-                            <dt className={styles.subheader}>Meine Gruppen</dt>
-                            {[...currentUser.groups]
-                                .sort((g1, g2) => g2.sortKey - g1.sortKey)
-                                .map((group) => (
-                                    <li key={group.id}>
-                                        <div>{group.name}</div>
-                                    </li>
-                                ))}
-                        </dl>
+                            <List
+                                className={styles.groupList}
+                                data-testid="ProfileData-GroupsList"
+                            >
+                                {[...currentUser.groups]
+                                    .sort((g1, g2) => g2.sortKey - g1.sortKey)
+                                    .map((group) => (
+                                        <ListItem key={group.id}>
+                                            {group.name}
+                                        </ListItem>
+                                    ))}
+                            </List>
+                        </Label>
                         <section className={styles.dangerSection}>
                             <Divider className={styles.divider} />
                             <Link href={'/profile/delete'} passHref>
