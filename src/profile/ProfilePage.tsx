@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { List, ListItemText, ListItem, ListSubheader } from '@material-ui/core';
 import { Avatar } from 'shared/general/avatar/Avatar';
 import { Box } from 'shared/general/layout/Box';
 import { useMutation } from '@apollo/client';
@@ -100,24 +99,19 @@ export const ProfilePage = () => {
                             }
                         />
                         <Divider className={styles.divider} />
-                        <List
+                        <dl
                             className={styles.groupList}
-                            dense
-                            subheader={
-                                <ListSubheader>Meine Gruppen</ListSubheader>
-                            }
                             data-testid="ProfileData-GroupsList"
                         >
+                            <dt className={styles.subheader}>Meine Gruppen</dt>
                             {[...currentUser.groups]
                                 .sort((g1, g2) => g2.sortKey - g1.sortKey)
                                 .map((group) => (
-                                    <ListItem key={group.id}>
-                                        <ListItemText>
-                                            {group.name}
-                                        </ListItemText>
-                                    </ListItem>
+                                    <li key={group.id}>
+                                        <div>{group.name}</div>
+                                    </li>
                                 ))}
-                        </List>
+                        </dl>
                         <section className={styles.dangerSection}>
                             <Divider className={styles.divider} />
                             <Link href={'/profile/delete'} passHref>

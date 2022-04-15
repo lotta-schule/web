@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { List, ListItem, ListItemText } from '@material-ui/core';
 import { Tooltip } from 'shared/general/util/Tooltip';
 import { FiberManualRecord } from '@material-ui/icons';
 import { useApolloClient } from '@apollo/client';
@@ -93,7 +92,7 @@ export const Calendar = React.memo<CalendarProps>(({ widget }) => {
                         ))}
                     </figcaption>
                 )}
-                <List dense className={styles.list}>
+                <ul className={styles.list}>
                     {[...events]
                         .sort(
                             (ev1, ev2) =>
@@ -112,11 +111,11 @@ export const Calendar = React.memo<CalendarProps>(({ widget }) => {
                                 false;
                             return (
                                 <React.Fragment key={i}>
-                                    <ListItem
+                                    <li
                                         className={styles.tableline}
                                         aria-label={`Ereignis: ${event.summary}`}
                                     >
-                                        <ListItemText
+                                        <div
                                             className={clsx([
                                                 styles.listItemTextDate,
                                                 {
@@ -152,22 +151,24 @@ export const Calendar = React.memo<CalendarProps>(({ widget }) => {
                                                     )}
                                                 </>
                                             )}
-                                        </ListItemText>
-                                        <ListItemText
+                                        </div>
+                                        <div
                                             className={
                                                 styles.listItemTextEventDescription
                                             }
                                         >
                                             <Tooltip label={event.description}>
-                                                <span title={event.description}>{event.summary}</span>
+                                                <span title={event.description}>
+                                                    {event.summary}
+                                                </span>
                                             </Tooltip>
-                                        </ListItemText>
-                                    </ListItem>
+                                        </div>
+                                    </li>
                                     <Divider />
                                 </React.Fragment>
                             );
                         })}
-                </List>
+                </ul>
             </div>
         );
     }

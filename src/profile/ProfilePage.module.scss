@@ -35,6 +35,13 @@
 
     .groupList {
         margin-bottom: 60;
+        li {
+            list-style: none;
+            padding-top: var(--lotta-spacing);
+            padding-bottom: var(--lotta-spacing);
+            padding-right: calc(2 * var(--lotta-spacing));
+            padding-left: calc(2 * var(--lotta-spacing));
+        }
     }
 
     .groupListItem {
@@ -66,5 +73,18 @@
                 width: 100%;
             }
         }
+    }
+    .subheader {
+        color: rgba(var(--lotta-text-color), 0.7);
+        box-sizing: border-box;
+        list-style: none;
+        font-weight: 500;
+        line-height: 48px;
+        padding-left: calc(2 * var(--lotta-spacing));
+        padding-right: calc(2 * var(--lotta-spacing));
+        top: 0;
+        z-index: 1;
+        position: sticky;
+        background-color: inherit;
     }
 }
