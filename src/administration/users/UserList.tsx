@@ -7,9 +7,9 @@ import { de } from 'date-fns/locale';
 import { useCurrentUser } from 'util/user/useCurrentUser';
 import { UserAvatar } from 'shared/userAvatar/UserAvatar';
 import { GroupSelect } from 'shared/edit/GroupSelect';
-import { VirtualizedTable } from 'shared/general/VirtualizedTable';
 import { Divider } from 'shared/general/divider/Divider';
 import { Input } from 'shared/general/form/input/Input';
+import { Table } from 'shared/general/table/Table';
 import { LinearProgress } from 'shared/general/progress/LinearProgress';
 import { SearchUserField } from './SearchUserField';
 import { EditUserPermissionsDialog } from './EditUserPermissionsDialog';
@@ -133,39 +133,41 @@ export const UserList = React.memo(() => {
                         </div>
                     </div>
 
-                    <VirtualizedTable
-                        className={styles.virtualizedTable}
-                        rowCount={rows.length}
-                        rowGetter={({ index }) => rows[index]}
-                        headerHeight={48}
-                        rowHeight={48}
-                        onRowClick={({ rowData: { user } }) => {
-                            if (user.id !== currentUser?.id) {
-                                setSelectedUser(user);
-                            }
-                        }}
-                        columns={[
-                            {
-                                width: 50,
-                                label: '',
-                                dataKey: 'avatarImage',
-                            },
-                            {
-                                width: 300,
-                                label: 'Name',
-                                dataKey: 'name',
-                            },
-                            {
-                                label: 'Gruppen',
-                                dataKey: 'groups',
-                            },
-                            {
-                                width: 200,
-                                label: 'Zuletzt Online',
-                                dataKey: 'lastSeen',
-                            },
-                        ]}
-                    />
+                    <Table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Gruppen</th>
+                                <th>Zuletzt Online</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {rows.map(
+                                ({
+                                    user,
+                                    avatarImage,
+                                    name,
+                                    groups,
+                                    lastSeen,
+                                }) => (
+                                    <tr
+                                        key={user.id}
+                                        onClick={() => {
+                                            if (user.id !== currentUser?.id) {
+                                                setSelectedUser(user);
+                                            }
+                                        }}
+                                    >
+                                        <td>{avatarImage}</td>
+                                        <td>{name}</td>
+                                        <td>{groups}</td>
+                                        <td>{lastSeen}</td>
+                                    </tr>
+                                )
+                            )}
+                        </tbody>
+                    </Table>
                 </>
             )}
             {selectedUser && (
