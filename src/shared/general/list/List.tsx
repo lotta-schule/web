@@ -2,6 +2,7 @@ import * as React from 'react';
 import clsx from 'clsx';
 
 import styles from './List.module.scss';
+import { Divider } from '../divider/Divider';
 
 export type ListProps = React.HTMLProps<HTMLUListElement>;
 
@@ -18,26 +19,40 @@ export const List: React.FC<ListProps> = ({
 };
 List.displayName = 'List';
 
-export interface ListItemProps extends React.HTMLProps<HTMLLIElement> {
+export type ListItemProps = (
+    | (React.HTMLProps<HTMLLIElement> & { isDivider?: boolean })
+    | React.HTMLProps<HTMLLinkElement>
+) & {
     leftSection?: React.ReactNode;
     rightSection?: React.ReactNode;
-}
+};
 
-export const ListItem: React.FC<ListItemProps> = ({
-    children,
-    className,
-    leftSection,
-    rightSection,
-    ...props
-}) => {
-    return (
-        <li className={clsx(styles.li, className)} {...props}>
+export const ListItem = React.forwardRef<
+    HTMLLinkElement | HTMLLIElement,
+    ListItemProps
+>(({ children, className, leftSection, rightSection, href, ...props }, ref) => {
+    if ('isDivider' in props) {
+        const { isDivider, ...rest } = props;
+        return (
+            <li
+                className={clsx(styles.li, styles.isDivider, className)}
+                {...rest}
+            >
+                <Divider />
+            </li>
+        );
+    }
+    const elementName = href ? 'a' : 'li';
+    return React.createElement(
+        elementName,
+        { className: clsx(styles.li, className), href, ref, ...props },
+        <>
             {leftSection && <div>{leftSection}</div>}
             <div className={styles.mainSection}>{children}</div>
             {rightSection && <div>{rightSection}</div>}
-        </li>
+        </>
     );
-};
+});
 ListItem.displayName = 'ListItem';
 
 export type ListItemSecondaryTextProps = React.HTMLProps<HTMLSpanElement>;
