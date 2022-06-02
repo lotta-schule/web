@@ -32,7 +32,8 @@
         }
     }
 
-    a.li {
+    .li[role='menuitem']:not([disabled]) {
+        cursor: pointer;
         &:hover {
             background-color: rgba(var(--lotta-primary-color), 0.25);
         }

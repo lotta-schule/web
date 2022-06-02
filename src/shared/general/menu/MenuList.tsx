@@ -11,18 +11,21 @@ export const MenuList: React.FC<MenuListProps> = ({ className, ...props }) => {
     return <List className={clsx(styles.root, className)} {...props} />;
 };
 
-export const MenuItem: React.FC<ListItemProps> = ({
+export const MenuItem: React.FC<Omit<ListItemProps, 'ref'>> = ({
     className,
     children,
+    onClick,
     ...props
 }) => {
     return (
-        <HeadlessMenu.Item
-            as={ListItem as any}
-            className={className}
-            {...props}
-        >
-            {children}
+        <HeadlessMenu.Item>
+            <ListItem
+                onClick={onClick}
+                className={className}
+                {...(props as any)}
+            >
+                {children}
+            </ListItem>
         </HeadlessMenu.Item>
     );
 };

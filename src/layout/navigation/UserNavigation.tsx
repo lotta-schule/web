@@ -19,19 +19,17 @@ import { Article, User } from 'util/model';
 import { LoginDialog } from 'shared/dialog/LoginDialog';
 import { RegisterDialog } from 'shared/dialog/RegisterDialog';
 import { useOnLogout } from 'util/user/useOnLogout';
-import { Divider } from 'shared/general/divider/Divider';
 import { NavigationButton } from 'shared/general/button/NavigationButton';
 import { CreateArticleDialog } from 'shared/dialog/CreateArticleDialog';
 import { CurrentUserAvatar } from 'shared/userAvatar/UserAvatar';
 import { useRouter } from 'next/router';
+import { Menu, MenuItem, MenuList } from 'shared/general/menu';
 import Link from 'next/link';
 import clsx from 'clsx';
 
 import GetUnpublishedArticlesQuery from 'api/query/GetUnpublishedArticles.graphql';
 
 import styles from './UserNavigation.module.scss';
-import { Menu } from 'shared/general/menu/Menu';
-import { MenuItem, MenuList } from 'shared/general/menu/MenuList';
 
 export const UserNavigation = React.memo(() => {
     const currentUser = useCurrentUser();
@@ -120,7 +118,7 @@ export const UserNavigation = React.memo(() => {
                             ),
                         }}
                     >
-                        <MenuList>
+                        <MenuList className={styles.menuList}>
                             {[
                                 <Link
                                     passHref
@@ -170,8 +168,7 @@ export const UserNavigation = React.memo(() => {
                                 ...(User.isAdmin(currentUser)
                                     ? [
                                           <MenuItem
-                                              isDivider
-                                              disabled
+                                              {...{ isDivider: true }}
                                               key={'administration-divider1'}
                                           />,
                                           <Link
@@ -212,8 +209,7 @@ export const UserNavigation = React.memo(() => {
                                       ]
                                     : []),
                                 <MenuItem
-                                    disabled
-                                    isDivider
+                                    {...{ isDivider: true }}
                                     key={'logout-divider'}
                                 />,
                                 <MenuItem

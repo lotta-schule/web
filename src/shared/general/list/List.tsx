@@ -36,6 +36,7 @@ export const ListItem = React.forwardRef<
         return (
             <li
                 className={clsx(styles.li, styles.isDivider, className)}
+                disabled
                 {...rest}
             >
                 <Divider />
