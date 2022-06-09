@@ -16,7 +16,7 @@ test:
   stage: test
   image: node:16
   script:
-    - npm install
+    - npm ci
     - npm run test:ci -- --coverage
   artifacts:
     when: always
@@ -38,7 +38,7 @@ lint:
   stage: test
   image: node:16
   script:
-    - npm install
+    - npm ci
     - npm run lint -- --max-warnings=0
 
 build docker image:staging:
