@@ -22,8 +22,9 @@ export const Stepper = React.memo<StepperProps>(
                     icon={<KeyboardArrowLeft />}
                     onClick={() => onStep(currentStep - 1)}
                     disabled={currentStep <= 0}
+                    aria-label={'Vorheriger Schritt'}
                 >
-                    letztes
+                    vorheriges
                 </NavigationButton>
                 <div>
                     {currentStep + 1} / {maxSteps}
@@ -33,6 +34,7 @@ export const Stepper = React.memo<StepperProps>(
                     icon={<KeyboardArrowRight />}
                     onClick={() => onStep(currentStep + 1)}
                     disabled={currentStep >= maxSteps - 1}
+                    aria-label={'Nächster Schritt'}
                 >
                     nächstes
                 </NavigationButton>
