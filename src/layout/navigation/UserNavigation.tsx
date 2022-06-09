@@ -168,7 +168,7 @@ export const UserNavigation = React.memo(() => {
                                 ...(User.isAdmin(currentUser)
                                     ? [
                                           <MenuItem
-                                              {...{ isDivider: true }}
+                                              isDivider
                                               key={'administration-divider1'}
                                           />,
                                           <Link
@@ -208,10 +208,7 @@ export const UserNavigation = React.memo(() => {
                                           </Link>,
                                       ]
                                     : []),
-                                <MenuItem
-                                    {...{ isDivider: true }}
-                                    key={'logout-divider'}
-                                />,
+                                <MenuItem isDivider key={'logout-divider'} />,
                                 <MenuItem
                                     key={'logout'}
                                     href={'#'}

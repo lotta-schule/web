@@ -1,7 +1,6 @@
 import { render } from 'test/util';
 import { Menu } from './Menu';
 import { MenuItem, MenuList } from './MenuList';
-import { ListItemProps } from '../list/List';
 import userEvent from '@testing-library/user-event';
 
 describe('MenuList', () => {
@@ -11,7 +10,7 @@ describe('MenuList', () => {
             <Menu buttonProps={{ label: 'Click' }}>
                 <MenuList>
                     <MenuItem href={'/a'}>A</MenuItem>
-                    <MenuItem {...({ isDivider: true } as ListItemProps)} />
+                    <MenuItem isDivider />
                     <MenuItem onClick={click}>C</MenuItem>
                 </MenuList>
             </Menu>

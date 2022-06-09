@@ -20,11 +20,12 @@ export const List: React.FC<ListProps> = ({
 List.displayName = 'List';
 
 export type ListItemProps = (
-    | (React.HTMLProps<HTMLLIElement> & { isDivider?: boolean })
+    | React.HTMLProps<HTMLLIElement>
     | React.HTMLProps<HTMLLinkElement>
 ) & {
     leftSection?: React.ReactNode;
     rightSection?: React.ReactNode;
+    isDivider?: boolean;
 };
 
 export const ListItem = React.forwardRef<

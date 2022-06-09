@@ -114,9 +114,7 @@ export const FileTableRow = React.memo<FileTableRowProps>(
                                 >
                                     Herunterladen
                                 </MenuItem>
-                                <MenuItem
-                                    {...({ isDivider: true } as ListItemProps)}
-                                />
+                                <MenuItem isDivider />
                                 <MenuItem
                                     leftSection={
                                         <CreateOutlined color={'secondary'} />

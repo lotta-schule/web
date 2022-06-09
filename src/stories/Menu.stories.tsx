@@ -19,7 +19,7 @@ Default.args = {
         <MenuList>
             <MenuItem href={'#'}>MenuItem 1</MenuItem>
             <MenuItem href={'#'}>MenuItem 2</MenuItem>
-            <MenuItem disabled isDivider />
+            <MenuItem isDivider />
             <MenuItem href={'#'}>MenuItem 3</MenuItem>
             <MenuItem href={'#'}>MenuItem 4</MenuItem>
             <MenuItem href={'#'}>MenuItem 5</MenuItem>
