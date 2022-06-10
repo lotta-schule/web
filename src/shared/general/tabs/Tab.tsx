@@ -7,11 +7,16 @@ import styles from './Tab.module.scss';
 
 export type TabProps = Omit<ButtonProps, 'onClick' | 'ref'> & {
     value: string | number;
+    selected?: boolean;
 };
 
 export const Tab: React.FC<TabProps> = ({ className, children, ...props }) => {
     return (
-        <NavigationButton className={clsx(styles.tab, className)} {...props}>
+        <NavigationButton
+            className={clsx(styles.tab, className)}
+            role={'tab'}
+            {...props}
+        >
             {children}
         </NavigationButton>
     );

@@ -1,8 +1,8 @@
 import * as React from 'react';
+import { TabProps } from './Tab';
 import clsx from 'clsx';
 
 import styles from './Tab.module.scss';
-import { Tab, TabProps } from './Tab';
 
 export type TabbarProps = {
     className?: string;
@@ -18,10 +18,11 @@ export const Tabbar: React.FC<TabbarProps> = ({
     children,
 }) => {
     return (
-        <div className={clsx(styles.tabbar, className)}>
+        <div className={clsx(styles.tabbar, className)} role={'tablist'}>
             {React.Children.map(
                 children as any,
                 (child: React.ReactElement<TabProps>, i) =>
+                    child &&
                     React.cloneElement(child as any, {
                         key: i,
                         onClick: () => {

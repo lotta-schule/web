@@ -1,9 +1,7 @@
 import React from 'react';
-// also exported from '@storybook/react' if you can deal with breaking changes in 6.1
-import { Story, Meta } from '@storybook/react/types-6-0';
+import { Story, Meta } from '@storybook/react';
 
-import { Tabbar } from '../shared/general/tabs/Tabbar';
-import { Tab } from 'shared/general/tabs/Tab';
+import { Tab, Tabbar } from '../shared/general/tabs';
 
 export default {
     title: 'Layout/Tabbar',
