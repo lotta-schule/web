@@ -1,8 +1,8 @@
 import * as React from 'react';
+import { Divider } from '../divider/Divider';
 import clsx from 'clsx';
 
 import styles from './List.module.scss';
-import { Divider } from '../divider/Divider';
 
 export type ListProps = React.HTMLProps<HTMLUListElement>;
 
@@ -32,8 +32,9 @@ export const ListItem = React.forwardRef<
     HTMLLinkElement | HTMLLIElement,
     ListItemProps
 >(({ children, className, leftSection, rightSection, href, ...props }, ref) => {
-    if ('isDivider' in props) {
-        const { isDivider, ...rest } = props;
+    if ('isDivider' in props && props.isDivider === true) {
+        const { isDivider, ...rest } =
+            props as React.HTMLProps<HTMLLIElement> & { isDivider: boolean };
         return (
             <li
                 className={clsx(styles.li, styles.isDivider, className)}
