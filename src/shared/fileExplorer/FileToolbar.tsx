@@ -16,6 +16,7 @@ import { DirectoryModel } from 'model';
 import { useCurrentUser } from 'util/user/useCurrentUser';
 import { useIsMobile } from 'util/useIsMobile';
 import { File } from 'util/model';
+import { PathViewer } from './PathViewer';
 import fileExplorerContext, {
     FileExplorerMode,
 } from './context/FileExplorerContext';
@@ -105,6 +106,7 @@ export const FileToolbar = React.memo(() => {
                                 );
                             })}
                     </Breadcrumbs>
+                    <PathViewer />
                 </div>
                 <div className={styles.spacer} />
                 <div className={styles.actions}>
