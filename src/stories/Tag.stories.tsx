@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Story, Meta } from '@storybook/react';
 import { Tag } from 'shared/general/tag/Tag';
 import { actions } from '@storybook/addon-actions';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Collapse, Grow } from '@material-ui/core';
+import { Collapse } from 'shared/general/util/Collapse';
 import { Tabbar, Tab } from 'shared/general/tabs';
 import { Box } from 'shared/general/layout/Box';
 import {
@@ -146,7 +146,11 @@ export const DeletePage = React.memo(() => {
             );
         return (
             <Box className={styles.boxActions}>
-                <Grow in={!isLoading && currentStep > ProfileDeleteStep.Start}>
+                <Collapse
+                    visible={
+                        !isLoading && currentStep > ProfileDeleteStep.Start
+                    }
+                >
                     <Button
                         small
                         icon={<NavigateBefore />}
@@ -158,8 +162,8 @@ export const DeletePage = React.memo(() => {
                     >
                         Zurück
                     </Button>
-                </Grow>
-                <Grow in={!isLoading}>{button}</Grow>
+                </Collapse>
+                <Collapse visible={!isLoading}>{button}</Collapse>
             </Box>
         );
     }, [currentStep, isLoading]);
@@ -179,7 +183,9 @@ export const DeletePage = React.memo(() => {
                 <ErrorMessage error={ownArticlesError || relevantFilesError} />
 
                 <Collapse
-                    in={!isLoading && currentStep === ProfileDeleteStep.Start}
+                    visible={
+                        !isLoading && currentStep === ProfileDeleteStep.Start
+                    }
                 >
                     <Box
                         className={styles.container}
@@ -224,7 +230,7 @@ export const DeletePage = React.memo(() => {
                 </Collapse>
 
                 <Collapse
-                    in={
+                    visible={
                         !isLoading &&
                         currentStep === ProfileDeleteStep.ReviewArticles
                     }
@@ -277,7 +283,7 @@ export const DeletePage = React.memo(() => {
                 </Collapse>
 
                 <Collapse
-                    in={
+                    visible={
                         !isLoading &&
                         currentStep === ProfileDeleteStep.ReviewFiles
                     }
@@ -370,7 +376,7 @@ export const DeletePage = React.memo(() => {
                 </Collapse>
 
                 <Collapse
-                    in={
+                    visible={
                         !isLoading &&
                         currentStep === ProfileDeleteStep.ConfirmDeletion
                     }

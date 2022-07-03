@@ -90,7 +90,7 @@ describe('shared/widgets/Schedule', () => {
     });
 
     describe("Pupil's Schedule", () => {
-        it('should show an information and a link to profile if userAvatar has no class', () => {
+        it('should show an information and a link to profile if userAvatar has no class', async () => {
             const screen = render(
                 <Schedule widget={VPSchuelerWidget} />,
                 {},
@@ -99,9 +99,11 @@ describe('shared/widgets/Schedule', () => {
                     additionalMocks: mocks,
                 }
             );
-            expect(
-                screen.getByRole('alert', { name: /hast keine klasse/i })
-            ).toBeVisible();
+            await waitFor(() => {
+                expect(
+                    screen.getByRole('alert', { name: /hast keine klasse/i })
+                ).toBeVisible();
+            });
             expect(
                 screen.getByRole('link', { name: /mein profil/i })
             ).toBeVisible();

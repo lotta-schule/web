@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grow } from '@material-ui/core';
+import { motion } from 'framer-motion';
 import { alpha } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
@@ -20,20 +20,21 @@ export const Message = React.memo<MessageProps>(
         };
 
         return (
-            <Grow in={!!message}>
-                <div
-                    role={'alert'}
-                    aria-label={message || undefined}
-                    style={otherStyle}
-                    className={clsx(styles.root, className, {
-                        [styles.enabled]: !!message,
-                    })}
-                    {...otherProps}
-                >
-                    {message}
-                    {children}
-                </div>
-            </Grow>
+            <motion.div
+                role={'alert'}
+                aria-label={message || undefined}
+                style={otherStyle}
+                className={clsx(styles.root, className)}
+                variants={{
+                    visible: { opacity: 1, height: 'auto' },
+                    hidden: { opacity: 0, height: 0 },
+                }}
+                animate={!!message ? 'visible' : 'hidden'}
+                {...(otherProps as any)}
+            >
+                {message}
+                {children}
+            </motion.div>
         );
     }
 );
