@@ -89,7 +89,6 @@
         "react-dropzone": "^14.2.1",
         "react-i18next": "^11.17.4",
         "react-popper": "^2.3.0",
-        "react-spring": "^9.4.5",
         "react-swipeable-views": "^0.14.0",
         "react-use": "^17.4.0",
         "slate": "^0.76.0",

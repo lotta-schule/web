@@ -24,6 +24,7 @@ export interface CalendarProps {
 }
 
 export const Calendar = React.memo<CalendarProps>(({ widget }) => {
+    const isMounted = React.useRef(true);
     const [isLoading, setIsLoading] = React.useState(false);
     const [events, setEvents] = React.useState<
         (CalendarEventModel & { calendar: CalendarWidgetCalendarConfig })[]
@@ -34,6 +35,13 @@ export const Calendar = React.memo<CalendarProps>(({ widget }) => {
         return widget.configuration?.calendars ?? [];
     }, [widget.configuration]);
     const apolloClient = useApolloClient();
+
+    React.useEffect(
+        () => () => {
+            isMounted.current = false;
+        },
+        []
+    );
 
     React.useEffect(() => {
         setIsLoading(true);
@@ -50,12 +58,16 @@ export const Calendar = React.memo<CalendarProps>(({ widget }) => {
             })
         )
             .then((eventsArr: any[]) => {
-                setEvents(eventsArr.flat());
-                setIsLoading(false);
+                if (isMounted.current) {
+                    setEvents(eventsArr.flat());
+                    setIsLoading(false);
+                }
             })
             .catch((err: Error) => {
-                setIsLoading(false);
-                setError(err);
+                if (isMounted.current) {
+                    setIsLoading(false);
+                    setError(err);
+                }
             });
     }, [apolloClient, calendars]);
 
@@ -151,20 +163,16 @@ export const Calendar = React.memo<CalendarProps>(({ widget }) => {
                                                             }
                                                         />
                                                     )}
-                                                    {format(
-                                                        start,
-                                                        'P',
-                                                        { locale: de }
-                                                    )}
+                                                    {format(start, 'P', {
+                                                        locale: de,
+                                                    })}
                                                     {isMultipleDays && (
                                                         <>
                                                             {' '}
                                                             -{' '}
-                                                            {format(
-                                                                end,
-                                                                'P',
-                                                                { locale: de }
-                                                            )}
+                                                            {format(end, 'P', {
+                                                                locale: de,
+                                                            })}
                                                         </>
                                                     )}
                                                 </div>
@@ -172,11 +180,9 @@ export const Calendar = React.memo<CalendarProps>(({ widget }) => {
                                                     <div
                                                         className={styles.time}
                                                     >
-                                                        {format(
-                                                            start,
-                                                            'p',
-                                                            { locale: de }
-                                                        )}
+                                                        {format(start, 'p', {
+                                                            locale: de,
+                                                        })}
                                                         {!isSameMinute(
                                                             start,
                                                             end

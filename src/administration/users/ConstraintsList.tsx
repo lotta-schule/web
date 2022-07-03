@@ -8,7 +8,7 @@ import { Label } from 'shared/general/label/Label';
 import { useTenant } from 'util/tenant/useTenant';
 import { useMutation } from '@apollo/client';
 import { ErrorMessage } from 'shared/general/ErrorMessage';
-import { animated, useSpring } from 'react-spring';
+import { motion } from 'framer-motion';
 
 import UpdateTenantMutation from 'api/mutation/UpdateTenantMutation.graphql';
 
@@ -26,11 +26,6 @@ export const ConstraintList = () => {
     );
 
     const isLimitSet = value >= 0;
-
-    const springProps = useSpring({
-        maxHeight: isLimitSet ? '10em' : '0em',
-        overflow: 'hidden',
-    });
 
     React.useEffect(() => {
         if (isLimitSet) {
@@ -93,7 +88,14 @@ export const ConstraintList = () => {
                     Datenmenge, die Nutzer hochladen können, begrenzen auf:
                 </Checkbox>
 
-                <animated.div style={springProps}>
+                <motion.div
+                    initial={'closd'}
+                    animate={isLimitSet ? 'open' : 'closed'}
+                    variants={{
+                        open: { opacity: 1, height: 'auto' },
+                        closed: { opacity: 0, height: 0 },
+                    }}
+                >
                     <div className={styles.storageSetting}>
                         <div>
                             <SdStorage />
@@ -134,7 +136,7 @@ export const ConstraintList = () => {
                             </Label>
                         </div>
                     </div>
-                </animated.div>
+                </motion.div>
                 <Button onClick={() => updateTenant()} disabled={isLoading}>
                     Speichern
                 </Button>

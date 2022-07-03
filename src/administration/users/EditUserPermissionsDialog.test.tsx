@@ -39,9 +39,11 @@ describe('shared/layouts/adminLayout/userManagment/EditUserPermissionsDialog', (
             await waitFor(() => {
                 expect(userInfoLoaded).toEqual(true);
             });
-            expect(
-                screen.getByRole('dialog', { name: /Ernesto Guevara/ })
-            ).toBeVisible();
+            await waitFor(() => {
+                expect(
+                    screen.getByRole('dialog', { name: /Ernesto Guevara/ })
+                ).toBeVisible();
+            });
             expect(screen.queryByTestId('UserNickname')).toHaveTextContent(
                 'Che'
             );

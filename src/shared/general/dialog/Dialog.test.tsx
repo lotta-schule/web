@@ -1,5 +1,5 @@
 import userEvent from '@testing-library/user-event';
-import { render } from 'test/util';
+import { render, waitFor } from 'test/util';
 import { Dialog } from './Dialog';
 
 describe('general/dialog', () => {
@@ -24,14 +24,16 @@ describe('general/dialog', () => {
         expect(screen.queryByRole('dialog')).toBeNull();
     });
 
-    it('should show the dialog when open', () => {
+    it('should show the dialog when open', async () => {
         const screen = render(
             <Dialog title={'Achtung!'} open>
                 lorem ipsum dolor sit amet
             </Dialog>
         );
 
-        expect(screen.getByRole('dialog')).toBeVisible();
+        await waitFor(() => {
+            expect(screen.getByRole('dialog')).toBeVisible();
+        });
     });
 
     describe('close button', () => {
@@ -47,7 +49,7 @@ describe('general/dialog', () => {
             ).toBeNull();
         });
 
-        it('should show the close button when "onRequestClose" prop is set', () => {
+        it('should show the close button when "onRequestClose" prop is set', async () => {
             const onClose = jest.fn();
             const screen = render(
                 <Dialog title={'Achtung!'} open onRequestClose={onClose}>
@@ -55,9 +57,11 @@ describe('general/dialog', () => {
                 </Dialog>
             );
 
-            expect(
-                screen.getByRole('button', { name: 'schließen' })
-            ).toBeVisible();
+            await waitFor(() => {
+                expect(
+                    screen.getByRole('button', { name: 'schließen' })
+                ).toBeVisible();
+            });
             userEvent.click(screen.getByRole('button', { name: 'schließen' }));
             expect(onClose).toHaveBeenCalled();
         });

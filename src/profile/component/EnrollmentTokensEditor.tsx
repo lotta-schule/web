@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { NoSsr } from 'shared/general/util/NoSsr';
-import { Transition, animated } from 'react-spring';
+import { AnimatePresence, motion } from 'framer-motion';
 import { flatten, uniq } from 'lodash';
 import { Input } from 'shared/general/form/input/Input';
 import { Label } from 'shared/general/label/Label';
@@ -13,6 +13,8 @@ export interface EnrollmentTokensEditorProps {
     tokens: string[];
     setTokens(tokens: string[]): void;
 }
+
+const AnimatedTag = motion(Tag);
 
 export const EnrollmentTokensEditor = React.memo<EnrollmentTokensEditorProps>(
     ({ disabled, tokens, setTokens }) => {
@@ -29,37 +31,39 @@ export const EnrollmentTokensEditor = React.memo<EnrollmentTokensEditorProps>(
             <NoSsr>
                 <div data-testid="UserEnrollmentTokensInput">
                     <ul>
-                        <Transition
-                            items={tokens}
-                            config={{
-                                tension: 2000,
-                                friction: 100,
-                                precision: 1,
-                            }}
-                            from={{ height: 0 as any }}
-                            enter={{ height: 'auto' }}
-                            leave={{ height: 0 }}
-                        >
-                            {(props: any, token) => (
-                                <animated.div>
-                                    <Tag
-                                        key={token}
-                                        className={styles.tag}
-                                        style={props}
-                                        role={'listitem'}
-                                        onDelete={() => {
-                                            setTokens(
-                                                tokens.filter(
-                                                    (t) => t !== token
-                                                )
-                                            );
-                                        }}
-                                    >
-                                        {token}
-                                    </Tag>
-                                </animated.div>
-                            )}
-                        </Transition>
+                        {tokens.map((token, i) => (
+                            <AnimatePresence key={token}>
+                                <AnimatedTag
+                                    key={token}
+                                    className={styles.tag}
+                                    role={'listitem'}
+                                    initial={{
+                                        opacity: 0,
+                                        height: 0,
+                                        y: -50,
+                                        borderWidth: 0,
+                                    }}
+                                    animate={{
+                                        opacity: 1,
+                                        height: 'auto',
+                                        y: 0,
+                                        borderWidth: 1,
+                                    }}
+                                    transition={{ delay: i * 0.1 }}
+                                    exit={{
+                                        opacity: 0,
+                                        borderWidth: 0,
+                                    }}
+                                    onDelete={() => {
+                                        setTokens(
+                                            tokens.filter((t) => t !== token)
+                                        );
+                                    }}
+                                >
+                                    {token}
+                                </AnimatedTag>
+                            </AnimatePresence>
+                        ))}
                     </ul>
                     <div>
                         <Label label={'Neue Einschreibeschlüssel eintragen'}>

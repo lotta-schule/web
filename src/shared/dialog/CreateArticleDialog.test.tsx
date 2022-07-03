@@ -16,7 +16,7 @@ describe('shared/layouts/adminLayout/userManagment/CreateArticleDialog', () => {
         );
     });
 
-    it('should show the shared if isOpen is true', async () => {
+    it('should show the dialog if isOpen is true', async () => {
         render(
             <CreateArticleDialog
                 isOpen
@@ -24,10 +24,12 @@ describe('shared/layouts/adminLayout/userManagment/CreateArticleDialog', () => {
                 onAbort={() => {}}
             />
         );
-        expect(screen.queryByRole('dialog')).toBeVisible();
+        await waitFor(() => {
+            expect(screen.queryByRole('dialog')).toBeVisible();
+        });
     });
 
-    it('should not show the shared if isOpen is false', async () => {
+    it('should not show the dialog if isOpen is false', async () => {
         render(
             <CreateArticleDialog
                 isOpen={false}
@@ -46,8 +48,10 @@ describe('shared/layouts/adminLayout/userManagment/CreateArticleDialog', () => {
                 onAbort={() => {}}
             />
         );
-        expect(screen.queryByRole('textbox')).toBeVisible();
-        expect(screen.queryByRole('textbox')).toHaveFocus();
+        await waitFor(() => {
+            expect(screen.queryByRole('textbox')).toBeVisible();
+            expect(screen.queryByRole('textbox')).toHaveFocus();
+        });
     });
 
     it('should start with a disabled submit button, but should enable the button when text has been entered', async () => {
@@ -58,7 +62,9 @@ describe('shared/layouts/adminLayout/userManagment/CreateArticleDialog', () => {
                 onAbort={() => {}}
             />
         );
-        expect(screen.queryByRole('textbox')).toBeVisible();
+        await waitFor(() => {
+            expect(screen.queryByRole('textbox')).toBeVisible();
+        });
         expect(screen.queryByRole('textbox')).toHaveFocus();
         expect(
             screen.getByRole('button', { name: /erstellen/ })

@@ -51,6 +51,7 @@ export const Drawer = ({ children, isOpen, onClose }: DrawerProps) => {
             className={styles.drawer}
             ref={ref}
             role={'presentation'}
+            initial={'closed'}
             animate={isOpen ? 'open' : 'closed'}
             variants={{
                 open: { opacity: 1, x: 0 },

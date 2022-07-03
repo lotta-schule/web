@@ -6,7 +6,7 @@ import {
     SomeUser,
     SomeUserin,
 } from 'test/fixtures';
-import { render, waitFor } from 'test/util';
+import { render } from 'test/util';
 import { MessagingView } from './MessagingView';
 
 import userEvent from '@testing-library/user-event';
@@ -151,6 +151,7 @@ describe('src/messaging/MessagingView', () => {
                                         users: [SomeUser, KeinErSieEsUser],
                                         groups: [],
                                         messages: [{ id: 99901551 }],
+                                        unreadMessages: 0,
                                     },
                                 },
                             },

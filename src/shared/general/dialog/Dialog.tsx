@@ -1,12 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Close } from '@material-ui/icons';
-import { animated, useSpring } from 'react-spring';
+import { motion } from 'framer-motion';
 import { Button } from '../button/Button';
 import { Divider } from '../divider/Divider';
 import { FocusScope } from '@react-aria/focus';
 import { useModal, useOverlay, usePreventScroll } from '@react-aria/overlays';
 import { useDialog } from '@react-aria/dialog';
+import { mergeProps } from '@react-aria/utils';
 import clsx from 'clsx';
 
 import styles from './dialog.module.scss';
@@ -26,11 +27,6 @@ export const Dialog: React.FC<DialogProps & { open?: boolean }> = ({
     ...props
 }) => {
     const isBrowser = typeof window !== 'undefined';
-
-    const springProps = useSpring({
-        to: { opacity: open ? 1 : 0 },
-        ...style,
-    });
 
     const element = React.useRef<HTMLDivElement | null>(null);
 
@@ -64,7 +60,7 @@ export const Dialog: React.FC<DialogProps & { open?: boolean }> = ({
 
     return ReactDOM.createPortal(
         <DialogShell
-            style={springProps as any}
+            style={style}
             onRequestClose={onRequestClose}
             {...props}
         />,
@@ -90,16 +86,27 @@ export const DialogShell: React.FC<DialogProps> = ({
     );
     const { dialogProps, titleProps } = useDialog(otherProps as any, ref);
 
+    const innerProps = mergeProps(
+        otherProps,
+        overlayProps,
+        dialogProps,
+        modalProps
+    ) as any;
+
     return (
-        <animated.div className={styles.root} style={style} {...underlayProps}>
-            <animated.div
-                {...otherProps}
-                {...overlayProps}
-                {...dialogProps}
-                {...modalProps}
+        <motion.div
+            className={styles.root}
+            style={style}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            {...(underlayProps as any)}
+        >
+            <motion.div
+                {...innerProps}
+                initial={{ scaleY: 0, y: -150 }}
+                animate={{ scaleY: 1, y: 0 }}
                 className={clsx(styles.dialog, className)}
                 ref={ref}
-                style={style}
             >
                 <FocusScope contain autoFocus>
                     <section>
@@ -117,8 +124,8 @@ export const DialogShell: React.FC<DialogProps> = ({
                     </section>
                     {children}
                 </FocusScope>
-            </animated.div>
-        </animated.div>
+            </motion.div>
+        </motion.div>
     );
 };
 

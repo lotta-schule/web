@@ -12,9 +12,11 @@ describe('shared/layouts/adminLayout/userManagment/UpdatePasswordDialog', () => 
         render(<UpdatePasswordDialog isOpen onRequestClose={() => {}} />);
     });
 
-    it('should show the shared if isOpen is true', () => {
+    it('should show the shared if isOpen is true', async () => {
         render(<UpdatePasswordDialog isOpen onRequestClose={() => {}} />);
-        expect(screen.queryByRole('dialog')).toBeVisible();
+        await waitFor(() => {
+            expect(screen.queryByRole('dialog')).toBeVisible();
+        });
     });
 
     it('should not show the shared if isOpen is false', () => {
@@ -139,14 +141,21 @@ describe('shared/layouts/adminLayout/userManagment/UpdatePasswordDialog', () => 
             });
         });
 
-        it('should clear the form and call onAbort when clicking the "Reset" button', () => {
-            render(<UpdatePasswordDialog isOpen onRequestClose={() => {}} />);
-            userEvent.type(screen.getByLabelText('Neues Passwort:'), '');
-            userEvent.type(
-                screen.getByLabelText('Wiederholung Neues Passwort:'),
-                ''
+        it('should clear the form and call onAbort when clicking the "Reset" button', async () => {
+            const onRequestClose = jest.fn();
+            render(
+                <UpdatePasswordDialog isOpen onRequestClose={onRequestClose} />
             );
-            userEvent.click(screen.getByRole('button', { name: /ändern/i }));
+            await waitFor(() => {
+                userEvent.click(
+                    screen.getByRole('button', { name: /abbrechen/i })
+                );
+            });
+            expect(screen.getByLabelText('Neues Passwort:')).toHaveValue('');
+            expect(
+                screen.getByLabelText('Wiederholung Neues Passwort:')
+            ).toHaveValue('');
+            expect(onRequestClose).toHaveBeenCalled();
         });
     });
 });

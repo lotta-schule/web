@@ -80,7 +80,7 @@ describe('src/shared/article/module/form/FormResultsDialog', () => {
             <FormResultsDialog
                 isOpen={false}
                 onRequestClose={() => {}}
-                contentModule={contentModule}
+                contentModule={contentModule as any}
             />,
             {},
             { additionalMocks: [...mocks] }
@@ -88,17 +88,19 @@ describe('src/shared/article/module/form/FormResultsDialog', () => {
         expect(screen.queryByRole('dialog')).toBeNull();
     });
 
-    it('should show dialog when isOpen is set', () => {
+    it('should show dialog when isOpen is set', async () => {
         const screen = render(
             <FormResultsDialog
                 isOpen
                 onRequestClose={() => {}}
-                contentModule={contentModule}
+                contentModule={contentModule as any}
             />,
             {},
             { additionalMocks: [...mocks] }
         );
-        expect(screen.queryByRole('dialog')).toBeVisible();
+        await waitFor(() => {
+            expect(screen.queryByRole('dialog')).toBeVisible();
+        });
         expect(
             screen.queryByRole('heading', { name: /formulardaten/i })
         ).toBeVisible();
@@ -111,7 +113,7 @@ describe('src/shared/article/module/form/FormResultsDialog', () => {
             <FormResultsDialog
                 isOpen
                 onRequestClose={() => {}}
-                contentModule={contentModule}
+                contentModule={contentModule as any}
             />,
             {},
             { additionalMocks: mocks }
