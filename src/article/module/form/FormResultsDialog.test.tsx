@@ -1,13 +1,14 @@
 /* eslint-disable import/first */
 jest.mock('file-saver');
 import * as React from 'react';
-import { ContentModuleType } from 'model';
+import { ContentModuleModel, ContentModuleType } from 'model';
 import { render, waitFor } from 'test/util';
 import { MockedResponse } from '@apollo/client/testing';
 import { FormResultsDialog } from './FormResultsDialog';
 import { saveAs } from 'file-saver';
-import GetContentModuleResults from 'api/query/GetContentModuleResults.graphql';
 import userEvent from '@testing-library/user-event';
+
+import GetContentModuleResults from 'api/query/GetContentModuleResults.graphql';
 
 describe('src/shared/article/module/form/FormResultsDialog', () => {
     const contentModule = {
@@ -15,7 +16,9 @@ describe('src/shared/article/module/form/FormResultsDialog', () => {
         type: ContentModuleType.FORM,
         files: [],
         sortKey: 0,
-    };
+        insertedAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+    } as ContentModuleModel;
 
     let didFetchResults = false;
     const mocks: MockedResponse[] = [

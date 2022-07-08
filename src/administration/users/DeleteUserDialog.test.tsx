@@ -9,13 +9,15 @@ import DestroyAccountMutation from 'api/mutation/DestroyAccountMutation.graphql'
 describe('administration/users/DeleteUserDialog', () => {
     it('should show a warning on the first page', async () => {
         const screen = render(<DeleteUserDialog user={SomeUser} />);
-        expect(screen.getByText(/nicht rückgängig gemacht werden/));
         await waitFor(() => {
+            expect(screen.getByText(/nicht rückgängig gemacht werden/));
             expect(
                 screen.getByRole('button', { name: /weiter/i })
             ).toBeVisible();
+            expect(
+                screen.queryByRole('button', { name: /zurück/i })
+            ).toBeNull();
         });
-        expect(screen.queryByRole('button', { name: /zurück/i })).toBeNull();
     });
 
     it('close request closing the dialog on first page', async () => {

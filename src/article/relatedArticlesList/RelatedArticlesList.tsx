@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { ArticleModel } from 'model';
 import { useQuery } from '@apollo/client';
+import { LinearProgress } from '@lotta-schule/hubert';
 import { motion } from 'framer-motion';
 import { ArticlePreviewDensedLayout } from 'article/preview';
-import { LinearProgress } from 'shared/general/progress/LinearProgress';
+import { ArticleModel } from 'model';
 
 import styles from './RelatedArticlesList.module.scss';
 

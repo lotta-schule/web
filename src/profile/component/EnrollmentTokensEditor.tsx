@@ -1,10 +1,7 @@
 import * as React from 'react';
-import { NoSsr } from 'shared/general/util/NoSsr';
+import { Input, Label, NoSsr, Tag } from '@lotta-schule/hubert';
 import { AnimatePresence, motion } from 'framer-motion';
 import { flatten, uniq } from 'lodash';
-import { Input } from 'shared/general/form/input/Input';
-import { Label } from 'shared/general/label/Label';
-import { Tag } from 'shared/general/tag/Tag';
 
 import styles from './EnrollmentTokensEditor.module.scss';
 

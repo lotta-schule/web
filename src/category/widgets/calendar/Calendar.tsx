@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { List, ListItem } from 'shared/general/list/List';
+import {
+    Divider,
+    ErrorMessage,
+    List,
+    ListItem,
+    LinearProgress,
+} from '@lotta-schule/hubert';
 import { FiberManualRecord } from '@material-ui/icons';
 import { useApolloClient } from '@apollo/client';
 import { format, intervalToDuration, isSameMinute } from 'date-fns';
@@ -10,9 +16,6 @@ import {
     CalendarWidgetCalendarConfig,
     WidgetModelType,
 } from 'model';
-import { Divider } from 'shared/general/divider/Divider';
-import { LinearProgress } from 'shared/general/progress/LinearProgress';
-import { ErrorMessage } from 'shared/general/ErrorMessage';
 import clsx from 'clsx';
 
 import GetCalendarQuery from 'api/query/GetCalendarQuery.graphql';

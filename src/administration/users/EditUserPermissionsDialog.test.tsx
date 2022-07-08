@@ -1,11 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import { MockedResponse } from '@apollo/client/testing';
 import { render, waitFor } from 'test/util';
 import { SomeUser, adminGroup, lehrerGroup, elternGroup } from 'test/fixtures';
 import { EditUserPermissionsDialog } from './EditUserPermissionsDialog';
+import userEvent from '@testing-library/user-event';
+
 import UpdateUserMutation from 'api/mutation/UpdateUserMutation.graphql';
 import GetUserQuery from 'api/query/GetUserQuery.graphql';
-import userEvent from '@testing-library/user-event';
 
 describe('shared/layouts/adminLayout/userManagment/EditUserPermissionsDialog', () => {
     let userInfoLoaded = false;

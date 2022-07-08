@@ -64,8 +64,8 @@ describe('shared/layouts/adminLayout/userManagment/CreateArticleDialog', () => {
         );
         await waitFor(() => {
             expect(screen.queryByRole('textbox')).toBeVisible();
+            expect(screen.queryByRole('textbox')).toHaveFocus();
         });
-        expect(screen.queryByRole('textbox')).toHaveFocus();
         expect(
             screen.getByRole('button', { name: /erstellen/ })
         ).toBeDisabled();

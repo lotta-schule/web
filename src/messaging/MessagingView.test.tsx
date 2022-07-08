@@ -6,7 +6,7 @@ import {
     SomeUser,
     SomeUserin,
 } from 'test/fixtures';
-import { render } from 'test/util';
+import { render, waitFor } from 'test/util';
 import { MessagingView } from './MessagingView';
 
 import userEvent from '@testing-library/user-event';
@@ -38,17 +38,20 @@ describe('src/messaging/MessagingView', () => {
             }
         );
 
-        const conversationButtons = await screen.findAllByRole('button', {
-            name: /unterhaltung mit/i,
+        await waitFor(() => {
+            expect(
+                screen.getAllByRole('button', {
+                    name: /unterhaltung mit/i,
+                })
+            ).toHaveLength(2);
         });
-        expect(conversationButtons).toHaveLength(2);
 
         expect(
             screen.getByRole('button', { name: /Unterhaltung mit Lui/i })
-        ).toBeInTheDocument();
+        ).toBeVisible();
         expect(
             screen.getByRole('button', { name: /Unterhaltung mit Eltern/i })
-        ).toBeInTheDocument();
+        ).toBeVisible();
     });
 
     it('should select a conversation', async () => {

@@ -1,12 +1,17 @@
 import * as React from 'react';
-import { Popover, Box } from '@material-ui/core';
 import {
-    MoreVert,
+    Settings,
     Delete,
     ArrowUpward,
     ArrowDownward,
 } from '@material-ui/icons';
-import { DragHandle } from 'shared/general/icon';
+import {
+    Button,
+    DragHandle,
+    Dialog,
+    DialogActions,
+    DialogContent,
+} from '@lotta-schule/hubert';
 import { ArticleModel, ContentModuleModel, ContentModuleType } from 'model';
 import { Text } from './text/Text';
 import { Title } from './title/Title';
@@ -23,13 +28,6 @@ import { Table } from './table/Table';
 import { Divider as DividerCM } from './divider/Divider';
 import { User } from 'util/model';
 import { useCurrentUser } from 'util/user/useCurrentUser';
-import {
-    bindTrigger,
-    bindPopover,
-    usePopupState,
-} from 'material-ui-popup-state/hooks';
-import { Button } from 'shared/general/button/Button';
-import { Divider } from 'shared/general/divider/Divider';
 import clsx from 'clsx';
 
 import styles from './ContentModule.module.scss';
@@ -61,11 +59,8 @@ export const ContentModule = React.memo<ContentModuleProps>(
         onMoveUp,
         onMoveDown,
     }) => {
-        const popupState = usePopupState({
-            variant: 'popover',
-            popupId: 'contentmodule-configuration',
-        });
         const user = useCurrentUser();
+        const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
 
         const canEditArticle = User.canEditArticle(user, article);
 
@@ -79,7 +74,7 @@ export const ContentModule = React.memo<ContentModuleProps>(
                         <TitleConfig
                             contentModule={contentModule}
                             onUpdateModule={onUpdateModule}
-                            onRequestClose={popupState.close}
+                            onRequestClose={() => setIsSettingsOpen(false)}
                         />
                     );
                 case ContentModuleType.IMAGE_COLLECTION:
@@ -87,7 +82,9 @@ export const ContentModule = React.memo<ContentModuleProps>(
                         <ImageCollectionConfig
                             contentModule={contentModule}
                             onUpdateModule={onUpdateModule}
-                            onRequestClose={popupState.close}
+                            onRequestClose={() => {
+                                /* TODO: ?!?! */
+                            }}
                         />
                     );
                 case ContentModuleType.DOWNLOAD:
@@ -95,186 +92,179 @@ export const ContentModule = React.memo<ContentModuleProps>(
                         <DownloadConfig
                             contentModule={contentModule}
                             onUpdateModule={onUpdateModule}
-                            onRequestClose={popupState.close}
+                            onRequestClose={() => {
+                                /* TODO: ?!?! */
+                            }}
                         />
                     );
             }
-        }, [contentModule, onUpdateModule, popupState]);
+        }, [contentModule, onUpdateModule]);
 
         return (
-            <section
-                className={clsx(styles.root, {
-                    [styles.active]: popupState.isOpen,
-                    [styles.dragging]: isDragging,
-                    [styles.isEditModeEnabled]: isEditModeEnabled,
-                })}
-                data-testid={'ContentModule'}
-                {...elementProps}
-            >
-                {isEditModeEnabled && (
-                    <div
-                        {...dragbarProps}
-                        className={styles.dragbar}
-                        title={'Klicken und Ziehen zum verschieben'}
-                    >
-                        <section className={styles.leftButtonSection}>
-                            <DragHandle />
-                            {onMoveUp && (
-                                <Button
-                                    small
-                                    aria-label={
-                                        'Modul um eine Stelle nach oben bewegen'
-                                    }
-                                    className={styles.dragbarButton}
-                                    icon={<ArrowUpward />}
-                                    onClick={() => onMoveUp()}
-                                />
-                            )}
-                            {onMoveDown && (
-                                <Button
-                                    small
-                                    aria-label={
-                                        'Modul um eine Stelle nach unten bewegen'
-                                    }
-                                    className={styles.dragbarButton}
-                                    icon={<ArrowDownward />}
-                                    onClick={() => onMoveDown()}
-                                />
-                            )}
-                        </section>
-                        <span>
-                            <Button
-                                small
-                                className={styles.dragbarButton}
-                                style={{
-                                    position: 'absolute',
-                                    top: 2,
-                                    right: 2,
-                                }}
-                                aria-label="Einstellungen"
-                                icon={
-                                    <MoreVert
-                                        className={clsx(styles.buttonIcon, {
-                                            [styles.activeButtonIcon]:
-                                                popupState.isOpen,
-                                        })}
-                                    />
-                                }
-                                {...bindTrigger(popupState)}
-                            />
-                            <Popover
-                                {...bindPopover(popupState)}
-                                aria-label={'Einstellungen'}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                            >
-                                <Box py={1} px={2} style={{ overflow: 'auto' }}>
-                                    {config && (
-                                        <>
-                                            {config}
-                                            <Divider />
-                                        </>
-                                    )}
+            <>
+                <section
+                    className={clsx(styles.root, {
+                        [styles.active]: false /* TODO: popupState.isOpen, */,
+                        [styles.dragging]: isDragging,
+                        [styles.isEditModeEnabled]: isEditModeEnabled,
+                    })}
+                    data-testid={'ContentModule'}
+                    {...elementProps}
+                >
+                    {isEditModeEnabled && (
+                        <div
+                            {...dragbarProps}
+                            className={styles.dragbar}
+                            title={'Klicken und Ziehen zum verschieben'}
+                        >
+                            <section className={styles.leftButtonSection}>
+                                <DragHandle />
+                                {onMoveUp && (
                                     <Button
-                                        variant={'error'}
+                                        small
+                                        aria-label={
+                                            'Modul um eine Stelle nach oben bewegen'
+                                        }
+                                        className={styles.dragbarButton}
+                                        icon={<ArrowUpward />}
+                                        onClick={() => onMoveUp()}
+                                    />
+                                )}
+                                {onMoveDown && (
+                                    <Button
+                                        small
+                                        aria-label={
+                                            'Modul um eine Stelle nach unten bewegen'
+                                        }
+                                        className={styles.dragbarButton}
+                                        icon={<ArrowDownward />}
+                                        onClick={() => onMoveDown()}
+                                    />
+                                )}
+                            </section>
+                            <span>
+                                {config && (
+                                    <Button
+                                        small
+                                        className={styles.dragbarButton}
+                                        aria-label={'Moduleinstellungen'}
+                                        onClick={() => setIsSettingsOpen(true)}
                                         icon={
-                                            <Delete
+                                            <Settings
                                                 className={clsx(
-                                                    styles.buttonIcon
+                                                    styles.buttonIcon,
+                                                    {
+                                                        [styles.activeButtonIcon]:
+                                                            isSettingsOpen,
+                                                    }
                                                 )}
                                             />
                                         }
-                                        aria-label={'Modul löschen'}
-                                        style={{ float: 'right' }}
-                                        onClick={() =>
-                                            onRemoveContentModule?.()
-                                        }
-                                    >
-                                        Modul löschen
-                                    </Button>
-                                </Box>
-                            </Popover>
-                        </span>
-                    </div>
+                                    />
+                                )}
+                                <Button
+                                    small
+                                    variant={'error'}
+                                    icon={
+                                        <Delete
+                                            className={clsx(styles.buttonIcon)}
+                                        />
+                                    }
+                                    aria-label={'Modul löschen'}
+                                    style={{ float: 'right' }}
+                                    onClick={() => onRemoveContentModule?.()}
+                                />
+                            </span>
+                        </div>
+                    )}
+                    {contentModule.type === ContentModuleType.TITLE && (
+                        <Title
+                            contentModule={contentModule}
+                            isEditModeEnabled={isEditModeEnabled}
+                            onUpdateModule={onUpdateModule}
+                        />
+                    )}
+                    {contentModule.type === ContentModuleType.TEXT && (
+                        <Text
+                            contentModule={contentModule}
+                            isEditModeEnabled={isEditModeEnabled}
+                            onUpdateModule={onUpdateModule}
+                        />
+                    )}
+                    {contentModule.type === ContentModuleType.IMAGE && (
+                        <ImageModule
+                            contentModule={contentModule}
+                            isEditModeEnabled={isEditModeEnabled}
+                            onUpdateModule={onUpdateModule}
+                        />
+                    )}
+                    {contentModule.type ===
+                        ContentModuleType.IMAGE_COLLECTION && (
+                        <ImageCollection
+                            contentModule={contentModule}
+                            isEditModeEnabled={isEditModeEnabled}
+                            onUpdateModule={onUpdateModule}
+                        />
+                    )}
+                    {contentModule.type === ContentModuleType.DIVIDER && (
+                        <DividerCM
+                            contentModule={contentModule}
+                            isEditModeEnabled={isEditModeEnabled}
+                            onUpdateModule={onUpdateModule}
+                        />
+                    )}
+                    {contentModule.type === ContentModuleType.VIDEO && (
+                        <Video
+                            contentModule={contentModule}
+                            isEditModeEnabled={isEditModeEnabled}
+                            onUpdateModule={onUpdateModule}
+                        />
+                    )}
+                    {contentModule.type === ContentModuleType.AUDIO && (
+                        <Audio
+                            contentModule={contentModule}
+                            isEditModeEnabled={isEditModeEnabled}
+                            onUpdateModule={onUpdateModule}
+                        />
+                    )}
+                    {contentModule.type === ContentModuleType.DOWNLOAD && (
+                        <Download
+                            contentModule={contentModule}
+                            isEditModeEnabled={isEditModeEnabled}
+                            onUpdateModule={onUpdateModule}
+                        />
+                    )}
+                    {contentModule.type === ContentModuleType.FORM && (
+                        <Form
+                            contentModule={contentModule}
+                            isEditModeEnabled={isEditModeEnabled}
+                            onUpdateModule={onUpdateModule}
+                            showResults={canEditArticle}
+                        />
+                    )}
+                    {contentModule.type === ContentModuleType.TABLE && (
+                        <Table
+                            contentModule={contentModule}
+                            isEditModeEnabled={isEditModeEnabled}
+                            onUpdateModule={onUpdateModule}
+                        />
+                    )}
+                </section>
+                {config && (
+                    <Dialog
+                        open={isSettingsOpen}
+                        title={'Moduleinstellungen'}
+                        onRequestClose={() => setIsSettingsOpen(false)}
+                    >
+                        <DialogContent>{config}</DialogContent>
+                        <DialogActions>
+                            <Button onClick={() => setIsSettingsOpen(false)}>
+                                OK
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 )}
-                {contentModule.type === ContentModuleType.TITLE && (
-                    <Title
-                        contentModule={contentModule}
-                        isEditModeEnabled={isEditModeEnabled}
-                        onUpdateModule={onUpdateModule}
-                    />
-                )}
-                {contentModule.type === ContentModuleType.TEXT && (
-                    <Text
-                        contentModule={contentModule}
-                        isEditModeEnabled={isEditModeEnabled}
-                        onUpdateModule={onUpdateModule}
-                    />
-                )}
-                {contentModule.type === ContentModuleType.IMAGE && (
-                    <ImageModule
-                        contentModule={contentModule}
-                        isEditModeEnabled={isEditModeEnabled}
-                        onUpdateModule={onUpdateModule}
-                    />
-                )}
-                {contentModule.type === ContentModuleType.IMAGE_COLLECTION && (
-                    <ImageCollection
-                        contentModule={contentModule}
-                        isEditModeEnabled={isEditModeEnabled}
-                        onUpdateModule={onUpdateModule}
-                    />
-                )}
-                {contentModule.type === ContentModuleType.DIVIDER && (
-                    <DividerCM
-                        contentModule={contentModule}
-                        isEditModeEnabled={isEditModeEnabled}
-                        onUpdateModule={onUpdateModule}
-                    />
-                )}
-                {contentModule.type === ContentModuleType.VIDEO && (
-                    <Video
-                        contentModule={contentModule}
-                        isEditModeEnabled={isEditModeEnabled}
-                        onUpdateModule={onUpdateModule}
-                    />
-                )}
-                {contentModule.type === ContentModuleType.AUDIO && (
-                    <Audio
-                        contentModule={contentModule}
-                        isEditModeEnabled={isEditModeEnabled}
-                        onUpdateModule={onUpdateModule}
-                    />
-                )}
-                {contentModule.type === ContentModuleType.DOWNLOAD && (
-                    <Download
-                        contentModule={contentModule}
-                        isEditModeEnabled={isEditModeEnabled}
-                        onUpdateModule={onUpdateModule}
-                    />
-                )}
-                {contentModule.type === ContentModuleType.FORM && (
-                    <Form
-                        contentModule={contentModule}
-                        isEditModeEnabled={isEditModeEnabled}
-                        onUpdateModule={onUpdateModule}
-                        showResults={canEditArticle}
-                    />
-                )}
-                {contentModule.type === ContentModuleType.TABLE && (
-                    <Table
-                        contentModule={contentModule}
-                        isEditModeEnabled={isEditModeEnabled}
-                        onUpdateModule={onUpdateModule}
-                    />
-                )}
-            </section>
+            </>
         );
     }
 );

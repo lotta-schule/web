@@ -153,12 +153,14 @@ describe('shared/widgets/Schedule', () => {
                 expect(didLoadNextSchedule).toEqual(true);
             });
             expect(screen.getByText(/16\. november 2020/i)).toBeVisible();
-            expect(
-                screen.getByRole('button', { name: /13\. november 2020/i })
-            ).toBeVisible();
-            expect(
-                screen.getByRole('button', { name: /18\. november 2020/i })
-            ).toBeVisible();
+            await waitFor(() => {
+                expect(
+                    screen.getByRole('button', { name: /13\. november 2020/i })
+                ).toBeVisible();
+                expect(
+                    screen.getByRole('button', { name: /18\. november 2020/i })
+                ).toBeVisible();
+            });
         });
     });
 
@@ -231,12 +233,14 @@ describe('shared/widgets/Schedule', () => {
         await waitFor(() => {
             expect(didLoadCurrentSchedule).toEqual(true);
         });
-        expect(screen.getByText(/16\. november 2020/i)).toBeVisible();
-        expect(
-            screen.queryByRole('button', { name: /13\. november 2020/i })
-        ).toBeNull();
-        expect(
-            screen.getByRole('button', { name: /18\. november 2020/i })
-        ).toBeVisible();
+        await waitFor(() => {
+            expect(screen.getByText(/16\. november 2020/i)).toBeVisible();
+            expect(
+                screen.queryByRole('button', { name: /13\. november 2020/i })
+            ).toBeNull();
+            expect(
+                screen.getByRole('button', { name: /18\. november 2020/i })
+            ).toBeVisible();
+        });
     });
 });
