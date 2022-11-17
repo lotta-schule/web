@@ -47,6 +47,7 @@ describe('shared/article/ArticleEditable', () => {
             );
             expect(upButton).toBeNull();
         });
+
         it('should not show the move down button on the last content module', () => {
             const screen = render(
                 <ArticleEditable
@@ -60,7 +61,8 @@ describe('shared/article/ArticleEditable', () => {
             );
             expect(downButton).toBeNull();
         });
-        it('should move the contentModule up when the button is clicked', () => {
+
+        it('should move the contentModule up when the button is clicked', async () => {
             const onUpdate = jest.fn((newArticle: ArticleModel) => {
                 expect(
                     newArticle.contentModules.map(({ id, sortKey }) => [
@@ -86,10 +88,10 @@ describe('shared/article/ArticleEditable', () => {
                 'button[aria-label*="oben bewegen"]'
             )!;
             expect(upButton).not.toBeNull();
-            userEvent.click(upButton);
+            await userEvent.click(upButton);
             expect(onUpdate).toHaveBeenCalled();
         });
-        it('should move the contentModule down when the button is clicked', () => {
+        it('should move the contentModule down when the button is clicked', async () => {
             const onUpdate = jest.fn((newArticle: ArticleModel) => {
                 expect(
                     newArticle.contentModules.map(({ id, sortKey }) => [
@@ -115,7 +117,7 @@ describe('shared/article/ArticleEditable', () => {
                 'button[aria-label*="unten bewegen"]'
             )!;
             expect(downButton).not.toBeNull();
-            userEvent.click(downButton);
+            await userEvent.click(downButton);
             expect(onUpdate).toHaveBeenCalled();
         });
     });

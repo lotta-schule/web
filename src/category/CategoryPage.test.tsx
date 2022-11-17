@@ -8,7 +8,7 @@ import {
     SomeUser,
     imageFile,
 } from 'test/fixtures';
-import { ArticleModel, CategoryModel } from 'model';
+import { ArticleModel, CategoryModel, WidgetModelType } from 'model';
 import { MockedResponse } from '@apollo/client/testing';
 import { CategoryPage } from './CategoryPage';
 
@@ -32,7 +32,20 @@ describe('shared/article/CategoryLayout', () => {
                 query: GetCategoryWidgetsQuery,
                 variables: { categoryId: MusikCategory.id },
             },
-            result: { data: { widgets: [] } },
+            result: {
+                data: {
+                    widgets: [
+                        {
+                            id: 1,
+                            title: 'WidgetOne',
+                            type: WidgetModelType.Calendar,
+                            configuration: {},
+                            groups: [],
+                            iconImageFile: null,
+                        },
+                    ],
+                },
+            },
         },
     ];
 
@@ -86,7 +99,7 @@ describe('shared/article/CategoryLayout', () => {
                 { additionalMocks: categoryMocks(MusikCategory, articles) }
             );
             await waitFor(() => {
-                expect(screen.queryByTestId('WidgetsList')).toBeVisible();
+                expect(screen.getByTestId('WidgetsList')).toBeVisible();
             });
         });
 

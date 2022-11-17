@@ -60,7 +60,7 @@ describe('shared/layouts/editArticleLayout/EditArticleFooter', () => {
     });
 
     describe('save article', () => {
-        it('call the save callback', () => {
+        it('call the save callback', async () => {
             const onSave = jest.fn();
             const screen = render(
                 <EditArticleFooter
@@ -71,7 +71,9 @@ describe('shared/layouts/editArticleLayout/EditArticleFooter', () => {
                 {},
                 { currentUser: { ...SomeUser } }
             );
-            userEvent.click(screen.getByRole('button', { name: /speichern/i }));
+            await userEvent.click(
+                screen.getByRole('button', { name: /speichern/i })
+            );
             expect(onSave).toHaveBeenCalled();
         });
     });

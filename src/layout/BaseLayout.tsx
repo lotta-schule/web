@@ -45,18 +45,16 @@ export const BaseLayout = React.memo(({ children }) => {
             <header className={styles.header}>
                 <div className={styles.logoGridItem}>
                     {tenant.configuration.logoImageFile && (
-                        <Link href={'/'} passHref>
-                            <a title={'Startseite'}>
-                                <ResponsiveImage
-                                    resize={'fit'}
-                                    height={80}
-                                    src={File.getFileRemoteLocation(
-                                        baseUrl,
-                                        tenant.configuration.logoImageFile
-                                    )}
-                                    alt={`Logo ${tenant.title}`}
-                                />
-                            </a>
+                        <Link href={'/'} title={'Startseite'}>
+                            <ResponsiveImage
+                                resize={'fit'}
+                                height={80}
+                                src={File.getFileRemoteLocation(
+                                    baseUrl,
+                                    tenant.configuration.logoImageFile
+                                )}
+                                alt={`Logo ${tenant.title}`}
+                            />
                         </Link>
                     )}
                 </div>

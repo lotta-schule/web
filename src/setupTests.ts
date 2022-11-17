@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom';
+import { TextEncoder } from 'util';
 
 // stub out window.getSelection
 // window.getSelection isn't in jsdom
@@ -26,3 +27,11 @@ window.location = {
     replace: () => {},
     assign: (url) => Object.assign(window.location, { url: url }),
 };
+
+global.TextEncoder = TextEncoder;
+
+jest.mock('next/head', () => {
+    const { createPortal } = jest.requireActual('react-dom');
+    return ({ children }: any) =>
+        createPortal(children, globalThis.document.head);
+});

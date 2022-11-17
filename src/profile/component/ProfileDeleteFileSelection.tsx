@@ -115,11 +115,9 @@ export const ProfileDeleteFileSelection =
                                                 <li key={i}>
                                                     <Link
                                                         href={linkTarget}
-                                                        passHref
+                                                        target={'_blank'}
                                                     >
-                                                        <a target={'_blank'}>
-                                                            {linkText}
-                                                        </a>
+                                                        {linkText}
                                                     </Link>
                                                 </li>
                                             );

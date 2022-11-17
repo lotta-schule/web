@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 
 describe('AddModuleBar', () => {
     const currentUser = SomeUser;
-    it('should add a title module', () => {
+    it('should add a title module', async () => {
         const onAddModule = jest.fn(({ type }) => {
             expect(type).toEqual(ContentModuleType.TITLE);
         });
@@ -15,11 +15,11 @@ describe('AddModuleBar', () => {
             {},
             { currentUser }
         );
-        userEvent.click(screen.getByRole('button', { name: /titel/i }));
+        await userEvent.click(screen.getByRole('button', { name: /titel/i }));
         expect(onAddModule).toHaveBeenCalled();
     });
 
-    it('should add a download module', () => {
+    it('should add a download module', async () => {
         const onAddModule = jest.fn(({ type }) => {
             expect(type).toEqual(ContentModuleType.DOWNLOAD);
         });
@@ -28,11 +28,11 @@ describe('AddModuleBar', () => {
             {},
             { currentUser }
         );
-        userEvent.click(screen.getByRole('button', { name: /dateien/i }));
+        await userEvent.click(screen.getByRole('button', { name: /dateien/i }));
         expect(onAddModule).toHaveBeenCalled();
     });
 
-    it('should add a divider module', () => {
+    it('should add a divider module', async () => {
         const onAddModule = jest.fn(({ type }) => {
             expect(type).toEqual(ContentModuleType.DIVIDER);
         });
@@ -41,11 +41,13 @@ describe('AddModuleBar', () => {
             {},
             { currentUser }
         );
-        userEvent.click(screen.getByRole('button', { name: /trennlinie/i }));
+        await userEvent.click(
+            screen.getByRole('button', { name: /trennlinie/i })
+        );
         expect(onAddModule).toHaveBeenCalled();
     });
 
-    it('should add a form module', () => {
+    it('should add a form module', async () => {
         const onAddModule = jest.fn(({ type }) => {
             expect(type).toEqual(ContentModuleType.FORM);
         });
@@ -54,11 +56,13 @@ describe('AddModuleBar', () => {
             {},
             { currentUser }
         );
-        userEvent.click(screen.getByRole('button', { name: /formular/i }));
+        await userEvent.click(
+            screen.getByRole('button', { name: /formular/i })
+        );
         expect(onAddModule).toHaveBeenCalled();
     });
 
-    it('should add a table module', () => {
+    it('should add a table module', async () => {
         const onAddModule = jest.fn(({ type }) => {
             expect(type).toEqual(ContentModuleType.TABLE);
         });
@@ -67,11 +71,11 @@ describe('AddModuleBar', () => {
             {},
             { currentUser }
         );
-        userEvent.click(screen.getByRole('button', { name: /tabelle/i }));
+        await userEvent.click(screen.getByRole('button', { name: /tabelle/i }));
         expect(onAddModule).toHaveBeenCalled();
     });
 
-    it('should add an image module', () => {
+    it('should add an image module', async () => {
         const onAddModule = jest.fn(({ type }) => {
             expect(type).toEqual(ContentModuleType.IMAGE);
         });
@@ -80,11 +84,11 @@ describe('AddModuleBar', () => {
             {},
             { currentUser }
         );
-        userEvent.click(screen.getByRole('button', { name: /bild/i }));
+        await userEvent.click(screen.getByRole('button', { name: /bild/i }));
         expect(onAddModule).toHaveBeenCalled();
     });
 
-    it('should add a gallery module', () => {
+    it('should add a gallery module', async () => {
         const onAddModule = jest.fn(({ type }) => {
             expect(type).toEqual(ContentModuleType.IMAGE_COLLECTION);
         });
@@ -93,11 +97,11 @@ describe('AddModuleBar', () => {
             {},
             { currentUser }
         );
-        userEvent.click(screen.getByRole('button', { name: /galerie/i }));
+        await userEvent.click(screen.getByRole('button', { name: /galerie/i }));
         expect(onAddModule).toHaveBeenCalled();
     });
 
-    it('should add a video module', () => {
+    it('should add a video module', async () => {
         const onAddModule = jest.fn(({ type }) => {
             expect(type).toEqual(ContentModuleType.VIDEO);
         });
@@ -106,11 +110,11 @@ describe('AddModuleBar', () => {
             {},
             { currentUser }
         );
-        userEvent.click(screen.getByRole('button', { name: /video/i }));
+        await userEvent.click(screen.getByRole('button', { name: /video/i }));
         expect(onAddModule).toHaveBeenCalled();
     });
 
-    it('should add an audio module', () => {
+    it('should add an audio module', async () => {
         const onAddModule = jest.fn(({ type }) => {
             expect(type).toEqual(ContentModuleType.AUDIO);
         });
@@ -119,7 +123,7 @@ describe('AddModuleBar', () => {
             {},
             { currentUser }
         );
-        userEvent.click(screen.getByRole('button', { name: /audio/i }));
+        await userEvent.click(screen.getByRole('button', { name: /audio/i }));
         expect(onAddModule).toHaveBeenCalled();
     });
 });

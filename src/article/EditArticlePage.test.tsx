@@ -69,14 +69,16 @@ describe('article/EditArticlePage', () => {
             expect(screen.getByTestId('AddModuleBar')).toBeVisible();
         });
 
-        it('should add a contentmodule', () => {
+        it('should add a contentmodule', async () => {
             const screen = render(
                 <EditArticlePage article={Weihnachtsmarkt} />,
                 {},
                 { currentUser: SomeUser }
             );
             expect(screen.queryAllByTestId('ContentModule')).toHaveLength(3);
-            userEvent.click(screen.getByRole('button', { name: /titel/i }));
+            await userEvent.click(
+                screen.getByRole('button', { name: /titel/i })
+            );
             expect(screen.queryAllByTestId('ContentModule')).toHaveLength(4);
         });
     });
@@ -147,8 +149,12 @@ describe('article/EditArticlePage', () => {
                     ],
                 }
             );
-            userEvent.click(screen.getByRole('button', { name: /titel/i }));
-            userEvent.click(screen.getByRole('button', { name: /speichern/i }));
+            await userEvent.click(
+                screen.getByRole('button', { name: /titel/i })
+            );
+            await userEvent.click(
+                screen.getByRole('button', { name: /speichern/i })
+            );
             await waitFor(() => {
                 expect(onSave).toHaveBeenCalled();
             });
@@ -219,8 +225,12 @@ describe('article/EditArticlePage', () => {
                     },
                 }
             );
-            userEvent.click(screen.getByRole('button', { name: /titel/i }));
-            userEvent.click(screen.getByRole('button', { name: /speichern/i }));
+            await userEvent.click(
+                screen.getByRole('button', { name: /titel/i })
+            );
+            await userEvent.click(
+                screen.getByRole('button', { name: /speichern/i })
+            );
             await waitFor(() => {
                 expect(onPushLocation).toHaveBeenCalled();
             });
@@ -304,7 +314,9 @@ describe('article/EditArticlePage', () => {
             ).toHaveValue(
                 'lorem ipsum dolor sit. lorem ipsum dolor sit. lorem ipsum dolor sit. lorem ipsum dolor sit. lorem ipsum dolor sit.'
             );
-            userEvent.click(screen.getByRole('button', { name: /titel/i }));
+            await userEvent.click(
+                screen.getByRole('button', { name: /titel/i })
+            );
             await waitFor(
                 () => {
                     expect(didReceiveUpdate).toEqual(true);
@@ -330,7 +342,7 @@ describe('article/EditArticlePage', () => {
                                 query: ArticleIsUpdatedSubscription,
                                 variables: { id: Weihnachtsmarkt.id },
                             },
-                            delay: 500,
+                            delay: 1000,
                             result: () => {
                                 const article = {
                                     ...Weihnachtsmarkt,
@@ -361,7 +373,9 @@ describe('article/EditArticlePage', () => {
                     ],
                 }
             );
-            userEvent.click(screen.getByRole('button', { name: /titel/i }));
+            await userEvent.click(
+                screen.getByRole('button', { name: /titel/i })
+            );
             await waitFor(() => {
                 expect(screen.getByRole('dialog')).toBeInTheDocument();
                 expect(screen.getByRole('dialog')).toHaveTextContent(
@@ -394,7 +408,7 @@ describe('article/EditArticlePage', () => {
                     },
                 }
             );
-            userEvent.type(
+            await userEvent.type(
                 screen.getByRole('textbox', { name: /title/i }),
                 'Bla'
             );

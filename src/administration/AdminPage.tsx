@@ -40,15 +40,14 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     <>
                         <div className={styles.titleBar}>
                             {hasHomeLink && (
-                                <Link href={'/admin'} passHref>
-                                    <a
-                                        title={
-                                            'Zurück zum Administrations-Hauptmenü'
-                                        }
-                                    >
-                                        <FontAwesomeIcon icon={faCubes} />
-                                        Hauptmenü
-                                    </a>
+                                <Link
+                                    href={'/admin'}
+                                    title={
+                                        'Zurück zum Administrations-Hauptmenü'
+                                    }
+                                >
+                                    <FontAwesomeIcon icon={faCubes} />
+                                    Hauptmenü
                                 </Link>
                             )}
                             {!hasHomeLink && <FontAwesomeIcon icon={faCubes} />}

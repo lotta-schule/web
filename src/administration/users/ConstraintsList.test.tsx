@@ -1,8 +1,8 @@
 import * as React from 'react';
-import userEvent from '@testing-library/user-event';
 import { render, waitFor } from 'test/util';
 import { adminGroup, SomeUser, tenant } from 'test/fixtures';
 import { ConstraintList } from './ConstraintsList';
+import userEvent from '@testing-library/user-event';
 
 import UpdateTenantMutation from 'api/mutation/UpdateTenantMutation.graphql';
 
@@ -39,7 +39,7 @@ describe('pages/admin/users/constraints', () => {
             });
         });
 
-        it('should set a limit when clicking corresponding checkbox', () => {
+        it('should set a limit when clicking corresponding checkbox', async () => {
             const screen = render(
                 <ConstraintList />,
                 {},
@@ -54,7 +54,7 @@ describe('pages/admin/users/constraints', () => {
                     currentUser: adminUser,
                 }
             );
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('checkbox', { name: /begrenzen auf:/i })
             );
             expect(
@@ -78,23 +78,23 @@ describe('pages/admin/users/constraints', () => {
             ).not.toBeChecked();
         });
 
-        it('should remember the limit set when disabling and reenabling the limit', () => {
+        it('should remember the limit set when disabling and reenabling the limit', async () => {
             const screen = render(
                 <ConstraintList />,
                 {},
                 { currentUser: adminUser }
             );
-            userEvent.type(
+            await userEvent.type(
                 screen.getByRole('spinbutton', {
                     name: /begrenzung/i,
                 }),
                 '123'
             );
-            userEvent.tab();
-            userEvent.click(
+            await userEvent.tab();
+            await userEvent.click(
                 screen.getByRole('checkbox', { name: /nicht begrenzen/i })
             );
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('checkbox', { name: /begrenzen auf/i })
             );
             expect(
@@ -147,17 +147,17 @@ describe('pages/admin/users/constraints', () => {
                     {},
                     { additionalMocks: mocks, currentUser: adminUser }
                 );
-                userEvent.type(
+                await userEvent.type(
                     screen.getByRole('spinbutton', {
                         name: /begrenzung/i,
                     }),
                     '123'
                 );
-                userEvent.tab();
+                await userEvent.tab();
                 expect(
                     screen.getByRole('spinbutton', { name: /begrenzung/i })
                 ).not.toHaveFocus();
-                userEvent.click(
+                await userEvent.click(
                     screen.getByRole('button', { name: /speichern/i })
                 );
                 expect(

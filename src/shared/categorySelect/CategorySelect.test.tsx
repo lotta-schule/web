@@ -22,7 +22,7 @@ describe('shared/layouts/editArticleLayout/CategorySelect', () => {
                 onSelectCategory={onSelectCategory}
             />
         );
-        userEvent.selectOptions(
+        await userEvent.selectOptions(
             screen.getByRole('combobox', { name: /wählen/i }),
             await screen.findByRole('option', { name: /material/i })
         );
@@ -48,7 +48,9 @@ describe('shared/layouts/editArticleLayout/CategorySelect', () => {
                     onSelectCategory={() => {}}
                 />
             );
-            userEvent.click(screen.getByRole('combobox', { name: /wählen/i }));
+            await userEvent.click(
+                screen.getByRole('combobox', { name: /wählen/i })
+            );
             await waitFor(() => {
                 expect(screen.getAllByRole('option')).toHaveLength(15);
             });
@@ -61,7 +63,9 @@ describe('shared/layouts/editArticleLayout/CategorySelect', () => {
                     onSelectCategory={() => {}}
                 />
             );
-            userEvent.click(screen.getByRole('combobox', { name: /wählen/i }));
+            await userEvent.click(
+                screen.getByRole('combobox', { name: /wählen/i })
+            );
             await waitFor(() => {
                 expect(screen.getAllByRole('option')).toHaveLength(15);
             });
@@ -75,7 +79,9 @@ describe('shared/layouts/editArticleLayout/CategorySelect', () => {
                     onSelectCategory={() => {}}
                 />
             );
-            userEvent.click(screen.getByRole('combobox', { name: /wählen/i }));
+            await userEvent.click(
+                screen.getByRole('combobox', { name: /wählen/i })
+            );
             await waitFor(() => {
                 expect(screen.getAllByRole('option')).toHaveLength(5);
             });
@@ -89,7 +95,9 @@ describe('shared/layouts/editArticleLayout/CategorySelect', () => {
                     onSelectCategory={() => {}}
                 />
             );
-            userEvent.click(screen.getByRole('combobox', { name: /wählen/i }));
+            await userEvent.click(
+                screen.getByRole('combobox', { name: /wählen/i })
+            );
             await waitFor(() => {
                 expect(screen.getAllByRole('option')).toHaveLength(13);
             });

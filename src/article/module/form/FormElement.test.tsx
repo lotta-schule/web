@@ -8,7 +8,7 @@ import GetDirectoriesAndFilesQuery from 'api/query/GetDirectoriesAndFiles.graphq
 
 describe('shared/article/module/form/FormElement', () => {
     describe('input element', () => {
-        it('should render a text field', () => {
+        it('should render a text field', async () => {
             const setValueFn = jest.fn();
             const screen = render(
                 <FormElement
@@ -21,13 +21,11 @@ describe('shared/article/module/form/FormElement', () => {
                     onSetValue={setValueFn}
                 />
             );
-            expect(
-                screen.getByRole('textbox', { name: /Bla Bla 1/i })
-            ).toBeInTheDocument();
-            userEvent.type(
-                screen.getByRole('textbox', { name: /Bla Bla 1/i }),
-                'A'
-            );
+            const textField = screen.getByRole('textbox', {
+                name: /Bla Bla 1/i,
+            }) as HTMLInputElement;
+            expect(textField).toBeInTheDocument();
+            await userEvent.type(textField, 'A');
             expect(setValueFn).toHaveBeenLastCalledWith('A');
         });
 
@@ -55,7 +53,7 @@ describe('shared/article/module/form/FormElement', () => {
     });
 
     describe('selection element', () => {
-        it('should render and select checkboxes', () => {
+        it('should render and select checkboxes', async () => {
             const setValueFn = jest.fn();
             const screen = render(
                 <FormElement
@@ -85,19 +83,19 @@ describe('shared/article/module/form/FormElement', () => {
             ).not.toBeChecked();
 
             // select
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('checkbox', { name: /dritter buchstabe/i })
             );
             expect(setValueFn).toHaveBeenCalledWith(['B', 'C']);
 
             // de-select
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('checkbox', { name: /zweiter buchstabe/i })
             );
             expect(setValueFn).toHaveBeenCalledWith([]);
         });
 
-        it('should render and select radioboxes', () => {
+        it('should render and select radioboxes', async () => {
             const setValueFn = jest.fn();
             const screen = render(
                 <FormElement
@@ -126,13 +124,13 @@ describe('shared/article/module/form/FormElement', () => {
                 screen.getByRole('radio', { name: /dritter buchstabe/i })
             ).not.toBeChecked();
 
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('radio', { name: /dritter buchstabe/i })
             );
             expect(setValueFn).toHaveBeenCalledWith('C');
         });
 
-        it('should render and select from a select field', () => {
+        it('should render and select from a select field', async () => {
             const setValueFn = jest.fn();
             const screen = render(
                 <FormElement
@@ -157,7 +155,7 @@ describe('shared/article/module/form/FormElement', () => {
             ).toHaveValue('B');
 
             expect(screen.getAllByRole('option')).toHaveLength(3);
-            userEvent.selectOptions(
+            await userEvent.selectOptions(
                 screen.getByRole('combobox', { name: /blabla1/i }),
                 screen.getByRole('option', { name: /erster/i })
             );
@@ -223,7 +221,7 @@ describe('shared/article/module/form/FormElement', () => {
             expect(screen.getByRole('button')).toHaveTextContent(
                 /datei hochladen/i
             );
-            userEvent.upload(
+            await userEvent.upload(
                 document.querySelector('input[type=file]')!,
                 new File(['hello world'], 'hello.txt', { type: 'text/plain' })
             );
@@ -234,7 +232,7 @@ describe('shared/article/module/form/FormElement', () => {
             });
         });
 
-        it('should show a filename for a selected local file, file should be removable', () => {
+        it('should show a filename for a selected local file, file should be removable', async () => {
             const setValueFn = jest.fn();
             const screen = render(
                 <FormElement
@@ -252,7 +250,7 @@ describe('shared/article/module/form/FormElement', () => {
                 screen.getByRole('button', { name: /datei hochladen/i })
             ).toBeVisible();
             expect(screen.getByText('hello.txt')).toBeVisible();
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('button', { name: /auswahl entfernen/i })
             );
             expect(setValueFn).toHaveBeenCalledWith('');
@@ -282,7 +280,7 @@ describe('shared/article/module/form/FormElement', () => {
             expect(
                 screen.getByRole('button', { name: /meine dateien/i })
             ).toBeVisible();
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('button', { name: /meine dateien/i })
             );
             await waitFor(() =>
@@ -294,16 +292,18 @@ describe('shared/article/module/form/FormElement', () => {
                     screen.getByRole('row', { name: /logos/i })
                 ).toBeVisible()
             );
-            userEvent.click(screen.getByRole('row', { name: /logos/i }));
+            await userEvent.click(screen.getByRole('row', { name: /logos/i }));
             await waitFor(() =>
                 expect(
                     screen.getByRole('row', { name: /dateiname\.jpg/i })
                 ).toBeVisible()
             );
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('row', { name: /dateiname\.jpg/i })
             );
-            userEvent.click(screen.getByRole('button', { name: /auswählen/ }));
+            await userEvent.click(
+                screen.getByRole('button', { name: /auswählen/ })
+            );
             expect(setValueFn).toHaveBeenCalledWith(
                 'lotta-file-id://' +
                     '{"id":"123","insertedAt":"2001-01-01 14:15","updatedAt":"2001-01-01 14:15",' +
@@ -312,7 +312,7 @@ describe('shared/article/module/form/FormElement', () => {
             );
         });
 
-        it('should show a filename for a selected local file, file should be removable', () => {
+        it('should show a filename for a selected local file, file should be removable', async () => {
             const setValueFn = jest.fn();
             const screen = render(
                 <FormElement
@@ -333,7 +333,7 @@ describe('shared/article/module/form/FormElement', () => {
                 screen.getByRole('button', { name: /datei hochladen/i })
             ).toBeVisible();
             expect(screen.getByText('Dateiname.jpg')).toBeVisible();
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('button', { name: /auswahl entfernen/i })
             );
             expect(setValueFn).toHaveBeenCalledWith('');

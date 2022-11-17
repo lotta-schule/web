@@ -100,13 +100,14 @@ describe('shared/layouts/adminLayouts/userManagment/EditUserGroupDialog', () => 
                     {},
                     { additionalMocks: [...additionalMocks, saveMock] }
                 );
-                userEvent.type(
-                    await screen.findByRole('textbox', {
-                        name: /gruppenname/i,
-                    }),
-                    '{selectall}Neuer Name'
-                );
-                userEvent.tab();
+                const groupNameTextbox = (await screen.findByRole('textbox', {
+                    name: /gruppenname/i,
+                })) as HTMLInputElement;
+                await userEvent.type(groupNameTextbox, 'Neuer Name', {
+                    initialSelectionStart: 0,
+                    initialSelectionEnd: groupNameTextbox.value.length,
+                });
+                await userEvent.tab();
                 await waitFor(() => {
                     expect(saveCallback).toHaveBeenCalled();
                 });
@@ -138,12 +139,13 @@ describe('shared/layouts/adminLayouts/userManagment/EditUserGroupDialog', () => 
                     {},
                     { additionalMocks: [...additionalMocks, saveMock] }
                 );
-                userEvent.type(
-                    await screen.findByRole('textbox', {
-                        name: /gruppenname/i,
-                    }),
-                    '{selectall}Neuer Name{enter}'
-                );
+                const groupNameTextbox = (await screen.findByRole('textbox', {
+                    name: /gruppenname/i,
+                })) as HTMLInputElement;
+                await userEvent.type(groupNameTextbox, 'Neuer Name{Enter}', {
+                    initialSelectionStart: 0,
+                    initialSelectionEnd: groupNameTextbox.value.length,
+                });
                 await waitFor(() => {
                     expect(saveCallback).toHaveBeenCalled();
                 });
@@ -208,7 +210,7 @@ describe('shared/layouts/adminLayouts/userManagment/EditUserGroupDialog', () => 
                         userGroups: groupsWithSecondAdmin,
                     }
                 );
-                userEvent.click(
+                await userEvent.click(
                     await screen.findByRole('checkbox', {
                         name: /administratorrechte/i,
                     })
@@ -227,11 +229,13 @@ describe('shared/layouts/adminLayouts/userManagment/EditUserGroupDialog', () => 
                     {},
                     { additionalMocks }
                 );
-                expect(
-                    await screen.findByRole('checkbox', {
-                        name: /administratorrecht/i,
-                    })
-                ).toBeDisabled();
+                await waitFor(() => {
+                    expect(
+                        screen.getByRole('checkbox', {
+                            name: /administratorrecht/i,
+                        })
+                    ).toBeDisabled();
+                });
             });
         });
 
@@ -265,9 +269,9 @@ describe('shared/layouts/adminLayouts/userManagment/EditUserGroupDialog', () => 
                     {},
                     { additionalMocks: [...additionalMocks, saveMock] }
                 );
-                userEvent.type(
+                await userEvent.type(
                     await screen.findByPlaceholderText(/einschreibeschlüssel/i),
-                    'NeuerToken{enter}'
+                    'NeuerToken{Enter}'
                 );
                 await waitFor(() => {
                     expect(saveCallback).toHaveBeenCalled();
@@ -296,16 +300,14 @@ describe('shared/layouts/adminLayouts/userManagment/EditUserGroupDialog', () => 
                                 },
                                 result: {
                                     data: {
-                                        deleteGroup: {
-                                            id: lehrerGroup.id,
-                                        },
+                                        group: lehrerGroup,
                                     },
                                 },
                             },
                         ],
                     }
                 );
-                userEvent.click(
+                await userEvent.click(
                     await screen.findByRole('button', { name: /löschen/i })
                 );
                 const dialog = await screen.findByRole('dialog', {
@@ -319,7 +321,7 @@ describe('shared/layouts/adminLayouts/userManagment/EditUserGroupDialog', () => 
                     name: /löschen/i,
                 });
 
-                userEvent.click(deleteButton);
+                await userEvent.click(deleteButton);
 
                 await waitFor(() => {
                     expect(onRequestClose).toHaveBeenCalled();
@@ -340,9 +342,11 @@ describe('shared/layouts/adminLayouts/userManagment/EditUserGroupDialog', () => 
                         screen.getByPlaceholderText(/einschreibeschlüssel/i)
                     ).toBeVisible();
                 });
-                expect(
-                    screen.queryByRole('button', { name: /löschen/i })
-                ).toBeNull();
+                await waitFor(() => {
+                    expect(
+                        screen.queryByRole('button', { name: /löschen/i })
+                    ).toBeNull();
+                });
             });
         });
     });

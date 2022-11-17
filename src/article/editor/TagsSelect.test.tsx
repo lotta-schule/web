@@ -20,7 +20,7 @@ describe('shared/layouts/editArticleLayouut/TagsSelect', () => {
         render(<TagsSelect value={[]} onChange={() => {}} />, {}, {});
     });
 
-    it('should show a delete button for tags', () => {
+    it('should show a delete button for tags', async () => {
         const fn = jest.fn();
         const screen = render(
             <TagsSelect value={['tag1']} onChange={fn} />,
@@ -29,7 +29,7 @@ describe('shared/layouts/editArticleLayouut/TagsSelect', () => {
         );
         const tagElement = screen.getByTestId('Tag');
         expect(tagElement.querySelector('button')).toBeVisible();
-        userEvent.click(tagElement.querySelector('button')!);
+        await userEvent.click(tagElement.querySelector('button')!);
         expect(fn).toHaveBeenCalledWith([]);
     });
 
@@ -45,7 +45,7 @@ describe('shared/layouts/editArticleLayouut/TagsSelect', () => {
         await waitFor(() => {
             expect(resFn).toHaveBeenCalled();
         });
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole('button', { name: /vorschläge anzeigen/i })
         );
         await waitFor(() => {
@@ -69,13 +69,15 @@ describe('shared/layouts/editArticleLayouut/TagsSelect', () => {
         await waitFor(() => {
             expect(resFn).toHaveBeenCalled();
         });
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole('button', { name: /vorschläge anzeigen/i })
         );
         await waitFor(() => {
             expect(screen.getByRole('listbox')).toBeVisible();
         });
-        userEvent.click(screen.getByRole('option', { name: /noch ein tag/i }));
+        await userEvent.click(
+            screen.getByRole('option', { name: /noch ein tag/i })
+        );
         expect(onChangeFn).toHaveBeenCalledWith(['noch ein tag']);
     });
 
@@ -96,13 +98,15 @@ describe('shared/layouts/editArticleLayouut/TagsSelect', () => {
             expect(resFn).toHaveBeenCalled();
         });
         await new Promise((resolve) => setTimeout(resolve, 50));
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole('button', { name: /vorschläge anzeigen/i })
         );
         await waitFor(() => {
             expect(screen.getByRole('listbox')).toBeVisible();
         });
-        userEvent.click(screen.getByRole('option', { name: /noch ein tag/i }));
+        await userEvent.click(
+            screen.getByRole('option', { name: /noch ein tag/i })
+        );
         expect(onChangeFn).toHaveBeenCalledWith(['tag']);
     });
 });

@@ -1,10 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import { render, waitFor } from 'test/util';
 import { Klausurenplan } from 'test/fixtures';
+import { ContentModuleModel } from 'model';
 import { Edit } from './Edit';
 import userEvent from '@testing-library/user-event';
 
-const titleContentModule = Klausurenplan.contentModules[0];
+const titleContentModule = Klausurenplan
+    .contentModules[0] as ContentModuleModel;
 
 describe('shared/article/module/table/Edit', () => {
     it('should render without an error', () => {
@@ -39,10 +41,10 @@ describe('shared/article/module/table/Edit', () => {
             />
         );
         const input = screen.getByRole('textbox');
-        userEvent.click(input);
-        userEvent.clear(input);
-        userEvent.type(input, 'Eine neue Überschrift');
-        userEvent.click(document.body);
+        await userEvent.click(input);
+        await userEvent.clear(input);
+        await userEvent.type(input, 'Eine neue Überschrift');
+        await userEvent.click(document.body);
         await waitFor(() => {
             expect(callback).toHaveBeenCalled();
         });
@@ -60,8 +62,8 @@ describe('shared/article/module/table/Edit', () => {
             />
         );
         const input = screen.getByRole('textbox');
-        userEvent.clear(input);
-        userEvent.type(input, 'Eine neue Überschr{esc}');
+        await userEvent.clear(input);
+        await userEvent.type(input, 'Eine neue Überschr{Escape}');
         await waitFor(() => {
             expect(input).not.toHaveFocus();
         });

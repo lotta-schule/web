@@ -13,7 +13,7 @@ describe('AuthorAvatarsList', () => {
     });
 
     describe('Editing', () => {
-        it('should show a delete button when "onUpdate" function is given', () => {
+        it('should show a delete button when "onUpdate" function is given', async () => {
             const fn = jest.fn();
             const screen = render(
                 <AuthorAvatarsList users={users} onUpdate={fn} />
@@ -21,7 +21,7 @@ describe('AuthorAvatarsList', () => {
             expect(
                 screen.getByRole('button', { name: /che entfernen/i })
             ).toBeVisible();
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('button', { name: /che entfernen/i })
             );
             expect(fn).toHaveBeenCalledWith([SomeUserin]);

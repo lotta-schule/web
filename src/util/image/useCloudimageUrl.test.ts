@@ -4,7 +4,7 @@ jest.mock('next/config', () => () => ({
     },
 }));
 
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { useCloudimageUrl } from './useCloudimageUrl';
 
 describe('useCloudimageUrl', () => {

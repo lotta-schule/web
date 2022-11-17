@@ -134,15 +134,20 @@ describe('layouts/adminLayout/categoryManagment/widgets/WidgetEditor', () => {
                 {},
                 { additionalMocks: [mock] }
             );
-            userEvent.type(
-                screen.getByRole('textbox', { name: /name des widget/i }),
-                '{selectall}Neuer Name'
-            );
-            userEvent.click(
+            const nameTextbox = screen.getByRole('textbox', {
+                name: /name des widget/i,
+            }) as HTMLInputElement;
+            await userEvent.type(nameTextbox, 'Neuer Name', {
+                initialSelectionStart: 0,
+                initialSelectionEnd: nameTextbox.value.length,
+            });
+            await userEvent.click(
                 screen.getByRole('checkbox', { name: /für alle/i })
             );
 
-            userEvent.click(screen.getByRole('button', { name: /speichern/i }));
+            await userEvent.click(
+                screen.getByRole('button', { name: /speichern/i })
+            );
             await waitFor(() => {
                 expect(mock.result).toHaveBeenCalled();
             });
@@ -156,7 +161,7 @@ describe('layouts/adminLayout/categoryManagment/widgets/WidgetEditor', () => {
                 onSelectWidget={jest.fn()}
             />
         );
-        userEvent.click(screen.getByRole('button', { name: /löschen/ }));
+        await userEvent.click(screen.getByRole('button', { name: /löschen/ }));
         await waitFor(() => {
             expect(
                 screen.getByRole('dialog', { name: /marginale löschen/i })

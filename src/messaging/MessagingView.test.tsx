@@ -8,7 +8,6 @@ import {
 } from 'test/fixtures';
 import { render, waitFor } from 'test/util';
 import { MessagingView } from './MessagingView';
-
 import userEvent from '@testing-library/user-event';
 
 import styles from './ConversationPreview.module.scss';
@@ -64,7 +63,7 @@ describe('src/messaging/MessagingView', () => {
             }
         );
 
-        userEvent.click(
+        await userEvent.click(
             await screen.findByRole('button', { name: /Unterhaltung mit Lui/i })
         );
 
@@ -92,15 +91,15 @@ describe('src/messaging/MessagingView', () => {
                 }
             );
 
-            userEvent.click(
+            await userEvent.click(
                 await screen.findByRole('button', { name: /neue nachricht/i })
             );
 
-            userEvent.type(
+            await userEvent.type(
                 screen.getByRole('combobox', { name: /nutzer suchen/i }),
                 'Lui'
             );
-            userEvent.click(
+            await userEvent.click(
                 await screen.findByRole('option', { name: /Lui/i })
             );
 
@@ -175,15 +174,15 @@ describe('src/messaging/MessagingView', () => {
                 }
             );
 
-            userEvent.click(
+            await userEvent.click(
                 await screen.findByRole('button', { name: /neue nachricht/i })
             );
 
-            userEvent.type(
+            await userEvent.type(
                 screen.getByRole('combobox', { name: /nutzer suchen/i }),
                 'Michel'
             );
-            userEvent.click(
+            await userEvent.click(
                 await screen.findByRole('option', { name: /Michel/i })
             );
 

@@ -46,11 +46,11 @@ describe('shared/layouts/adminLayout/userManagment/UpdatePasswordDialog', () => 
         ).toHaveAttribute('autocomplete', 'new-password');
     });
 
-    it('should start with a disabled submit button, but should enable the button when passwords have been entered', () => {
+    it('should start with a disabled submit button, but should enable the button when passwords have been entered', async () => {
         render(<UpdatePasswordDialog isOpen onRequestClose={() => {}} />);
         expect(screen.getByRole('button', { name: /ändern/ })).toBeDisabled();
-        userEvent.type(screen.getByLabelText('Neues Passwort:'), 'pw456');
-        userEvent.type(
+        await userEvent.type(screen.getByLabelText('Neues Passwort:'), 'pw456');
+        await userEvent.type(
             screen.getByLabelText('Wiederholung Neues Passwort:'),
             'pw456'
         );
@@ -59,11 +59,11 @@ describe('shared/layouts/adminLayout/userManagment/UpdatePasswordDialog', () => 
         ).not.toBeDisabled();
     });
 
-    it('should not enable submit button if new password and repetition do not match', () => {
+    it('should not enable submit button if new password and repetition do not match', async () => {
         render(<UpdatePasswordDialog isOpen onRequestClose={() => {}} />);
         expect(screen.getByRole('button', { name: /ändern/ })).toBeDisabled();
-        userEvent.type(screen.getByLabelText('Neues Passwort:'), 'pw456');
-        userEvent.type(
+        await userEvent.type(screen.getByLabelText('Neues Passwort:'), 'pw456');
+        await userEvent.type(
             screen.getByLabelText('Wiederholung Neues Passwort:'),
             'pw4567'
         );
@@ -119,19 +119,26 @@ describe('shared/layouts/adminLayout/userManagment/UpdatePasswordDialog', () => 
                 {},
                 { currentUser: SomeUser, additionalMocks }
             );
-            userEvent.type(screen.getByLabelText('Neues Passwort:'), 'pw456');
-            userEvent.type(
+            await userEvent.type(
+                screen.getByLabelText('Neues Passwort:'),
+                'pw456'
+            );
+            await userEvent.type(
                 screen.getByLabelText('Wiederholung Neues Passwort:'),
                 'pw456'
             );
-            userEvent.click(screen.getByRole('button', { name: /ändern/ }));
+            await userEvent.click(
+                screen.getByRole('button', { name: /ändern/ })
+            );
             await waitFor(() => {
                 expect(
                     screen.getByTestId('RequestHisecTokenDialog')
                 ).toBeVisible();
             });
-            userEvent.type(screen.getByLabelText('Passwort:'), 'pw123');
-            userEvent.click(screen.getByRole('button', { name: /senden/i }));
+            await userEvent.type(screen.getByLabelText('Passwort:'), 'pw123');
+            await userEvent.click(
+                screen.getByRole('button', { name: /senden/i })
+            );
 
             await waitFor(() => {
                 expect(updateMutationCalled).toEqual(true);
@@ -146,11 +153,9 @@ describe('shared/layouts/adminLayout/userManagment/UpdatePasswordDialog', () => 
             render(
                 <UpdatePasswordDialog isOpen onRequestClose={onRequestClose} />
             );
-            await waitFor(() => {
-                userEvent.click(
-                    screen.getByRole('button', { name: /abbrechen/i })
-                );
-            });
+            await userEvent.click(
+                screen.getByRole('button', { name: /abbrechen/i })
+            );
             expect(screen.getByLabelText('Neues Passwort:')).toHaveValue('');
             expect(
                 screen.getByLabelText('Wiederholung Neues Passwort:')

@@ -29,7 +29,7 @@ describe('src/messaging/MessageToolbar', () => {
             { currentUser: SomeUserWithGroups }
         );
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole('button', { name: /nachricht schreiben/i })
         );
         await waitFor(() => {
@@ -50,7 +50,7 @@ describe('src/messaging/MessageToolbar', () => {
                 { currentUser: SomeUser }
             );
 
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('button', { name: /nachricht schreiben/i })
             );
             await waitFor(() => {
@@ -87,7 +87,7 @@ describe('src/messaging/MessageToolbar', () => {
                 { currentUser: SomeUserin, additionalMocks }
             );
 
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('button', { name: /nachricht schreiben/i })
             );
             await waitFor(() => {
@@ -96,8 +96,8 @@ describe('src/messaging/MessageToolbar', () => {
                 ).toBeVisible();
             });
 
-            userEvent.click(screen.getByRole('tab', { name: /nutzer/i }));
-            userEvent.type(
+            await userEvent.click(screen.getByRole('tab', { name: /nutzer/i }));
+            await userEvent.type(
                 screen.getByRole('combobox', { name: /nutzer suchen/i }),
                 'Drinalda'
             );
@@ -112,7 +112,9 @@ describe('src/messaging/MessageToolbar', () => {
                 },
                 { timeout: 2000 }
             );
-            userEvent.click(screen.getByRole('option', { name: /drinalda/i }));
+            await userEvent.click(
+                screen.getByRole('option', { name: /drinalda/i })
+            );
             expect(onRequestNewMessage).toHaveBeenCalled();
         });
 
@@ -130,7 +132,7 @@ describe('src/messaging/MessageToolbar', () => {
                 { currentUser: SomeUserWithGroups }
             );
 
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('button', { name: /nachricht schreiben/i })
             );
             await waitFor(() => {
@@ -139,18 +141,20 @@ describe('src/messaging/MessageToolbar', () => {
                 ).toBeVisible();
             });
 
-            userEvent.click(screen.getByRole('tab', { name: /gruppe/i }));
+            await userEvent.click(screen.getByRole('tab', { name: /gruppe/i }));
 
             await waitFor(() => {
                 expect(
                     screen.getByRole('combobox', { name: /gruppe wählen/i })
                 ).toBeVisible();
             });
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('button', { name: /vorschläge/i })
             );
             expect(screen.getAllByRole('option')).toHaveLength(1);
-            userEvent.click(screen.getByRole('option', { name: 'Schüler' }));
+            await userEvent.click(
+                screen.getByRole('option', { name: 'Schüler' })
+            );
             expect(onRequestNewMessage).toHaveBeenCalled();
         });
     });

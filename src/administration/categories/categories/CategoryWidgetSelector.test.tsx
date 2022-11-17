@@ -7,7 +7,7 @@ import userEvents from '@testing-library/user-event';
 
 const widgets: WidgetModel[] = [
     {
-        id: 1,
+        id: '1',
         title: 'WidgetOne',
         type: WidgetModelType.Calendar,
         configuration: {},
@@ -15,7 +15,7 @@ const widgets: WidgetModel[] = [
         iconImageFile: null,
     },
     {
-        id: 2,
+        id: '2',
         title: 'WidgetTwo',
         type: WidgetModelType.Calendar,
         configuration: {},
@@ -23,7 +23,7 @@ const widgets: WidgetModel[] = [
         iconImageFile: null,
     },
     {
-        id: 3,
+        id: '3',
         title: 'WidgetThree',
         type: WidgetModelType.Calendar,
         configuration: {},
@@ -31,7 +31,7 @@ const widgets: WidgetModel[] = [
         iconImageFile: null,
     },
     {
-        id: 4,
+        id: '4',
         title: 'W Number 4',
         type: WidgetModelType.Calendar,
         configuration: {},
@@ -39,7 +39,7 @@ const widgets: WidgetModel[] = [
         iconImageFile: null,
     },
     {
-        id: 5,
+        id: '5',
         title: 'W Number 5',
         type: WidgetModelType.Calendar,
         configuration: {},

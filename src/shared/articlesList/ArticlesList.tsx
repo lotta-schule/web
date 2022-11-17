@@ -20,7 +20,7 @@ export const ArticlesList = React.memo<ArticlesListProps>(({ articles }) => {
     const { baseUrl } = useServerData();
 
     const articleSorter = React.useCallback(
-        (article1, article2) =>
+        (article1: ArticleModel, article2: ArticleModel) =>
             new Date(article2.updatedAt).getTime() -
             new Date(article1.updatedAt).getTime(),
         []
@@ -63,24 +63,27 @@ export const ArticlesList = React.memo<ArticlesListProps>(({ articles }) => {
                             <Link
                                 href={Article.getPath(article, { edit: true })}
                                 passHref
+                                legacyBehavior
                             >
                                 <a
                                     className={styles.link}
                                     title={`Beitrag "${article.title}" bearbeiten`}
                                 >
-                                    {article.previewImageFile && (
-                                        <ResponsiveImage
-                                            className={styles.previewImage}
-                                            width={60}
-                                            aspectRatio={'4:3'}
-                                            src={File.getFileRemoteLocation(
-                                                baseUrl,
-                                                article.previewImageFile
-                                            )}
-                                            alt={`Vorschaubild zum Beitrag "${article.title}"`}
-                                        />
-                                    )}
-                                    {article.title}
+                                    <span>
+                                        {article.previewImageFile && (
+                                            <ResponsiveImage
+                                                className={styles.previewImage}
+                                                width={60}
+                                                aspectRatio={'4:3'}
+                                                src={File.getFileRemoteLocation(
+                                                    baseUrl,
+                                                    article.previewImageFile
+                                                )}
+                                                alt={`Vorschaubild zum Beitrag "${article.title}"`}
+                                            />
+                                        )}
+                                        {article.title}
+                                    </span>
                                 </a>
                             </Link>
                         </td>
@@ -88,16 +91,12 @@ export const ArticlesList = React.memo<ArticlesListProps>(({ articles }) => {
                             {article.category && (
                                 <Link
                                     href={Category.getPath(article.category)}
-                                    passHref
+                                    className={styles.link}
+                                    title={`${Category.getPath(
+                                        article.category
+                                    )} öffnen`}
                                 >
-                                    <a
-                                        className={styles.link}
-                                        title={`${Category.getPath(
-                                            article.category
-                                        )} öffnen`}
-                                    >
-                                        {article.category.title}
-                                    </a>
+                                    {article.category.title}
                                 </Link>
                             )}
                         </td>

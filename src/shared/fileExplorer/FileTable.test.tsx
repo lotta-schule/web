@@ -15,8 +15,9 @@ import {
 } from 'test/fixtures';
 import { FileTable } from './FileTable';
 import { defaultState, FileExplorerMode } from './context/FileExplorerContext';
-import GetDirectoriesAndFilesQuery from 'api/query/GetDirectoriesAndFiles.graphql';
 import userEvent from '@testing-library/user-event';
+
+import GetDirectoriesAndFilesQuery from 'api/query/GetDirectoriesAndFiles.graphql';
 
 describe('shared/fileExplorer/FileTable', () => {
     const parentDirectory = { ...profilDirectory, user: SomeUser };
@@ -104,7 +105,7 @@ describe('shared/fileExplorer/FileTable', () => {
                         screen.queryByRole('checkbox', { name: /alle wählen/i })
                     ).not.toBeNull();
                 });
-                userEvent.click(
+                await userEvent.click(
                     screen.getByRole('checkbox', { name: /alle wählen/i })
                 );
                 expect(onUpdate).toHaveBeenCalled();
@@ -133,7 +134,7 @@ describe('shared/fileExplorer/FileTable', () => {
                             screen.getByRole('row', { name: /Dateiname.jpg/ })
                         ).toBeVisible();
                     });
-                    userEvent.click(
+                    await userEvent.click(
                         screen.getByRole('row', { name: /Dateiname.jpg/ })
                     );
                     expect(onUpdate).toHaveBeenCalled();
@@ -167,10 +168,10 @@ describe('shared/fileExplorer/FileTable', () => {
                             screen.getByRole('row', { name: /Kaenguru.wav/ })
                         ).toBeVisible();
                     });
-                    userEvent.click(
+                    await userEvent.click(
                         screen.getByRole('row', { name: /Kaenguru.wav/ })
                     );
-                    userEvent.type(screen.container, '{arrowup}');
+                    await userEvent.type(screen.container, '{arrowup}');
                     expect(onUpdate).toHaveBeenCalled();
                     await waitFor(() => {
                         expect(state.markedFiles).toHaveLength(1);
@@ -202,10 +203,13 @@ describe('shared/fileExplorer/FileTable', () => {
                             screen.getByRole('row', { name: /Kaenguru.wav/ })
                         ).toBeVisible();
                     });
-                    userEvent.click(
+                    await userEvent.click(
                         screen.getByRole('row', { name: /Kaenguru.wav/ })
                     );
-                    userEvent.type(screen.container, '{shift}{arrowup}');
+                    await userEvent.type(
+                        screen.container,
+                        '{shift>}{arrowup}{/shift}'
+                    );
                     expect(onUpdate).toHaveBeenCalled();
                     await waitFor(() => {
                         expect(state.markedFiles).toHaveLength(2);
@@ -244,10 +248,10 @@ describe('shared/fileExplorer/FileTable', () => {
                             screen.getByRole('row', { name: /Dateiname.jpg/ })
                         ).toBeVisible();
                     });
-                    userEvent.click(
+                    await userEvent.click(
                         screen.getByRole('row', { name: /Dateiname.jpg/ })
                     );
-                    userEvent.type(screen.container, '{arrowdown}');
+                    await userEvent.type(screen.container, '{arrowdown}');
                     expect(onUpdate).toHaveBeenCalled();
                     await waitFor(() => {
                         expect(state.markedFiles).toHaveLength(1);
@@ -282,10 +286,13 @@ describe('shared/fileExplorer/FileTable', () => {
                             screen.getByRole('row', { name: /Dateiname.jpg/ })
                         ).toBeVisible();
                     });
-                    userEvent.click(
+                    await userEvent.click(
                         screen.getByRole('row', { name: /Dateiname.jpg/ })
                     );
-                    userEvent.type(screen.container, '{shift}{arrowdown}');
+                    await userEvent.type(
+                        screen.container,
+                        '{shift>}{arrowdown}{/shift}'
+                    );
                     expect(onUpdate).toHaveBeenCalled();
                     await waitFor(() => {
                         expect(state.markedFiles).toHaveLength(2);
@@ -301,6 +308,8 @@ describe('shared/fileExplorer/FileTable', () => {
                 });
 
                 it('should mark all files on SHIFT first file and last file', async () => {
+                    const user = userEvent.setup();
+
                     let state: typeof defaultState = {
                         ...defaultState,
                         currentPath: [{ id: null }, parentDirectory],
@@ -321,13 +330,14 @@ describe('shared/fileExplorer/FileTable', () => {
                             screen.getByRole('row', { name: /Amelie.mp4/ })
                         ).toBeVisible();
                     });
-                    userEvent.click(
+                    await user.click(
                         screen.getByRole('row', { name: /Amelie.mp4/ })
                     );
-                    userEvent.click(
-                        screen.getByRole('row', { name: /praesi.ppt/ }),
-                        { shiftKey: true }
+                    await user.keyboard('{Shift>}');
+                    await user.click(
+                        screen.getByRole('row', { name: /praesi.ppt/ })
                     );
+                    await user.keyboard('{/Shift}');
                     expect(onUpdate).toHaveBeenCalled();
                     await waitFor(() => {
                         expect(state.markedFiles).toHaveLength(7);
@@ -335,6 +345,7 @@ describe('shared/fileExplorer/FileTable', () => {
                 });
 
                 it('should mark any second file by holding META on click', async () => {
+                    const user = userEvent.setup();
                     let state: typeof defaultState = {
                         ...defaultState,
                         currentPath: [{ id: null }, parentDirectory],
@@ -355,13 +366,14 @@ describe('shared/fileExplorer/FileTable', () => {
                             screen.getByRole('row', { name: /Dateiname.jpg/ })
                         ).toBeVisible();
                     });
-                    userEvent.click(
+                    await user.click(
                         screen.getByRole('row', { name: /Dateiname.jpg/ })
                     );
-                    userEvent.click(
-                        screen.getByRole('row', { name: /amelie.mp4/i }),
-                        { metaKey: true }
+                    await user.keyboard('{Meta>}');
+                    await user.click(
+                        screen.getByRole('row', { name: /amelie.mp4/i })
                     );
+                    await user.keyboard('{/Meta}');
                     expect(onUpdate).toHaveBeenCalled();
                     await waitFor(() => {
                         expect(state.markedFiles).toHaveLength(2);
@@ -396,10 +408,10 @@ describe('shared/fileExplorer/FileTable', () => {
                             screen.getByRole('row', { name: /amelie.mp4/i })
                         ).toBeVisible();
                     });
-                    userEvent.click(
+                    await userEvent.click(
                         screen.getByRole('row', { name: /amelie.mp4/i })
                     );
-                    userEvent.type(screen.container, '{arrowup}');
+                    await userEvent.type(screen.container, '{arrowup}');
                     await waitFor(() => {
                         expect(state.markedFiles).toHaveLength(1);
                         expect(state.markedFiles[0]).toHaveProperty(
@@ -429,10 +441,10 @@ describe('shared/fileExplorer/FileTable', () => {
                             screen.getByRole('row', { name: /praesi.ppt/i })
                         ).toBeVisible();
                     });
-                    userEvent.click(
+                    await userEvent.click(
                         screen.getByRole('row', { name: /praesi.ppt/i })
                     );
-                    userEvent.type(screen.container, '{arrowdown}');
+                    await userEvent.type(screen.container, '{arrowdown}');
                     await waitFor(() => {
                         expect(state.markedFiles).toHaveLength(1);
                         expect(state.markedFiles[0]).toHaveProperty(

@@ -2,21 +2,24 @@ import * as React from 'react';
 import { render, waitFor } from 'test/util';
 import { LoginDialog } from './LoginDialog';
 import { SomeUser } from 'test/fixtures';
-import LoginMutation from 'api/mutation/LoginMutation.graphql';
 import userEvent from '@testing-library/user-event';
+
+import LoginMutation from 'api/mutation/LoginMutation.graphql';
 
 describe('shared/dialog/LoginDialog', () => {
     it('should render login dialog without errors', () => {
         render(<LoginDialog isOpen={true} onRequestClose={() => {}} />, {});
     });
 
-    it('should close the dialog when clicking on cancel', () => {
+    it('should close the dialog when clicking on cancel', async () => {
         const onRequestClose = jest.fn();
         const screen = render(
             <LoginDialog isOpen={true} onRequestClose={onRequestClose} />,
             {}
         );
-        userEvent.click(screen.getByRole('button', { name: /abbrechen/i }));
+        await userEvent.click(
+            screen.getByRole('button', { name: /abbrechen/i })
+        );
         expect(onRequestClose).toHaveBeenCalled();
     });
 
@@ -40,12 +43,17 @@ describe('shared/dialog/LoginDialog', () => {
                 {},
                 { additionalMocks, currentUser: SomeUser }
             );
-            userEvent.type(
+            await userEvent.type(
                 screen.getByRole('textbox', { name: /email/i }),
                 'nutzer@email.de'
             );
-            userEvent.type(screen.getByLabelText(/passwort/i), 'password');
-            userEvent.click(screen.getByRole('button', { name: /anmelden/i }));
+            await userEvent.type(
+                screen.getByLabelText(/passwort/i),
+                'password'
+            );
+            await userEvent.click(
+                screen.getByRole('button', { name: /anmelden/i })
+            );
             await waitFor(() => {
                 expect(onRequestClose).toHaveBeenCalled();
             });
@@ -76,12 +84,17 @@ describe('shared/dialog/LoginDialog', () => {
                     },
                 }
             );
-            userEvent.type(
+            await userEvent.type(
                 screen.getByRole('textbox', { name: /email/i }),
                 'nutzer@email.de'
             );
-            userEvent.type(screen.getByLabelText(/passwort/i), 'password');
-            userEvent.click(screen.getByRole('button', { name: /anmelden/i }));
+            await userEvent.type(
+                screen.getByLabelText(/passwort/i),
+                'password'
+            );
+            await userEvent.click(
+                screen.getByRole('button', { name: /anmelden/i })
+            );
             await waitFor(() => {
                 expect(
                     screen.queryByRole('heading', { name: /passwort ändern/i })

@@ -69,7 +69,7 @@ describe('shared/layouts/adminLayout/userManagment/CreateArticleDialog', () => {
         expect(
             screen.getByRole('button', { name: /erstellen/ })
         ).toBeDisabled();
-        userEvent.type(screen.getByRole('textbox'), 'Test');
+        await userEvent.type(screen.getByRole('textbox'), 'Test');
         expect(
             screen.getByRole('button', { name: /erstellen/ })
         ).not.toBeDisabled();
@@ -119,8 +119,10 @@ describe('shared/layouts/adminLayout/userManagment/CreateArticleDialog', () => {
                 {},
                 { currentUser: SomeUser, additionalMocks: mocks }
             );
-            userEvent.type(screen.getByRole('textbox'), 'Test');
-            userEvent.click(screen.getByRole('button', { name: /erstellen/ }));
+            await userEvent.type(screen.getByRole('textbox'), 'Test');
+            await userEvent.click(
+                screen.getByRole('button', { name: /erstellen/ })
+            );
 
             await waitFor(() => {
                 expect(onConfirm).toHaveBeenCalled();
@@ -136,8 +138,10 @@ describe('shared/layouts/adminLayout/userManagment/CreateArticleDialog', () => {
                     onAbort={onAbort}
                 />
             );
-            userEvent.type(screen.getByRole('textbox'), 'Test');
-            userEvent.click(screen.getByRole('button', { name: /abbrechen/i }));
+            await userEvent.type(screen.getByRole('textbox'), 'Test');
+            await userEvent.click(
+                screen.getByRole('button', { name: /abbrechen/i })
+            );
 
             await waitFor(() => {
                 expect(onAbort).toHaveBeenCalled();

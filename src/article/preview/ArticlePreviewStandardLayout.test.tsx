@@ -75,7 +75,7 @@ describe('shared/article/ArticlePreviewStandardLayout', () => {
             ).toHaveValue('Weihnachtsmarkt');
         });
 
-        it('and call update callback when edited', () => {
+        it('and call update callback when edited', async () => {
             const fn = jest.fn();
             const screen = render(
                 <ArticlePreviewStandardLayout
@@ -85,10 +85,13 @@ describe('shared/article/ArticlePreviewStandardLayout', () => {
                 {},
                 { currentUser: SomeUser }
             );
-            userEvent.type(
-                screen.getByRole('textbox', { name: /article title/i }),
-                '{selectall}A'
-            );
+            const articleTitleInput = screen.getByRole('textbox', {
+                name: /article title/i,
+            }) as HTMLInputElement;
+            await userEvent.type(articleTitleInput, 'A', {
+                initialSelectionStart: 0,
+                initialSelectionEnd: articleTitleInput.value.length,
+            });
             expect(fn).toHaveBeenCalledWith({ ...Weihnachtsmarkt, title: 'A' });
         });
     });
@@ -126,7 +129,7 @@ describe('shared/article/ArticlePreviewStandardLayout', () => {
             );
         });
 
-        it('and call update callback when edited', () => {
+        it('and call update callback when edited', async () => {
             const fn = jest.fn();
             const screen = render(
                 <ArticlePreviewStandardLayout
@@ -136,10 +139,13 @@ describe('shared/article/ArticlePreviewStandardLayout', () => {
                 {},
                 { currentUser: SomeUser }
             );
-            userEvent.type(
-                screen.getByRole('textbox', { name: /article preview text/i }),
-                '{selectall}A'
-            );
+            const articlePreviewTextBox = screen.getByRole('textbox', {
+                name: /article preview text/i,
+            }) as HTMLTextAreaElement;
+            await userEvent.type(articlePreviewTextBox, 'A', {
+                initialSelectionStart: 0,
+                initialSelectionEnd: articlePreviewTextBox.value.length,
+            });
             expect(fn).toHaveBeenCalledWith({
                 ...Weihnachtsmarkt,
                 preview: 'A',
@@ -230,7 +236,7 @@ describe('shared/article/ArticlePreviewStandardLayout', () => {
             expect(tag.querySelector('svg')).toBeVisible();
         });
 
-        it('should delete the tag when DeleteButton is clicked', () => {
+        it('should delete the tag when DeleteButton is clicked', async () => {
             const fn = jest.fn();
             const screen = render(
                 <ArticlePreviewStandardLayout
@@ -241,7 +247,7 @@ describe('shared/article/ArticlePreviewStandardLayout', () => {
                 { currentUser: SomeUser }
             );
             const tag = screen.getByTestId('Tag');
-            userEvent.click(tag.querySelector('svg')!);
+            await userEvent.click(tag.querySelector('svg')!);
             expect(fn).toHaveBeenCalledWith({
                 ...Weihnachtsmarkt,
                 tags: [],
@@ -258,7 +264,7 @@ describe('shared/article/ArticlePreviewStandardLayout', () => {
                 {},
                 { currentUser: SomeUser }
             );
-            userEvent.type(
+            await userEvent.type(
                 screen.getByRole('combobox', { name: /tag hinzufügen/i }),
                 'Neu{enter}'
             );
@@ -316,7 +322,7 @@ describe('shared/article/ArticlePreviewStandardLayout', () => {
                 ).toBeVisible();
             });
 
-            it('should show the "delete" button for authors when in EditMode', () => {
+            it('should show the "delete" button for authors when in EditMode', async () => {
                 const fn = jest.fn();
                 const screen = render(
                     <ArticlePreviewStandardLayout
@@ -328,7 +334,7 @@ describe('shared/article/ArticlePreviewStandardLayout', () => {
                 );
                 const avatarsList = screen.getByTestId('AuthorAvatarsList');
                 expect(avatarsList.querySelector('button')).toBeVisible();
-                userEvent.click(avatarsList.querySelector('button')!);
+                await userEvent.click(avatarsList.querySelector('button')!);
                 expect(fn).toHaveBeenCalledWith({
                     ...WeihnachtsmarktWithUsers,
                     users: [SomeUserin],
@@ -345,7 +351,7 @@ describe('shared/article/ArticlePreviewStandardLayout', () => {
                         {},
                         { currentUser: SomeUser }
                     );
-                    userEvent.click(
+                    await userEvent.click(
                         screen.getByRole('button', { name: /che entfernen/i })
                     );
                     await waitFor(() => {
@@ -357,7 +363,7 @@ describe('shared/article/ArticlePreviewStandardLayout', () => {
                     expect(
                         screen.getByRole('dialog').querySelectorAll('button')[0]
                     ).toHaveTextContent(/abbrechen/i);
-                    userEvent.click(
+                    await userEvent.click(
                         screen.getByRole('dialog').querySelectorAll('button')[0]
                     );
                     await waitFor(() => {
@@ -375,7 +381,7 @@ describe('shared/article/ArticlePreviewStandardLayout', () => {
                         {},
                         { currentUser: SomeUser }
                     );
-                    userEvent.click(
+                    await userEvent.click(
                         screen.getByRole('button', { name: /che entfernen/i })
                     );
                     await waitFor(() => {
@@ -387,7 +393,7 @@ describe('shared/article/ArticlePreviewStandardLayout', () => {
                     expect(
                         screen.getByRole('dialog').querySelectorAll('button')[1]
                     ).toHaveTextContent(/entfernen/i);
-                    userEvent.click(
+                    await userEvent.click(
                         screen.getByRole('dialog').querySelectorAll('button')[1]
                     );
 

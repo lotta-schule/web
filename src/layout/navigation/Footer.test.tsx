@@ -3,6 +3,7 @@ import { render, waitFor } from 'test/util';
 import { MockedProvider } from '@apollo/client/testing';
 import { Footer } from './Footer';
 import { allCategories } from 'test/fixtures';
+
 import GetCategoriesQuery from 'api/query/GetCategoriesQuery.graphql';
 
 describe('shared/layouts/Footer', () => {
@@ -29,7 +30,7 @@ describe('shared/layouts/Footer', () => {
             },
         ];
 
-        const screen = render(
+        const { findByTestId } = render(
             <MockedProvider mocks={noSidenavCategoriesMock}>
                 <Footer />
             </MockedProvider>
@@ -37,7 +38,7 @@ describe('shared/layouts/Footer', () => {
         await waitFor(() => {
             expect(categoriesHaveBeenFetched).toEqual(true);
         });
-        const link = screen.queryByTestId('SidenavLink');
+        const link = await findByTestId('SidenavLink');
         expect(link).not.toBeNull();
         expect(link).toHaveAttribute('href', '/privacy');
     });

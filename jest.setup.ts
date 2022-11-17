@@ -31,24 +31,14 @@ Object.defineProperty(window, 'scrollTo', {
 });
 
 jest.mock('next/head', () => {
-    const ReactDOMServer = require('react-dom/server');
+    const { createPortal } = jest.requireActual('react-dom');
     return {
         __esModule: true,
-        default: ({
-            children,
-        }: {
-            children: Array<React.ReactElement> | React.ReactElement | null;
-        }) => {
-            if (children) {
-                global.document.head.insertAdjacentHTML(
-                    'afterbegin',
-                    ReactDOMServer.renderToString(children) || ''
-                );
-            }
-            return null;
-        },
+        default: ({ children }: any) =>
+            createPortal(children, globalThis.document.head),
     };
 });
+
 jest.mock('next/config', () => ({
     __esModule: true,
     default: () => ({

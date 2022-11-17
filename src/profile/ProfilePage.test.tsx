@@ -120,16 +120,23 @@ describe('shared/layouts/profileLayout/ProfileData', () => {
                 'Deine Klasse / Dein Kürzel:'
             ) as HTMLInputElement;
 
-            userEvent.clear(emailField);
-            userEvent.clear(nicknameField);
-            userEvent.clear(classField);
+            await userEvent.type(emailField, 'neue-email@adresse.de', {
+                initialSelectionStart: 0,
+                initialSelectionEnd: emailField.value.length,
+            });
+            await userEvent.type(nicknameField, 'Spitzi', {
+                initialSelectionStart: 0,
+                initialSelectionEnd: nicknameField.value.length,
+            });
+            await userEvent.click(publishNameCheckbox);
+            await userEvent.type(classField, '5/1', {
+                initialSelectionStart: 0,
+                initialSelectionEnd: classField.value.length,
+            });
 
-            userEvent.type(emailField, 'neue-email@adresse.de');
-            userEvent.type(nicknameField, 'Spitzi');
-            userEvent.click(publishNameCheckbox);
-            userEvent.type(classField, '5/1');
-
-            userEvent.click(screen.getByRole('button', { name: 'Speichern' }));
+            await userEvent.click(
+                screen.getByRole('button', { name: 'Speichern' })
+            );
 
             await waitFor(() => {
                 expect(didCallUpdateData).toEqual(true);
@@ -182,7 +189,7 @@ describe('shared/layouts/profileLayout/ProfileData', () => {
                 await screen.findAllByText('Profilbild ändern')
             )[0];
             expect(profilePictureButton).toBeVisible();
-            userEvent.click(profilePictureButton);
+            await userEvent.click(profilePictureButton);
             await waitFor(() => {
                 expect(
                     screen.getByText(/datei auswählen/i)
@@ -204,7 +211,7 @@ describe('shared/layouts/profileLayout/ProfileData', () => {
                 await screen.findAllByText('Passwort ändern')
             )[0];
             expect(changePasswordButton).toBeVisible();
-            userEvent.click(changePasswordButton);
+            await userEvent.click(changePasswordButton);
             await waitFor(() => {
                 expect(
                     screen.getByRole('heading', {
@@ -226,7 +233,7 @@ describe('shared/layouts/profileLayout/ProfileData', () => {
             );
             const changeEmailButton = await screen.findByText('Email ändern');
             expect(changeEmailButton).toBeVisible();
-            userEvent.click(changeEmailButton);
+            await userEvent.click(changeEmailButton);
             await waitFor(() => {
                 expect(
                     screen.getByRole('heading', {

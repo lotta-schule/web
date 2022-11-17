@@ -1,21 +1,24 @@
 import * as React from 'react';
 import { render, waitFor } from 'test/util';
 import { RegisterDialog } from './RegisterDialog';
-import RegisterMutation from 'api/mutation/RegisterMutation.graphql';
 import userEvent from '@testing-library/user-event';
+
+import RegisterMutation from 'api/mutation/RegisterMutation.graphql';
 
 describe('shared/dialog/RegisterDialog', () => {
     it('should render login dialog without errors', () => {
         render(<RegisterDialog isOpen={true} onRequestClose={() => {}} />, {});
     });
 
-    it('should close the dialog when clicking on cancel', () => {
+    it('should close the dialog when clicking on cancel', async () => {
         const onRequestClose = jest.fn();
         const screen = render(
             <RegisterDialog isOpen={true} onRequestClose={onRequestClose} />,
             {}
         );
-        userEvent.click(screen.getByRole('button', { name: /abbrechen/i }));
+        await userEvent.click(
+            screen.getByRole('button', { name: /abbrechen/i })
+        );
         expect(onRequestClose).toHaveBeenCalled();
     });
 
@@ -47,30 +50,30 @@ describe('shared/dialog/RegisterDialog', () => {
                 {},
                 { additionalMocks }
             );
-            userEvent.type(
+            await userEvent.type(
                 screen.getByRole('textbox', { name: /email/i }),
                 'nutzer@email.de'
             );
-            userEvent.type(
+            await userEvent.type(
                 screen.getByRole('textbox', { name: /vorname/i }),
                 'Max'
             );
-            userEvent.type(
+            await userEvent.type(
                 screen.getByRole('textbox', { name: /nachname/i }),
                 'Mustermann'
             );
-            userEvent.type(
+            await userEvent.type(
                 screen.getByRole('textbox', { name: /spitzname/i }),
                 'Los Maxos'
             );
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('checkbox', { name: /öffentlich verstecken/i })
             );
-            userEvent.type(
+            await userEvent.type(
                 screen.getByRole('textbox', { name: /anmeldeschlüssel/i }),
                 'ABCDEF'
             );
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('button', { name: /registrieren/i })
             );
             await waitFor(() => {

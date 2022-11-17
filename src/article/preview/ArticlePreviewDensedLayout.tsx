@@ -56,9 +56,7 @@ export const ArticlePreviewDensedLayout = React.memo<ArticlePreviewProps>(
             disableLink ? (
                 content
             ) : (
-                <Link href={Article.getPath(article)} passHref>
-                    <a>{content}</a>
-                </Link>
+                <Link href={Article.getPath(article)}>{content}</Link>
             );
 
         return (

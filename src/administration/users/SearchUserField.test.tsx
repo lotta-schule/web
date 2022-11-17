@@ -3,8 +3,9 @@ import { omit } from 'lodash';
 import { render, waitFor } from 'test/util';
 import { KeinErSieEsUser, SomeUser, SomeUserin } from 'test/fixtures';
 import { SearchUserField } from './SearchUserField';
-import SearchUsersQuery from 'api/query/SearchUsersQuery.graphql';
 import userEvent from '@testing-library/user-event';
+
+import SearchUsersQuery from 'api/query/SearchUsersQuery.graphql';
 
 describe('shared/layouts/userManagment/SearchUserField', () => {
     it('should render without crashing', () => {
@@ -44,14 +45,16 @@ describe('shared/layouts/userManagment/SearchUserField', () => {
                     additionalMocks: [{ request, result: networkFn }],
                 }
             );
-            userEvent.type(
+            await userEvent.type(
                 screen.getByRole('combobox', { name: /nutzer suchen/i }),
                 'Michel'
             );
             await waitFor(() => {
                 expect(networkFn).toHaveBeenCalled();
             });
-            expect(screen.queryAllByRole('option')).toHaveLength(2);
+            await waitFor(() => {
+                expect(screen.queryAllByRole('option')).toHaveLength(2);
+            });
         });
 
         it('should call "onSelectUser" with the correct userAvatar when selected', async () => {
@@ -61,7 +64,7 @@ describe('shared/layouts/userManagment/SearchUserField', () => {
                 {},
                 { currentUser: SomeUser, additionalMocks }
             );
-            userEvent.type(
+            await userEvent.type(
                 screen.getByRole('combobox', { name: /nutzer suchen/i }),
                 'Michel'
             );
@@ -70,7 +73,7 @@ describe('shared/layouts/userManagment/SearchUserField', () => {
                     screen.getByRole('option', { name: /michel dupond/i })
                 ).toHaveTextContent('Michel Dupond');
             });
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('option', { name: /michel dupond/i })
             );
             expect(selectUserFn).toHaveBeenCalledWith(

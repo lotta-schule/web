@@ -10,13 +10,11 @@ import {
 import { ContentModule } from './ContentModule';
 import userEvent from '@testing-library/user-event';
 
-import GetContentModuleResults from 'api/query/GetContentModuleResults.graphql';
-
 describe('shared/article/module/ContentModule', () => {
     describe('in EditMode', () => {
         const article = ComputerExperten;
         const textContentModule = ComputerExperten.contentModules[0];
-        it('should show and call a "move up" button when onMoveUp prop is given', () => {
+        it('should show and call a "move up" button when onMoveUp prop is given', async () => {
             const fn = jest.fn();
             const screen = render(
                 <ContentModule
@@ -29,13 +27,13 @@ describe('shared/article/module/ContentModule', () => {
                     onMoveUp={fn}
                 />
             );
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('button', { name: /nach oben bewegen/i })
             );
             expect(fn).toHaveBeenCalled();
         });
 
-        it('should show and call a "move down" button when onMoveDown prop is given', () => {
+        it('should show and call a "move down" button when onMoveDown prop is given', async () => {
             const fn = jest.fn();
             const screen = render(
                 <ContentModule
@@ -48,13 +46,13 @@ describe('shared/article/module/ContentModule', () => {
                     onMoveDown={fn}
                 />
             );
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('button', { name: /nach unten bewegen/i })
             );
             expect(fn).toHaveBeenCalled();
         });
 
-        it('should show delete button and call "onRemoveContentModule" on click', () => {
+        it('should show delete button and call "onRemoveContentModule" on click', async () => {
             const onRemoveContentModule = jest.fn();
             const screen = render(
                 <ContentModule
@@ -67,7 +65,9 @@ describe('shared/article/module/ContentModule', () => {
                     onMoveDown={jest.fn}
                 />
             );
-            userEvent.click(screen.getByRole('button', { name: /löschen/i }));
+            await userEvent.click(
+                screen.getByRole('button', { name: /löschen/i })
+            );
             expect(onRemoveContentModule).toHaveBeenCalled();
         });
     });
@@ -171,7 +171,7 @@ describe('shared/article/module/ContentModule', () => {
                         onRemoveContentModule={() => {}}
                     />
                 );
-                userEvent.click(
+                await userEvent.click(
                     screen.getByRole('button', { name: /moduleinstellungen/i })
                 );
                 await waitFor(() => {
@@ -307,7 +307,7 @@ describe('shared/article/module/ContentModule', () => {
                         onRemoveContentModule={() => {}}
                     />
                 );
-                userEvent.click(
+                await userEvent.click(
                     screen.getByRole('button', { name: /moduleinstellungen/i })
                 );
                 await waitFor(() => {
@@ -529,7 +529,7 @@ describe('shared/article/module/ContentModule', () => {
                         onRemoveContentModule={() => {}}
                     />
                 );
-                userEvent.click(
+                await userEvent.click(
                     screen.getByRole('button', { name: /moduleinstellungen/i })
                 );
                 await waitFor(() => {
@@ -583,7 +583,7 @@ describe('shared/article/module/ContentModule', () => {
             expect(
                 screen.getByRole('button', { name: /einsendungen sehen/i })
             ).toBeVisible();
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('button', { name: /einsendungen sehen/i })
             );
             await waitFor(() => {

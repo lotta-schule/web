@@ -30,7 +30,9 @@ describe('administration/users/DeleteUserDialog', () => {
                 screen.getByRole('button', { name: /abbrechen/i })
             ).toBeVisible();
         });
-        userEvent.click(screen.getByRole('button', { name: /abbrechen/i }));
+        await userEvent.click(
+            screen.getByRole('button', { name: /abbrechen/i })
+        );
         expect(onRequestClose).toHaveBeenCalled();
     });
 
@@ -52,7 +54,7 @@ describe('administration/users/DeleteUserDialog', () => {
             }
         );
 
-        userEvent.click(screen.getByRole('button', { name: /weiter/i }));
+        await userEvent.click(screen.getByRole('button', { name: /weiter/i }));
         await waitFor(() => {
             expect(screen.getByText(/folgende beiträge/i)).toBeVisible();
         });
@@ -81,7 +83,7 @@ describe('administration/users/DeleteUserDialog', () => {
             }
         );
 
-        userEvent.click(screen.getByRole('button', { name: /weiter/i }));
+        await userEvent.click(screen.getByRole('button', { name: /weiter/i }));
         await waitFor(() => {
             expect(screen.getByText(/keine dateien/i)).toBeVisible();
         });
@@ -120,11 +122,11 @@ describe('administration/users/DeleteUserDialog', () => {
             }
         );
 
-        userEvent.click(screen.getByRole('button', { name: /weiter/i }));
+        await userEvent.click(screen.getByRole('button', { name: /weiter/i }));
         await waitFor(() => {
             expect(screen.getByText(/keine dateien/i)).toBeVisible();
         });
-        userEvent.click(screen.getByRole('button', { name: /weiter/i }));
+        await userEvent.click(screen.getByRole('button', { name: /weiter/i }));
         await waitFor(() => {
             expect(screen.getByText(/endgültig gelöscht/)).toBeVisible();
         });
@@ -133,7 +135,7 @@ describe('administration/users/DeleteUserDialog', () => {
         expect(
             screen.getByRole('button', { name: /endgültig löschen/i })
         ).toBeVisible();
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole('button', { name: /endgültig löschen/i })
         );
         await waitFor(() => {

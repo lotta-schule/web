@@ -90,7 +90,7 @@ describe('pages/admin/users/list', () => {
             await waitFor(() => {
                 expect(didCall).toEqual(true);
             });
-            userEvent.type(
+            await userEvent.type(
                 screen.getByRole('textbox', { name: /name filtern/i }),
                 'Ernesto'
             );
@@ -110,15 +110,17 @@ describe('pages/admin/users/list', () => {
             await waitFor(() => {
                 expect(didCall).toEqual(true);
             });
-            userEvent.click(
-                screen.getByRole('button', { name: /vorschläge/i })
+            await userEvent.click(
+                await screen.findByRole('button', { name: /vorschläge/i })
             );
             await waitFor(() => {
                 expect(
                     screen.getByRole('option', { name: /lehrer/i })
                 ).toBeVisible();
             });
-            userEvent.click(screen.getByRole('option', { name: /lehrer/i }));
+            await userEvent.click(
+                screen.getByRole('option', { name: /lehrer/i })
+            );
 
             expect(await screen.findAllByRole('row')).toHaveLength(2);
             expect(screen.getByRole('cell', { name: /luisa drinalda/i }));
@@ -140,7 +142,7 @@ describe('pages/admin/users/list', () => {
             });
             const userRow = screen.getAllByRole('row')[2];
             expect(userRow).toBeDefined();
-            userEvent.click(userRow);
+            await userEvent.click(userRow);
             await waitFor(() => {
                 expect(screen.getByRole('dialog')).toBeVisible();
             });
@@ -158,7 +160,7 @@ describe('pages/admin/users/list', () => {
             expect(
                 screen.getByRole('combobox', { name: /nutzer suchen/i })
             ).toBeVisible();
-            userEvent.type(
+            await userEvent.type(
                 screen.getByRole('combobox', { name: /nutzer suchen/i }),
                 'Michel'
             );
@@ -168,7 +170,9 @@ describe('pages/admin/users/list', () => {
             await waitFor(() => {
                 expect(screen.queryAllByRole('option')).toHaveLength(1);
             });
-            userEvent.click(screen.getByRole('option', { name: /michel/i }));
+            await userEvent.click(
+                screen.getByRole('option', { name: /michel/i })
+            );
             await waitFor(() => {
                 expect(screen.getByRole('dialog')).toBeVisible();
             });

@@ -3,8 +3,9 @@ import { render, screen, waitFor } from 'test/util';
 import { FaecherCategory, SomeUser } from 'test/fixtures';
 import { CreateCategoryDialog } from './CreateCategoryDialog';
 import { CategoryModel } from 'model';
-import CreateCategoryMutation from 'api/mutation/CreateCategoryMutation.graphql';
 import userEvent from '@testing-library/user-event';
+
+import CreateCategoryMutation from 'api/mutation/CreateCategoryMutation.graphql';
 
 const createMocks = (props?: Partial<CategoryModel>) => [
     {
@@ -76,7 +77,7 @@ describe('shared/layouts/adminLayout/userManagment/CreateCategoryDialog', () => 
         expect(screen.queryByRole('textbox')).toHaveFocus();
     });
 
-    it('should start with a disabled submit button, but should enable the button when text has been entered', () => {
+    it('should start with a disabled submit button, but should enable the button when text has been entered', async () => {
         render(
             <CreateCategoryDialog
                 isOpen
@@ -87,13 +88,13 @@ describe('shared/layouts/adminLayout/userManagment/CreateCategoryDialog', () => 
         expect(
             screen.getByRole('button', { name: /erstellen/ })
         ).toBeDisabled();
-        userEvent.type(screen.getByRole('textbox'), 'Test');
+        await userEvent.type(screen.getByRole('textbox'), 'Test');
         expect(
             screen.getByRole('button', { name: /erstellen/ })
         ).not.toBeDisabled();
     });
 
-    it('should reset the input field when dialog is closed and then reopened', () => {
+    it('should reset the input field when dialog is closed and then reopened', async () => {
         const screen = render(
             <CreateCategoryDialog
                 isOpen
@@ -101,7 +102,7 @@ describe('shared/layouts/adminLayout/userManagment/CreateCategoryDialog', () => 
                 onAbort={() => {}}
             />
         );
-        userEvent.type(screen.getByRole('textbox'), 'Test');
+        await userEvent.type(screen.getByRole('textbox'), 'Test');
         screen.rerender(
             <CreateCategoryDialog
                 isOpen={false}
@@ -128,8 +129,10 @@ describe('shared/layouts/adminLayout/userManagment/CreateCategoryDialog', () => 
                 onAbort={onAbort}
             />
         );
-        userEvent.type(screen.getByRole('textbox'), 'Test');
-        userEvent.click(screen.getByRole('button', { name: /abbrechen/i }));
+        await userEvent.type(screen.getByRole('textbox'), 'Test');
+        await userEvent.click(
+            screen.getByRole('button', { name: /abbrechen/i })
+        );
 
         await waitFor(() => {
             expect(onAbort).toHaveBeenCalled();
@@ -168,8 +171,10 @@ describe('shared/layouts/adminLayout/userManagment/CreateCategoryDialog', () => 
                 {},
                 { currentUser: SomeUser, additionalMocks: createMocks() }
             );
-            userEvent.type(screen.getByRole('textbox'), 'Test');
-            userEvent.click(screen.getByRole('button', { name: /erstellen/ }));
+            await userEvent.type(screen.getByRole('textbox'), 'Test');
+            await userEvent.click(
+                screen.getByRole('button', { name: /erstellen/ })
+            );
 
             await waitFor(() => {
                 expect(onConfirm).toHaveBeenCalled();
@@ -178,7 +183,7 @@ describe('shared/layouts/adminLayout/userManagment/CreateCategoryDialog', () => 
     });
 
     describe('send for subcategory', () => {
-        it('should disable the submit button if no parentCategory is selected', () => {
+        it('should disable the submit button if no parentCategory is selected', async () => {
             const screen = render(
                 <CreateCategoryDialog
                     isOpen
@@ -189,8 +194,8 @@ describe('shared/layouts/adminLayout/userManagment/CreateCategoryDialog', () => 
                 { currentUser: SomeUser }
             );
 
-            userEvent.type(screen.getByRole('textbox'), 'Test');
-            userEvent.click(
+            await userEvent.type(screen.getByRole('textbox'), 'Test');
+            await userEvent.click(
                 screen.getByRole('radio', { name: /subnavigation/i })
             );
             expect(
@@ -224,18 +229,20 @@ describe('shared/layouts/adminLayout/userManagment/CreateCategoryDialog', () => 
                 }
             );
 
-            userEvent.type(screen.getByRole('textbox'), 'Test');
-            userEvent.click(
+            await userEvent.type(screen.getByRole('textbox'), 'Test');
+            await userEvent.click(
                 screen.getByRole('radio', { name: /subnavigation/i })
             );
             await new Promise((resolve) => setTimeout(resolve, 500));
-            userEvent.selectOptions(
+            await userEvent.selectOptions(
                 screen.getByRole('combobox', {
                     name: /übergeordnete kategorie/i,
                 }),
                 screen.getByRole('option', { name: /fächer/i })
             );
-            userEvent.click(screen.getByRole('button', { name: /erstellen/ }));
+            await userEvent.click(
+                screen.getByRole('button', { name: /erstellen/ })
+            );
 
             await waitFor(() => {
                 expect(onConfirm).toHaveBeenCalled();
@@ -265,11 +272,13 @@ describe('shared/layouts/adminLayout/userManagment/CreateCategoryDialog', () => 
                 }
             );
 
-            userEvent.type(screen.getByRole('textbox'), 'Test');
-            userEvent.click(
+            await userEvent.type(screen.getByRole('textbox'), 'Test');
+            await userEvent.click(
                 screen.getByRole('radio', { name: /randnavigation/i })
             );
-            userEvent.click(screen.getByRole('button', { name: /erstellen/ }));
+            await userEvent.click(
+                screen.getByRole('button', { name: /erstellen/ })
+            );
 
             await waitFor(() => {
                 expect(onConfirm).toHaveBeenCalled();

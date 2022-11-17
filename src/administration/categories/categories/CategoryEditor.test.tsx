@@ -132,7 +132,7 @@ describe('shared/layouts/adminLayout/categoryManagment/CategoryEditor', () => {
                     />
                 );
 
-                userEvent.click(
+                await userEvent.click(
                     screen.getByRole('radio', { name: /nicht weitergeleitet/i })
                 );
                 expect(
@@ -181,7 +181,7 @@ describe('shared/layouts/adminLayout/categoryManagment/CategoryEditor', () => {
                     />
                 );
 
-                userEvent.click(
+                await userEvent.click(
                     screen.getByRole('radio', {
                         name: /kategorie weiterleiten/i,
                     })
@@ -234,7 +234,7 @@ describe('shared/layouts/adminLayout/categoryManagment/CategoryEditor', () => {
                     />
                 );
 
-                userEvent.click(
+                await userEvent.click(
                     screen.getByRole('radio', {
                         name: /beitrag weiterleiten/i,
                     })
@@ -282,7 +282,7 @@ describe('shared/layouts/adminLayout/categoryManagment/CategoryEditor', () => {
                     />
                 );
 
-                userEvent.click(
+                await userEvent.click(
                     screen.getByRole('radio', {
                         name: /im internet weiterleiten/i,
                     })
@@ -356,16 +356,21 @@ describe('shared/layouts/adminLayout/categoryManagment/CategoryEditor', () => {
                 }
             );
 
-            userEvent.type(
-                screen.getByRole('textbox', { name: /name der kategorie/i }),
-                '{selectall}Neue Fächer'
-            );
-            userEvent.click(
+            const categoryNameInput = screen.getByRole('textbox', {
+                name: /name der kategorie/i,
+            }) as HTMLInputElement;
+            await userEvent.type(categoryNameInput, 'Neue Fächer', {
+                initialSelectionStart: 0,
+                initialSelectionEnd: categoryNameInput.value.length,
+            });
+            await userEvent.click(
                 screen.getByRole('checkbox', {
                     name: /auf der startseite verstecken/i,
                 })
             );
-            userEvent.click(screen.getByRole('button', { name: /speichern/i }));
+            await userEvent.click(
+                screen.getByRole('button', { name: /speichern/i })
+            );
             await waitFor(() => {
                 expect(onSave).toHaveBeenCalled();
             });
@@ -394,7 +399,9 @@ describe('shared/layouts/adminLayout/categoryManagment/CategoryEditor', () => {
                 />
             );
 
-            userEvent.click(screen.getByRole('button', { name: /löschen/i }));
+            await userEvent.click(
+                screen.getByRole('button', { name: /löschen/i })
+            );
             await waitFor(() => {
                 expect(screen.getByRole('dialog')).toBeVisible();
             });

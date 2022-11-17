@@ -124,9 +124,11 @@ describe('src/shared/article/module/form/FormResultsDialog', () => {
         await waitFor(() => {
             expect(didFetchResults).toEqual(true);
         });
-        expect(
-            screen.getByText('3 gespeicherte Einsendungen')
-        ).toBeInTheDocument();
+        await waitFor(() => {
+            expect(
+                screen.getByText('3 gespeicherte Einsendungen')
+            ).toBeInTheDocument();
+        });
 
         expect(
             screen.getByRole('button', { name: /csv herunterladen/i })
@@ -137,7 +139,7 @@ describe('src/shared/article/module/form/FormResultsDialog', () => {
             data = _data;
             filename = _filename;
         });
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole('button', { name: /csv herunterladen/i })
         );
         expect(saveAs).toHaveBeenCalled();

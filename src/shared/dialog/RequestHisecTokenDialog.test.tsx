@@ -49,7 +49,7 @@ describe('shared/dialog/RequestHisecToken', () => {
                 { currentUser: SomeUser }
             );
 
-            userEvent.type(screen.getByLabelText('Passwort:'), 'test');
+            await userEvent.type(screen.getByLabelText('Passwort:'), 'test');
 
             screen.rerender(
                 <RequestHisecTokenDialog
@@ -91,14 +91,14 @@ describe('shared/dialog/RequestHisecToken', () => {
         );
     });
 
-    it('button should be enabled when a password is entered', () => {
+    it('button should be enabled when a password is entered', async () => {
         render(
             <RequestHisecTokenDialog isOpen onRequestClose={() => {}} />,
             {},
             { currentUser: SomeUser }
         );
         expect(screen.getByRole('button', { name: /senden/ })).toBeDisabled();
-        userEvent.type(screen.getByLabelText('Passwort:'), 'pw123');
+        await userEvent.type(screen.getByLabelText('Passwort:'), 'pw123');
         expect(
             screen.getByRole('button', { name: /senden/ })
         ).not.toBeDisabled();
@@ -123,8 +123,10 @@ describe('shared/dialog/RequestHisecToken', () => {
                 {},
                 { currentUser: SomeUser, additionalMocks }
             );
-            userEvent.type(screen.getByLabelText('Passwort:'), 'pw123');
-            userEvent.click(screen.getByRole('button', { name: /senden/ }));
+            await userEvent.type(screen.getByLabelText('Passwort:'), 'pw123');
+            await userEvent.click(
+                screen.getByRole('button', { name: /senden/ })
+            );
 
             await waitFor(() => {
                 expect(onClose).toHaveBeenCalledWith('abc');
@@ -159,14 +161,16 @@ describe('shared/dialog/RequestHisecToken', () => {
             });
         });
 
-        it('should clear the form and call onAbort when clicking the "Abort" button', () => {
+        it('should clear the form and call onAbort when clicking the "Abort" button', async () => {
             const onClose = jest.fn();
             render(
                 <RequestHisecTokenDialog isOpen onRequestClose={onClose} />,
                 {},
                 { currentUser: SomeUser }
             );
-            userEvent.click(screen.getByRole('button', { name: /abbrechen/i }));
+            await userEvent.click(
+                screen.getByRole('button', { name: /abbrechen/i })
+            );
             expect(onClose).toHaveBeenCalledWith(null);
         });
     });

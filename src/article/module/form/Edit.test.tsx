@@ -66,7 +66,7 @@ describe('shared/article/modules/form/Edit', () => {
         ).toBeChecked();
     });
 
-    it('should be able to disable the destination mail', () => {
+    it('should be able to disable the destination mail', async () => {
         const onUpdateModuleFn = jest.fn();
         const screen = render(
             <Edit
@@ -74,7 +74,7 @@ describe('shared/article/modules/form/Edit', () => {
                 onUpdateModule={onUpdateModuleFn}
             />
         );
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole('checkbox', { name: /per email versenden/i })
         );
         expect(
@@ -96,7 +96,7 @@ describe('shared/article/modules/form/Edit', () => {
         ).toBeChecked();
     });
 
-    it('should be able to disable the internal database saving', () => {
+    it('should be able to disable the internal database saving', async () => {
         const onUpdateModuleFn = jest.fn();
         const screen = render(
             <Edit
@@ -107,7 +107,7 @@ describe('shared/article/modules/form/Edit', () => {
         expect(
             screen.getByRole('checkbox', { name: /formulardaten speichern/i })
         ).toBeChecked();
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole('checkbox', { name: /formulardaten speichern/i })
         );
 
@@ -123,7 +123,7 @@ describe('shared/article/modules/form/Edit', () => {
         ).toBeChecked();
     });
 
-    it('should add an input when clicking on the "add element button"', () => {
+    it('should add an input when clicking on the "add element button"', async () => {
         const onUpdateModuleFn = jest.fn();
         const screen = render(
             <Edit
@@ -131,7 +131,7 @@ describe('shared/article/modules/form/Edit', () => {
                 onUpdateModule={onUpdateModuleFn}
             />
         );
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole('button', { name: /feld hinzufügen/i })
         );
 

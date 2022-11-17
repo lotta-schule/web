@@ -1,5 +1,5 @@
-import React from 'react';
-import { render } from 'test/util';
+import * as React from 'react';
+import { render, waitFor } from 'test/util';
 import { FormElementConfiguration } from './FormElementConfiguration';
 import { FormElement } from './Form';
 import userEvent from '@testing-library/user-event';
@@ -22,41 +22,50 @@ describe('shared/article/module/form/FormElementConfiguration', () => {
             expect(
                 screen.getByRole('combobox', { name: /art der eingabe/i })
             ).toHaveValue('input');
-            userEvent.selectOptions(
+            await userEvent.selectOptions(
                 screen.getByRole('combobox', { name: /texteingabevariation/i }),
                 'color'
             );
             expect(updateElementFn).toHaveBeenLastCalledWith({ type: 'color' });
-            expect(
-                screen.getByRole('textbox', { name: /name/i })
-            ).toBeVisible();
-            userEvent.type(
-                screen.getByRole('textbox', { name: /name/i }),
-                '{selectall}1'
-            );
+
+            const nameTextbox = screen.getByRole('textbox', {
+                name: /name/i,
+            }) as HTMLTextAreaElement;
+            expect(nameTextbox).toBeVisible();
+            await userEvent.type(nameTextbox, '1', {
+                initialSelectionStart: 0,
+                initialSelectionEnd: nameTextbox.value.length,
+            });
             expect(updateElementFn).toHaveBeenLastCalledWith({ name: '1' });
-            expect(
-                screen.getByRole('textbox', { name: /aufschrift/i })
-            ).toBeVisible();
-            userEvent.type(
-                screen.getByRole('textbox', { name: /aufschrift/i }),
-                '{selectall}2'
-            );
+
+            const aufschriftTextbox = screen.getByRole('textbox', {
+                name: /aufschrift/i,
+            }) as HTMLTextAreaElement;
+            expect(aufschriftTextbox).toBeVisible();
+            await userEvent.type(aufschriftTextbox, '2', {
+                initialSelectionStart: 0,
+                initialSelectionEnd: aufschriftTextbox.value.length,
+            });
             expect(updateElementFn).toHaveBeenLastCalledWith({ label: '2' });
-            expect(
-                screen.getByRole('textbox', { name: /beschriftung/i })
-            ).toBeVisible();
-            userEvent.type(
-                screen.getByRole('textbox', { name: /beschriftung/i }),
-                '{selectall}3'
-            );
-            expect(updateElementFn).toHaveBeenLastCalledWith({
-                descriptionText: '3',
+
+            const beschriftungTextbox = screen.getByRole('textbox', {
+                name: /beschriftung/i,
+            }) as HTMLTextAreaElement;
+            expect(beschriftungTextbox).toBeVisible();
+            await userEvent.type(beschriftungTextbox, '3', {
+                initialSelectionStart: 0,
+                initialSelectionEnd: beschriftungTextbox.value.length,
+            });
+
+            await waitFor(() => {
+                expect(updateElementFn).toHaveBeenLastCalledWith({
+                    descriptionText: '3',
+                });
             });
             expect(
                 screen.getByRole('checkbox', { name: /mehrzeilig/i })
             ).toBeInTheDocument();
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('checkbox', { name: /mehrzeilig/i })
             );
             expect(updateElementFn).toHaveBeenLastCalledWith({
@@ -81,7 +90,7 @@ describe('shared/article/module/form/FormElementConfiguration', () => {
             type: 'checkbox',
             name: 'blabla',
         };
-        it('should provide element, type, name, label, descriptionText, required and options options', () => {
+        it('should provide element, type, name, label, descriptionText, required and options options', async () => {
             const updateElementFn = jest.fn();
             const screen = render(
                 <FormElementConfiguration
@@ -95,7 +104,7 @@ describe('shared/article/module/form/FormElementConfiguration', () => {
             expect(
                 screen.getByRole('combobox', { name: /auswahlfeldvariation/i })
             ).toHaveValue('checkbox');
-            userEvent.selectOptions(
+            await userEvent.selectOptions(
                 screen.getByRole('combobox', { name: /auswahlfeldvariation/i }),
                 'radio'
             );
@@ -111,7 +120,7 @@ describe('shared/article/module/form/FormElementConfiguration', () => {
             ).toBeVisible();
 
             // Antwort hinzufügen
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('button', { name: /antwort hinzufügen/i })
             );
             expect(updateElementFn).toHaveBeenLastCalledWith({

@@ -19,6 +19,7 @@ export const Footer = React.memo(() => {
                                 category.redirect || Category.getPath(category)
                             }
                             passHref
+                            legacyBehavior
                         >
                             <a data-testid="SidenavLink">{category.title}</a>
                         </Link>
@@ -26,8 +27,8 @@ export const Footer = React.memo(() => {
                     </React.Fragment>
                 );
             })}
-            <Link href={`/privacy`} passHref>
-                <a data-testid="SidenavLink">Datenschutz</a>
+            <Link href={`/privacy`} passHref legacyBehavior>
+                <a data-testid={'SidenavLink'}>Datenschutz</a>
             </Link>
         </div>
     );

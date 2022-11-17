@@ -50,7 +50,7 @@ const ProviderFactory = (options: TestSetupOptions): React.FC => {
                 initialProps: { ...options?.router?.initialProps },
                 pageLoader: {
                     getPageList: jest.fn(() => []),
-                    getMiddlewareList: jest.fn(() => []),
+                    getMiddleware: jest.fn(() => []),
                     getDataHref: jest.fn(() => '/'),
                     _isSsg: jest.fn(async () => false),
                     loadPage: jest.fn(async () => null),

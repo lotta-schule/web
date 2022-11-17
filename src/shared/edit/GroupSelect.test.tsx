@@ -301,7 +301,7 @@ describe('shared/editor/GroupSelect', () => {
                 {}
             );
 
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole('button', { name: /vorschläge/i })
             );
 

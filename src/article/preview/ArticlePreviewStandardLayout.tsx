@@ -82,7 +82,7 @@ export const ArticlePreviewStandardLayout = React.memo<ArticlePreviewProps>(
             disableLink ? (
                 content
             ) : (
-                <Link href={Article.getPath(article)}>
+                <Link href={Article.getPath(article)} legacyBehavior>
                     <a
                         color={'inherit'}
                         style={{ textDecoration: 'none' }}

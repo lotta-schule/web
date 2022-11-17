@@ -29,7 +29,7 @@ describe('fileExplorer/PathViewer', () => {
         expect(links[2]).toHaveTextContent('Test 2');
     });
 
-    it('should select a path on click', () => {
+    it('should select a path on click', async () => {
         const onChange = jest.fn();
         const screen = render(
             <PathViewer
@@ -42,7 +42,7 @@ describe('fileExplorer/PathViewer', () => {
                 onChange={onChange}
             />
         );
-        userEvent.click(screen.getByRole('link', { name: 'Test 2' }));
+        await userEvent.click(screen.getByRole('link', { name: 'Test 2' }));
         expect(onChange).toHaveBeenCalledWith([
             { id: null },
             { id: '123', name: 'Test 1' },
