@@ -35,10 +35,6 @@
     }
 
     .swipeableViewsContainer {
-        flex-grow: 1;
-        flex-shrink: 1;
-        & > div {
-            height: calc(100% - calc(var(--lotta-spacing) / 2));
-        }
+        width: 100%;
     }
 }

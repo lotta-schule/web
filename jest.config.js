@@ -1,10 +1,10 @@
-// Sync object
-// /** @type {import('@jest/types').Config.InitialOptions} */
+// Sync objec /** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
     setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
     testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
     moduleNameMapper: {
         '\\.(scss|sass|css)$': 'identity-obj-proxy',
+        '^swiper/css': 'identity-obj-proxy',
         '^.+\\.(jpg|jpeg|png|gif|webp|avif|svg)$':
             '<rootDir>/__mocks__/fileMock.js',
         /* Handle image imports
@@ -16,10 +16,17 @@ module.exports = {
         '\\.(gql|graphql)$': 'jest-transform-graphql',
         /* Use babel-jest to transpile tests with the next/babel preset
         https://jestjs.io/docs/configuration#transform-objectstring-pathtotransformer--pathtotransformer-object */
-        '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
+        '^.+\\.(js|jsx|ts|tsx)$': [
+            'babel-jest',
+            {
+                presets: [
+                    ['next/babel', { 'preset-env': { modules: 'auto' } }],
+                ],
+            },
+        ],
     },
     transformIgnorePatterns: [
-        'node_modules/(?!@lotta-schule)',
+        'node_modules/(?!@lotta-schule|swiper|ssr-window|dom7)',
         '^.+\\.module\\.(css|sass|scss)$',
     ],
     roots: ['<rootDir>/src'],

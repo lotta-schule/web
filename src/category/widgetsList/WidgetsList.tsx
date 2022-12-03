@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { Tabbar, Tab } from '@lotta-schule/hubert';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { WidgetModel, WidgetModelType } from 'model';
 import { Widget } from 'category/widgets/Widget';
 import { Widget as WidgetUtil } from 'util/model';
@@ -8,11 +10,13 @@ import { useScrollEvent } from 'util/useScrollEvent';
 import { WidgetIcon } from 'category/widgets/WidgetIcon';
 import { CurrentUserAvatar } from 'shared/userAvatar/UserAvatar';
 import { useCurrentUser } from 'util/user/useCurrentUser';
-import { Tabbar, Tab } from '@lotta-schule/hubert';
-import SwipeableViews from 'react-swipeable-views';
+import SwiperCore, { Controller, Virtual } from 'swiper';
 import clsx from 'clsx';
 
 import styles from './WidgetsList.module.scss';
+import 'swiper/css';
+import 'swiper/css/a11y';
+import 'swiper/css/virtual';
 
 export interface WidgetsListProps {
     widgets: WidgetModel[];
@@ -21,6 +25,8 @@ export interface WidgetsListProps {
 
 export const WidgetsList = React.memo<WidgetsListProps>(
     ({ widgets, children }) => {
+        const [swiper, setSwiper] = React.useState<SwiperCore | null>(null);
+        const [swiperIndex, setSwiperIndex] = React.useState(0);
         const isMobile =
             typeof window !== 'undefined' &&
             window.matchMedia('(max-width: 959px)').matches;
@@ -36,25 +42,30 @@ export const WidgetsList = React.memo<WidgetsListProps>(
             ? [WidgetUtil.getProfileWidget(), ...widgets]
             : widgets;
 
-        const [currentTabIndex, setCurrentTabIndex] = React.useState<
-            number | null
-        >(null);
-
         React.useEffect(() => {
-            const storedIndex = localStorage.getItem(
-                'widgetlist-last-selected-item-index'
-            );
-            setCurrentTabIndex(storedIndex ? parseInt(storedIndex) : 0);
-        }, []);
-
-        React.useEffect(() => {
-            if (currentTabIndex !== null) {
-                localStorage.setItem(
-                    'widgetlist-last-selected-item-index',
-                    String(currentTabIndex)
+            if (swiper) {
+                const storedIndex = localStorage.getItem(
+                    'widgetlist-last-selected-item-index'
                 );
+                if (storedIndex) {
+                    swiper.slideTo(Number(storedIndex), 0);
+                    setSwiperIndex(Number(storedIndex));
+                }
+
+                swiper.on('slideChange', () => {
+                    console.log(swiper.realIndex);
+                    setSwiperIndex(swiper.activeIndex);
+                    localStorage.setItem(
+                        'widgetlist-last-selected-item-index',
+                        String(swiper.activeIndex)
+                    );
+                });
+
+                return () => {
+                    swiper.off('slideChange');
+                };
             }
-        }, [currentTabIndex]);
+        }, [swiper]);
 
         React.useLayoutEffect(() => {
             if (
@@ -79,27 +90,6 @@ export const WidgetsList = React.memo<WidgetsListProps>(
             [wrapperRef.current, widgets.length]
         );
 
-        if (currentTabIndex === null) {
-            return null;
-        }
-
-        const activeTabIndex =
-            currentTabIndex < shownWidgets.length ? currentTabIndex : 0;
-
-        const swipeableViews = (
-            <SwipeableViews
-                axis={'x'}
-                slideStyle={{ overflow: 'hidden' }}
-                index={activeTabIndex}
-                onChangeIndex={(newIndex) => setCurrentTabIndex(newIndex)}
-                className={styles.swipeableViewsContainer}
-            >
-                {shownWidgets.map((widget) => (
-                    <Widget key={widget.id} widget={widget} />
-                ))}
-            </SwipeableViews>
-        );
-
         return (
             <div
                 className={clsx(styles.root, {
@@ -118,47 +108,56 @@ export const WidgetsList = React.memo<WidgetsListProps>(
                 ref={wrapperRef}
             >
                 {shownWidgets && shownWidgets.length > 1 && (
-                    <>
-                        <Tabbar
-                            className={styles.WidgetTabbar}
-                            value={activeTabIndex}
-                            aria-label={'Marginales Modul wählen'}
-                            onChange={(newTabIndex) =>
-                                setCurrentTabIndex(newTabIndex as number)
-                            }
-                        >
-                            {shownWidgets.map((widget, i) => (
-                                <Tab
-                                    className={styles.WidgetTab}
-                                    key={widget.id}
-                                    title={widget.title}
-                                    value={i}
-                                    icon={
-                                        widget.type ===
-                                            WidgetModelType.UserNavigationMobile &&
-                                        currentUser ? (
-                                            <CurrentUserAvatar
-                                                style={{
-                                                    width: 36,
-                                                    height: 36,
-                                                }}
-                                            />
-                                        ) : (
-                                            <WidgetIcon
-                                                icon={
-                                                    widget.configuration?.icon
-                                                }
-                                                size={36}
-                                            />
-                                        )
-                                    }
-                                />
-                            ))}
-                        </Tabbar>
-                        {swipeableViews}
-                    </>
+                    <Tabbar
+                        className={styles.WidgetTabbar}
+                        value={swiperIndex}
+                        aria-label={'Marginales Modul wählen'}
+                        onChange={(newTabIndex) =>
+                            swiper?.slideTo(newTabIndex as number)
+                        }
+                    >
+                        {shownWidgets.map((widget, i) => (
+                            <Tab
+                                className={styles.WidgetTab}
+                                key={widget.id}
+                                title={widget.title}
+                                value={i}
+                                icon={
+                                    widget.type ===
+                                        WidgetModelType.UserNavigationMobile &&
+                                    currentUser ? (
+                                        <CurrentUserAvatar
+                                            style={{
+                                                width: 36,
+                                                height: 36,
+                                            }}
+                                        />
+                                    ) : (
+                                        <WidgetIcon
+                                            icon={widget.configuration?.icon}
+                                            size={36}
+                                        />
+                                    )
+                                }
+                            />
+                        ))}
+                    </Tabbar>
                 )}
-                {shownWidgets && shownWidgets.length === 1 && swipeableViews}
+                {shownWidgets && shownWidgets.length >= 1 && (
+                    <Swiper
+                        className={styles.swipeableViewsContainer}
+                        modules={[Controller, Virtual]}
+                        spaceBetween={0}
+                        onSwiper={setSwiper}
+                        virtual
+                    >
+                        {shownWidgets.map((widget, i) => (
+                            <SwiperSlide key={widget.id} virtualIndex={i}>
+                                <Widget key={widget.id} widget={widget} />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                )}
                 {children}
             </div>
         );

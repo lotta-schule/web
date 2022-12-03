@@ -73,11 +73,11 @@
         "react-dropzone": "^14.2.3",
         "react-i18next": "^12.0.0",
         "react-popper": "^2.3.0",
-        "react-swipeable-views": "^0.14.0",
         "react-use": "^17.4.0",
         "slate": "^0.76.0",
         "slate-react": "^0.76.0",
-        "slugify": "^1.6.5"
+        "slugify": "^1.6.5",
+        "swiper": "^8.4.5"
     },
     "devDependencies": {
         "@babel/core": "^7.20.2",
@@ -98,7 +98,6 @@
         "@types/react": "^18.0.25",
         "@types/react-beautiful-dnd": "^13.1.2",
         "@types/react-dom": "^18.0.9",
-        "@types/react-swipeable-views": "^0.13.1",
         "@types/slate-base64-serializer": "^0.2.2",
         "@types/testing-library__jest-dom": "^5.14.5",
         "@types/user-event": "^4.1.1",
