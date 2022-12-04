@@ -376,12 +376,15 @@ describe('article/EditArticlePage', () => {
             await userEvent.click(
                 screen.getByRole('button', { name: /titel/i })
             );
-            await waitFor(() => {
-                expect(screen.getByRole('dialog')).toBeInTheDocument();
-                expect(screen.getByRole('dialog')).toHaveTextContent(
-                    /beitrag.*aktualisiert/i
-                );
-            });
+            await waitFor(
+                () => {
+                    expect(screen.getByRole('dialog')).toBeInTheDocument();
+                },
+                { timeout: 5_000 }
+            );
+            expect(screen.getByRole('dialog')).toHaveTextContent(
+                /beitrag.*aktualisiert/i
+            );
         }, 30_000);
     });
 
