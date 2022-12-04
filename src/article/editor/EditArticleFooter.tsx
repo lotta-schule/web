@@ -1,17 +1,4 @@
 import * as React from 'react';
-import { Icon } from 'shared/Icon';
-import {
-    faCaretDown,
-    faCalendar,
-    faTriangleExclamation,
-} from '@fortawesome/free-solid-svg-icons';
-import { useMutation } from '@apollo/client';
-import { CategorySelect } from '../../shared/categorySelect/CategorySelect';
-import { ArticleModel, ID } from 'model';
-import { Category, User } from 'util/model';
-import { useCurrentUser } from 'util/user/useCurrentUser';
-import { ArticleStateEditor } from 'article/editor/ArticleStateEditor';
-import { GroupSelect } from 'shared/edit/GroupSelect';
 import {
     Button,
     ButtonGroup,
@@ -22,6 +9,19 @@ import {
     MenuButton,
     Item,
 } from '@lotta-schule/hubert';
+import {
+    faCaretDown,
+    faCalendar,
+    faTriangleExclamation,
+} from '@fortawesome/free-solid-svg-icons';
+import { useMutation } from '@apollo/client';
+import { CategorySelect } from 'shared/categorySelect/CategorySelect';
+import { Icon } from 'shared/Icon';
+import { ArticleModel, ID } from 'model';
+import { Category, User } from 'util/model';
+import { useCurrentUser } from 'util/user/useCurrentUser';
+import { ArticleStateEditor } from 'article/editor/ArticleStateEditor';
+import { GroupSelect } from 'shared/edit/GroupSelect';
 import { ArticleDatesEditor } from './ArticleDatesEditor';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';

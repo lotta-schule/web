@@ -18,6 +18,7 @@ test:
   script:
     - npm ci
     - npm run test:ci -- --coverage
+  retry: 2
   artifacts:
     when: always
     paths:

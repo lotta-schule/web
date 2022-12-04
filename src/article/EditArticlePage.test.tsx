@@ -380,7 +380,7 @@ describe('article/EditArticlePage', () => {
                 () => {
                     expect(screen.getByRole('dialog')).toBeInTheDocument();
                 },
-                { timeout: 5_000 }
+                { timeout: 10_000 }
             );
             expect(screen.getByRole('dialog')).toHaveTextContent(
                 /beitrag.*aktualisiert/i
