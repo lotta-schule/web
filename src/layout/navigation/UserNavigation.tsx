@@ -75,7 +75,7 @@ export const UserNavigation = React.memo(() => {
                         className={clsx(
                             'secondary',
                             'small',
-                            'usernavigation-button'
+                            styles.navigationButton
                         )}
                     ></NavigationButton>
                     <Link href={'/search'} passHref>
@@ -85,7 +85,7 @@ export const UserNavigation = React.memo(() => {
                             className={clsx(
                                 'secondary',
                                 'small',
-                                'usernavigation-button'
+                                styles.navigationButton
                             )}
                         ></NavigationButton>
                     </Link>
@@ -94,7 +94,7 @@ export const UserNavigation = React.memo(() => {
                             className={clsx(
                                 'secondary',
                                 'small',
-                                'usernavigation-button'
+                                styles.navigationButton
                             )}
                             icon={
                                 <span>
@@ -131,7 +131,7 @@ export const UserNavigation = React.memo(() => {
                                 'lotta-navigation-button',
                                 'secondary',
                                 'small',
-                                'usernavigation-button'
+                                styles.navigationButton
                             ),
                         }}
                         onAction={(action) => {

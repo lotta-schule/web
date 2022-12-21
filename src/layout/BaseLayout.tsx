@@ -10,28 +10,29 @@ import Link from 'next/link';
 
 import styles from './BaseLayout.module.scss';
 
-export const BaseLayout = React.memo(({ children }) => {
-    const tenant = useTenant();
-    const { baseUrl } = useServerData();
+export const BaseLayout = React.memo(
+    ({ children }: { children: React.ReactNode }) => {
+        const tenant = useTenant();
+        const { baseUrl } = useServerData();
 
-    const backgroundImageUrl =
-        tenant.configuration.backgroundImageFile &&
-        File.getFileRemoteLocation(
-            baseUrl,
-            tenant.configuration.backgroundImageFile
-        );
-    const { url: imageUrlSimple } = useCloudimageUrl(backgroundImageUrl, {
-        width: 3000,
-    });
-    const { url: imageUrlRetina } = useCloudimageUrl(backgroundImageUrl, {
-        width: 1500,
-    });
-    return (
-        <Box className={styles.root}>
-            {tenant.configuration.backgroundImageFile && (
-                <style
-                    dangerouslySetInnerHTML={{
-                        __html: `
+        const backgroundImageUrl =
+            tenant.configuration.backgroundImageFile &&
+            File.getFileRemoteLocation(
+                baseUrl,
+                tenant.configuration.backgroundImageFile
+            );
+        const { url: imageUrlSimple } = useCloudimageUrl(backgroundImageUrl, {
+            width: 3000,
+        });
+        const { url: imageUrlRetina } = useCloudimageUrl(backgroundImageUrl, {
+            width: 1500,
+        });
+        return (
+            <Box className={styles.root}>
+                {tenant.configuration.backgroundImageFile && (
+                    <style
+                        dangerouslySetInnerHTML={{
+                            __html: `
                     @media screen and (min-width: 600px) {
                         body::after {
                             background-image: url(${imageUrlSimple});
@@ -39,37 +40,38 @@ export const BaseLayout = React.memo(({ children }) => {
                         }
                     }
                 `,
-                    }}
-                />
-            )}
-            <header className={styles.header}>
-                <div className={styles.logoGridItem}>
-                    {tenant.configuration.logoImageFile && (
-                        <Link href={'/'} title={'Startseite'}>
-                            <ResponsiveImage
-                                resize={'fit'}
-                                height={80}
-                                src={File.getFileRemoteLocation(
-                                    baseUrl,
-                                    tenant.configuration.logoImageFile
-                                )}
-                                alt={`Logo ${tenant.title}`}
-                            />
-                        </Link>
-                    )}
-                </div>
-                <div className={styles.titleGridItem}>
-                    <h1>{tenant.title}</h1>
-                </div>
-            </header>
-            <Navbar />
-            <main className={styles.main}>
-                {children}
-                <NoSsr>
-                    <ScrollToTopButton />
-                </NoSsr>
-            </main>
-        </Box>
-    );
-});
+                        }}
+                    />
+                )}
+                <header className={styles.header}>
+                    <div className={styles.logoGridItem}>
+                        {tenant.configuration.logoImageFile && (
+                            <Link href={'/'} title={'Startseite'}>
+                                <ResponsiveImage
+                                    resize={'fit'}
+                                    height={80}
+                                    src={File.getFileRemoteLocation(
+                                        baseUrl,
+                                        tenant.configuration.logoImageFile
+                                    )}
+                                    alt={`Logo ${tenant.title}`}
+                                />
+                            </Link>
+                        )}
+                    </div>
+                    <div className={styles.titleGridItem}>
+                        <h1>{tenant.title}</h1>
+                    </div>
+                </header>
+                <Navbar />
+                <main className={styles.main}>
+                    {children}
+                    <NoSsr>
+                        <ScrollToTopButton />
+                    </NoSsr>
+                </main>
+            </Box>
+        );
+    }
+);
 BaseLayout.displayName = 'BaseLayout';
