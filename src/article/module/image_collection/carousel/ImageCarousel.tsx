@@ -91,7 +91,7 @@ export const ImageCarousel = React.memo<ImageCarouselProps>(
                                     width={1600}
                                     sizes={'(max-width: 600px) 100vw, 80vw'}
                                     aspectRatio={'16:9'}
-                                    resize={'bound'}
+                                    resize={'contain'}
                                     src={File.getFileRemoteLocation(
                                         baseUrl,
                                         file

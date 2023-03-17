@@ -16,6 +16,8 @@ const SentryWebpackPluginOptions = {
     silent: true,
     // For all available options, see:
     // https://github.com/getsentry/sentry-webpack-plugin#options.
+
+    dryRun: !process.env.SENTRY_AUTH_TOKEN?.length,
 };
 
 /**
@@ -67,7 +69,8 @@ const nextConfig = {
         return config;
     },
     publicRuntimeConfig: {
-        appEnvironment: process.env.APP_ENVIRONMENT,
+        appEnvironment: process.env.APP_ENVIRONMENT || process.env.NODE_ENV || 'development',
+        imageName: process.env.IMAGE_NAME || 'test',
         sentryDsn: process.env.SENTRY_DSN,
         socketUrl: process.env.API_SOCKET_URL,
         cloudimageToken: process.env.CLOUDIMG_TOKEN,
