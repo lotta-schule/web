@@ -87,13 +87,13 @@
         "slate": "^0.76.0",
         "slate-react": "^0.76.0",
         "slugify": "^1.6.5",
-        "swiper": "^8.4.5"
+        "swiper": "^9.1.1"
     },
     "devDependencies": {
         "@babel/core": "^7.20.2",
         "@next/eslint-plugin-next": "^13.0.3",
         "@testing-library/jest-dom": "^5.16.5",
-        "@testing-library/react": "^13.4.0",
+        "@testing-library/react": "^14.0.0",
         "@testing-library/user-event": "^14.4.3",
         "@types/absinthe__socket": "^0.2.3",
         "@types/absinthe__socket-apollo-link": "^0.2.1",
@@ -126,7 +126,7 @@
         "ignore-loader": "^0.1.2",
         "jest": "^29.3.1",
         "jest-environment-jsdom": "^29.3.1",
-        "jest-junit": "^14.0.1",
+        "jest-junit": "^15.0.0",
         "jest-transform-graphql": "EvHaus/jest-transform-graphql#patch-1",
         "lint-staged": "^13.0.3",
         "mockdate": "^3.0.5",
@@ -134,7 +134,7 @@
         "sass": "^1.56.1",
         "sass-loader": "^13.2.0",
         "style-loader": "^3.3.1",
-        "typescript": "^4.9.3",
+        "typescript": "^5.0.2",
         "whatwg-fetch": "^3.6.2"
     }
 }
