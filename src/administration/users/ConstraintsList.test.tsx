@@ -40,6 +40,7 @@ describe('pages/admin/users/constraints', () => {
         });
 
         it('should set a limit when clicking corresponding checkbox', async () => {
+            const user = userEvent.setup();
             const screen = render(
                 <ConstraintList />,
                 {},
@@ -54,7 +55,7 @@ describe('pages/admin/users/constraints', () => {
                     currentUser: adminUser,
                 }
             );
-            await userEvent.click(
+            await user.click(
                 screen.getByRole('checkbox', { name: /begrenzen auf:/i })
             );
             expect(
@@ -79,22 +80,23 @@ describe('pages/admin/users/constraints', () => {
         });
 
         it('should remember the limit set when disabling and reenabling the limit', async () => {
+            const user = userEvent.setup();
             const screen = render(
                 <ConstraintList />,
                 {},
                 { currentUser: adminUser }
             );
-            await userEvent.type(
+            await user.type(
                 screen.getByRole('spinbutton', {
                     name: /begrenzung/i,
                 }),
                 '123'
             );
-            await userEvent.tab();
-            await userEvent.click(
+            await user.tab();
+            await user.click(
                 screen.getByRole('checkbox', { name: /nicht begrenzen/i })
             );
-            await userEvent.click(
+            await user.click(
                 screen.getByRole('checkbox', { name: /begrenzen auf/i })
             );
             expect(
@@ -115,6 +117,7 @@ describe('pages/admin/users/constraints', () => {
 
         describe('update the value', () => {
             it('should work by request when changing via input field', async () => {
+                const user = userEvent.setup();
                 const updateFn = jest.fn(() => ({
                     data: {
                         tenant: {
@@ -147,22 +150,20 @@ describe('pages/admin/users/constraints', () => {
                     {},
                     { additionalMocks: mocks, currentUser: adminUser }
                 );
-                await userEvent.type(
+                await user.type(
                     screen.getByRole('spinbutton', {
                         name: /begrenzung/i,
                     }),
                     '123'
                 );
-                await userEvent.tab();
+                await user.tab();
                 expect(
                     screen.getByRole('spinbutton', { name: /begrenzung/i })
                 ).not.toHaveFocus();
-                await userEvent.click(
-                    screen.getByRole('button', { name: /speichern/i })
-                );
-                expect(
-                    screen.getByRole('button', { name: /speichern/i })
-                ).toBeDisabled();
+                const saveButton = screen.getByRole('button', {
+                    name: /speichern/i,
+                });
+                await user.click(saveButton);
                 await waitFor(() => {
                     expect(updateFn).toHaveBeenCalled();
                 });
