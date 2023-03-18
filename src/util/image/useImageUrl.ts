@@ -44,26 +44,27 @@ export const useImageUrl = (
     imageUrl: string | null | undefined,
     { width, height, aspectRatio, resize = 'cover' }: ProcessingOptions = {}
 ) => {
-    const getUrlForDimensions = React.useCallback(
-        (dimensions: { width?: number; height?: number }) => {
-            if (!imageUrl) {
-                return null;
-            }
+    const getUrlForDimensions = (dimensions: {
+        width?: number;
+        height?: number;
+    }) => {
+        if (!imageUrl) {
+            return null;
+        }
 
-            return createImageUrl(imageUrl, {
-                width: dimensions.width,
-                height: dimensions.height,
-                aspectRatio,
-                resize,
-            });
-        },
-        [aspectRatio, imageUrl, resize]
-    );
+        return createImageUrl(imageUrl, {
+            width: dimensions.width,
+            height: dimensions.height,
+            aspectRatio,
+            resize,
+        });
+    };
 
-    const sizeMap = React.useMemo(() => {
+    const createSizeMap = () => {
         if (!imageUrl) {
             return {};
         }
+
         if (width) {
             return Object.fromEntries(
                 new Array(Math.floor((width * 1.5) / 200))
@@ -97,28 +98,28 @@ export const useImageUrl = (
         } else {
             return {};
         }
-    }, [imageUrl, width, height, getUrlForDimensions]);
+    };
 
-    const customStyle = React.useMemo(() => {
+    const createCustomStyle = () => {
         const style: React.CSSProperties = {};
         if (aspectRatio && !['fit', 'bound'].includes(resize)) {
             const [width, height] = aspectRatio.split(':');
             style.aspectRatio = String(Number(width) / Number(height));
         }
         return style;
-    }, [aspectRatio, resize]);
+    };
 
     if (!imageUrl) {
         return {
             url: null,
-            sizeMap,
-            customStyle,
+            sizeMap: createSizeMap(),
+            customStyle: createCustomStyle(),
         };
     }
 
     return {
         url: getUrlForDimensions({ width, height }),
-        sizeMap,
-        customStyle,
+        sizeMap: createSizeMap(),
+        custmoStyle: createCustomStyle(),
     };
 };

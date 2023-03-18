@@ -16,12 +16,15 @@ import { isAfter, sub } from 'date-fns';
 import { createAbsintheSocketLink } from './createAbsintheSocketLink';
 import { omit } from 'lodash';
 import axios, { AxiosRequestConfig } from 'axios';
-import getConfig from 'next/config';
+// import getConfig from 'next/config';
 import { createCache } from './cache';
 
-const {
-    publicRuntimeConfig: { socketUrl, tenantSlugOverwrite },
-} = getConfig();
+// const {
+//     publicRuntimeConfig: { socketUrl, tenantSlugOverwrite },
+// } = getConfig();
+// TODO:
+const socketUrl = '';
+const tenantSlugOverwrite = undefined;
 
 const isBrowser = typeof window !== 'undefined';
 
@@ -43,9 +46,11 @@ const createHeaders = (headers?: any) => {
                   >)),
         },
         {
-            ...(tenantSlugOverwrite && {
-                tenant: `slug:${tenantSlugOverwrite}`,
-            }),
+            ...(tenantSlugOverwrite
+                ? {
+                      tenant: `slug:${tenantSlugOverwrite}`,
+                  }
+                : {}),
             'Content-Type': headers['content-type'],
         }
     );
