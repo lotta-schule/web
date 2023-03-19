@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { CategoryPage } from 'category/CategoryPage';
+import { CategoryPage } from 'server/components/category';
 
-import { getCategoryArticles, getTenantCategories } from 'server/util';
+import { getCategoryArticles, getAllCategories } from 'server/loader';
 
 type CategoryRouteProps = {
     params: { slug: string };
@@ -12,7 +12,7 @@ const CategoryRoute = async ({ params: { slug } }: CategoryRouteProps) => {
     const categoryId = rawCategoryId === '0' ? null : rawCategoryId ?? null;
 
     const [allCategories, articles] = await Promise.all([
-        getTenantCategories(),
+        getAllCategories(),
         getCategoryArticles(categoryId),
     ]);
 

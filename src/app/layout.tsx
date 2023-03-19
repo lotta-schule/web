@@ -1,4 +1,4 @@
-import { Main as MainLayout } from './components/Main';
+import { Main as MainLayout } from 'server/components/layout';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
     return (

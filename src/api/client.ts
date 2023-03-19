@@ -23,6 +23,7 @@ import { createCache } from './cache';
 //     publicRuntimeConfig: { socketUrl, tenantSlugOverwrite },
 // } = getConfig();
 // TODO:
+
 const socketUrl = '';
 const tenantSlugOverwrite = undefined;
 

@@ -5,7 +5,6 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import { ServerDownError } from 'error/ServerDownError';
 import { TenantNotFoundError } from 'error/TenantNotFoundError';
 import { getApolloClient } from 'api/client';
-import { AppContextProviders } from 'layout/AppContextProviders';
 import opentelemetry from '@opentelemetry/api';
 import axios from 'axios';
 import dynamic from 'next/dynamic';
@@ -44,15 +43,7 @@ const LottaWebApp = ({
     }
 
     return (
-        <AppContextProviders
-            tenant={tenant}
-            categories={categories}
-            currentUser={currentUser}
-            requestBaseUrl={requestBaseUrl}
-        >
-            <TopProgressBar />
-            <Component {...componentProps} />
-        </AppContextProviders>
+        <Component {...componentProps} />
     );
 };
 
