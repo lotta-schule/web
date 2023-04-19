@@ -26,7 +26,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                 <link rel="manifest" href="/manifest.json" />
             </head>
             <body>
-                <MainLayout>{children}</MainLayout>
+                {children}
                 <div id={'dialogContainer'} />
             </body>
         </html>

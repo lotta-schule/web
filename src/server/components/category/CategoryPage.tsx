@@ -203,9 +203,6 @@ export const CategoryPage = React.memo<CategoryPageProps>(
                             </div>
                         ))}
                 </div>
-                <ClientComponentOperator>
-                    <CategorySidebar category={category} />
-                </ClientComponentOperator>
             </>
         );
     }

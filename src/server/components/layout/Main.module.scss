@@ -1,4 +1,4 @@
-@import "breakpoints";
+@import 'breakpoints';
 
 .root {
     background-color: initial;
@@ -38,7 +38,6 @@
     }
 
     .main {
-        display: flex;
         justify-content: flex-start;
         margin-top: var(--lotta-spacing);
         max-width: 100%;

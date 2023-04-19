@@ -32,10 +32,6 @@ export const ArticlePreviewStandardLayout =  async ({
     }: ArticlePreviewProps) => {
         const currentUser = await getCurrentUser();
 
-        const showEditSection =
-            User.canEditArticle(currentUser, article) ||
-            User.isAdmin(currentUser);
-
         const maybeLinked = (content: any) =>
             disableLink ? (
                 content
@@ -92,7 +88,7 @@ export const ArticlePreviewStandardLayout =  async ({
                                 {article.preview}
                             </div>
                         {article.tags?.map((tag) => (
-                            {/*<Tag key={tag}>{tag}</Tag>*/}
+                            <div>{/*<Tag key={tag}>{tag}</Tag>*/}</div>
                         ))}
                         <div className={styles.metaSection}>
                             <div className={styles.dateGridItem}>

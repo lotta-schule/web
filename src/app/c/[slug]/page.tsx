@@ -1,5 +1,8 @@
+import { CategorySidebar } from 'client/components/category';
 import * as React from 'react';
 import { CategoryPage } from 'server/components/category';
+import { ClientComponentOperator } from 'server/components/ClientComponentOperator';
+import { Main } from 'server/components/layout';
 
 import { getCategoryArticles, getAllCategories } from 'server/loader';
 
@@ -18,7 +21,18 @@ const CategoryRoute = async ({ params: { slug } }: CategoryRouteProps) => {
 
     const category = allCategories.find((c) => c.id === rawCategoryId) ?? null;
 
-    return <CategoryPage category={category} prefetchedArticles={articles} />;
+    if (!category) {
+        throw new Error('Kategorie nicht gefunden.')
+    }
+
+    return (
+        <>
+            <Main><CategoryPage category={category} prefetchedArticles={articles} /></Main>
+            <ClientComponentOperator>
+                <CategorySidebar category={category} />
+            </ClientComponentOperator>
+        </>
+    );
 };
 
 export default CategoryRoute;

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Main } from 'server/components/layout/Main';
 import { ArticlePage } from 'server/components/article';
 import { getArticle } from 'server/loader';
 
@@ -12,7 +13,7 @@ const ArticleRoute = async ({ params: { slug } }: ArticleRouteProps) => {
 
     const article = await getArticle(articleId);
 
-    return <ArticlePage article={article} />;
+    return <Main><ArticlePage article={article} /></Main>;
 };
 
 export default ArticleRoute;

@@ -2,10 +2,11 @@ import * as React from 'react';
 import { Box } from '@lotta-schule/hubert/src/layout/Box';
 
 import styles from './PrivacyPage.module.scss';
+import { Main } from 'server/components/layout';
 
 const PrivacyPage = () => {
     return (
-        <>
+        <Main>
             <Box className={styles.box}>
                 <h4>Einleitung</h4>
                 <p>
@@ -630,7 +631,7 @@ const PrivacyPage = () => {
                     </li>
                 </ul>
             </Box>
-        </>
+        </Main>
     );
 };
 
