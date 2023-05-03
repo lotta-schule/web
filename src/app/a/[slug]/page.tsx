@@ -9,11 +9,16 @@ type ArticleRouteProps = {
 
 const ArticleRoute = async ({ params: { slug } }: ArticleRouteProps) => {
     const rawArticleId = (slug as string)?.replace(/^(\d+).*/, '$1');
+    console.log({ rawArticleId });
     const articleId = rawArticleId === '0' ? null : rawArticleId ?? null;
 
     const article = await getArticle(articleId);
 
-    return <Main><ArticlePage article={article} /></Main>;
+    return (
+        <Main>
+            <ArticlePage article={article} />
+        </Main>
+    );
 };
 
 export default ArticleRoute;

@@ -1,9 +1,10 @@
 import * as React from 'react';
-// import { UserNavigation } from './navigation/UserNavigation';
+import { UserNavigation } from 'layout/navigation/UserNavigation';
 import { ResponsiveImage } from 'util/image/ResponsiveImage';
 import clsx from 'clsx';
 
 import styles from './Header.module.scss';
+import { ClientComponentOperator } from '../ClientComponentOperator';
 
 export interface HeaderProps {
     bannerImageUrl?: string | null;
@@ -39,7 +40,9 @@ export const Header = React.memo<HeaderProps>(
                     <div className={styles.headerContent}>{children}</div>
                 </div>
                 <div className={styles.userNavigationGridItem}>
-                    {'<UserNavigation />'}
+                    <ClientComponentOperator>
+                        <UserNavigation />
+                    </ClientComponentOperator>
                 </div>
             </section>
         );

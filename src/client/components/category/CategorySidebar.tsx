@@ -1,18 +1,19 @@
 'use client';
 
 import * as React from 'react';
-import { useQuery } from "@apollo/client";
+import { useQuery } from '@apollo/client';
 import { ErrorMessage } from '@lotta-schule/hubert';
-import { CategoryModel, WidgetModel } from "model"
+import { CategoryModel, WidgetModel } from 'model';
 import { User } from 'util/model';
 import { useCurrentUser } from 'util/user/useCurrentUser';
 import { Sidebar } from '../navigation/Sidebar';
 
-import GetCategoryWidgetsQuery from 'api/query/GetCategoryWidgetsQuery.graphql'
+import GetCategoryWidgetsQuery from 'api/query/GetCategoryWidgetsQuery.graphql';
+import { WidgetsList } from 'category/widgetsList/WidgetsList';
 
 export type CategorySidebarProps = {
     category: CategoryModel;
-}
+};
 
 const CategorySidebar = React.memo(({ category }: CategorySidebarProps) => {
     const user = useCurrentUser();
@@ -39,16 +40,12 @@ const CategorySidebar = React.memo(({ category }: CategorySidebarProps) => {
 
     return (
         <Sidebar
-            isEmpty={
-                !widgetsError && !isWidgetsLoading && widgets.length < 1
-            }
+            isEmpty={!widgetsError && !isWidgetsLoading && widgets.length < 1}
         >
             {widgetsError && <ErrorMessage error={widgetsError} />}
-            {'<NoSsr> <WidgetsList widgets={widgets} /> </NoSsr>'}
+            <WidgetsList widgets={widgets} />
         </Sidebar>
     );
-
-    return null;
-})
+});
 
 export default CategorySidebar;

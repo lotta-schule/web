@@ -81,7 +81,9 @@ export const Main = async ({ className, children, style }: MainProps) => {
             <Navbar categories={categories} />
             <main className={styles.main}>
                 {children}
-                {'<NoSsr> <ScrollToTopButton /> </NoSsr>'}
+                <div style={{ position: 'absolute', opacity: 0 }}>
+                    {'<NoSsr> <ScrollToTopButton /> </NoSsr>'}
+                </div>
             </main>
         </Box>
     );

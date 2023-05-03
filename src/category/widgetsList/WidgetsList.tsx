@@ -14,9 +14,6 @@ import SwiperCore, { Controller, Virtual } from 'swiper';
 import clsx from 'clsx';
 
 import styles from './WidgetsList.module.scss';
-import 'swiper/css';
-import 'swiper/css/a11y';
-import 'swiper/css/virtual';
 
 export interface WidgetsListProps {
     widgets: WidgetModel[];

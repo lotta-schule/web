@@ -1,5 +1,5 @@
 import { useApolloClient, useMutation } from '@apollo/client';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import LogoutMutation from 'api/mutation/LogoutMutation.graphql';
 
 export const useOnLogout = () => {

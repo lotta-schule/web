@@ -1,4 +1,6 @@
-import { Main as MainLayout } from 'server/components/layout';
+import 'swiper/css';
+import 'swiper/css/a11y';
+import 'swiper/css/virtual';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
     return (

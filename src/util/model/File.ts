@@ -52,7 +52,7 @@ export const File = {
     },
 
     getFileRemoteLocation(baseUrl: string, file: FileModel, qs: string = '') {
-        return [baseUrl, 'storage', 'f', file.id]
+        return [baseUrl, 'api', 'storage', 'f', file.id]
             .join('/')
             .concat(qs ? `?${qs}` : '');
     },
@@ -61,6 +61,13 @@ export const File = {
         baseUrl: string,
         fileConversion: FileConversionModel
     ) {
-        return [baseUrl, 'storage', 'fc', fileConversion.id].join('/');
+        return [
+            baseUrl,
+            'api',
+            'backend',
+            'storage',
+            'fc',
+            fileConversion.id,
+        ].join('/');
     },
 };
